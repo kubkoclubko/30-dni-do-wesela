@@ -1,0 +1,10 @@
+{
+  "id": "ep01",
+  "day": 1,
+  "daysLeft": 30,
+  "durationSec": 85,
+  "voice": "ep01/voice.mp3",
+  "words": "ep01/words.json",
+  "highlight": [],
+  "shots": []
+}

@@ -1,0 +1,10 @@
+node_modules/
+out/
+*.log
+*.mp4
+*.mov
+*.wav
+!public/shared/sfx/*.wav
+public/**/words_raw.json
+__pycache__/
+.claude/settings.local.json

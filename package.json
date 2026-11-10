@@ -1,0 +1,21 @@
+{
+  "name": "30-dni-do-wesela",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.541",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "4.0.541"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/webpack-env": "^1.18.8",
+    "typescript": "^5.9.3"
+  }
+}
