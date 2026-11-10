@@ -30,7 +30,9 @@ out/                    renders (gitignored)
 1. Voice from ElevenLabs → `public/epXX/voice.mp3`. Check the end for a garbled tail.
 2. `python scripts/transcribe.py public/epXX/voice.mp3 public/epXX/words_raw.json` → `python scripts/fix_words.py public/epXX` (needs `voice.wav`: `ffmpeg -i voice.mp3 -ar 48000 voice.wav`).
 3. `episodes/epXX.json` (shots by sentence starts) + images in `public/epXX/`.
-4. `bash scripts/r.sh still epXX <frame>` → `bash scripts/r.sh preview epXX` → `bash scripts/r.sh final epXX`.
+4. Characters that should breathe/nod: add `rigs` to the JSON (outline, head, neck, feet, facing; read them off a 5 % grid of the image), then `python scripts/make_rig.py episodes/epXX.json`.
+5. `node scripts/check_cam.ts episodes/epXX.json` (must print OK).
+6. `bash scripts/r.sh still epXX <frame>` → `bash scripts/r.sh preview epXX` → `bash scripts/r.sh final epXX`.
 
 ## Token-saving rules
 1. Every render and still runs with `--gl=angle`, and `remotion.config.ts` has angle + concurrency 2. On the GTX 1660 SUPER, 1–2 threads are fastest and 4 or more are slower.
@@ -62,3 +64,14 @@ out/                    renders (gitignored)
 3. With a low-res source (s04 at 768 px, max zoom 1.05), a pan clamps against the image edge and freezes. Keep `focus`/`to` within the visible margin (±(1-1/zoom)/2 around 0.5). `short_qa.py` catches it under "frozen spans".
 4. Render times on the GTX 1660 SUPER: a whole 43 s episode at 1080×1920 takes ~80 s including QA, the 0.5 preview of the whole episode ~50 s, a wav of the audio only ~18 s.
 5. SFX sit ~10 LU under the voice (voice −14 LUFS). The slide whistle after the voice ends is ~6 LU under. Levels live only in `public/shared/sfx/sfx.json`.
+
+## Learnings (2026-11-10, motion + music pass)
+6. Camera rule (owner): every move eases in (bezier 0.45,0,0.55,1) but never out, so it is still moving at the cut. A push is at most ×1.08 per shot, a shot of the same image continues the previous one with no jump, and nothing moves more than 2 px per frame inside a shot. `src/camera.ts` scales oversized moves down automatically, so big tilts and close-crop splits no longer happen. Only punch, shake, `keys` (with motion blur) and whip are exempt; the owner wants punch and shake only on the 1–2 punchlines.
+7. Character motion is a WebGL warp (`ShotGL.tsx`): soft masks from `make_rig.py`, breathing on a 3 s cycle up to 5 px at the head and 0 at the feet, plus a 2.5° nod every 2–3 s. At most 2 figures per image. Blink is drawn in the same shader, so the eyes move with the head. Shots of unrigged images use the plain DOM image.
+8. Music is now part of the main render (`"music": true` in the episode): our own piano theme from `scripts/make_music.py`, synthesised in numpy because fluidsynth isn't installed. Ducked −20 dB under the voice, full volume once the voice ends, 2 s fade-out.
+9. Tooling gotchas: Python under Git Bash can't open `/tmp/...` paths (use a project path). Node 26 runs `.ts` directly (`node scripts/check_cam.ts`). `gh` isn't logged in, so a new repo is created on github.com and pushed with plain git.
+
+## Status / where to continue (2026-11-10)
+- ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
+- Next: ep02 (day 2, `daysLeft` 29, `vote` with the result Prysznic/Fryzjer, end card `comment` or `choice`). It needs `episodes/ep02.json`, images, `voice.mp3` and `rigs`; no code changes.
+- Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.
