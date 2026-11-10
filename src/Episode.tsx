@@ -17,7 +17,7 @@ export const Episode: React.FC<{ ep: Ep }> = ({ ep }) => {
   const total = sec(ep.durationSec);
   return (
     <AbsoluteFill style={{ background: "#1C1A22" }}>
-      <ShotTrack shots={ep.shots} total={ep.end ? sec(ep.end.at) : total} />
+      <ShotTrack shots={ep.shots} total={ep.end ? sec(ep.end.at) : total} src={ep.imgSize} />
       {(ep.inserts ?? []).map((ins, i) => (
         <Polaroid key={i} ins={ins} />
       ))}

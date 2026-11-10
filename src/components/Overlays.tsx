@@ -17,10 +17,36 @@ export const isBlinking = (f: number, seed: number) => {
   return false;
 };
 
-export const BlinkLayer: React.FC<{ shot: Shot; f: number; seed: number }> = ({ shot, f, seed }) =>
-  isBlinking(f, seed) ? (
-    <Img src={staticFile(blinkImg(shot.img))} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-  ) : null;
+// Only the eye region of the _blink image is pasted over the shot (AI re-generations differ everywhere else),
+// with a soft feathered mask edge. box = [x0, y0, x1, y1] in source pixels, src = source image size.
+const FEATHER = "black 22%, black 78%, transparent";
+export const BlinkLayer: React.FC<{ shot: Shot; f: number; seed: number; src: [number, number] }> = ({ shot, f, seed, src }) => {
+  if (!isBlinking(f, seed)) return null;
+  const img = <Img src={staticFile(blinkImg(shot.img))} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />;
+  if (!shot.blinkBox) return img;
+  const [x0, y0, x1, y1] = shot.blinkBox;
+  const mask = `linear-gradient(to right, transparent, ${FEATHER}), linear-gradient(to bottom, transparent, ${FEATHER})`;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: `${(x0 / src[0]) * 100}%`,
+        top: `${(y0 / src[1]) * 100}%`,
+        width: `${((x1 - x0) / src[0]) * 100}%`,
+        height: `${((y1 - y0) / src[1]) * 100}%`,
+        overflow: "hidden",
+        maskImage: mask,
+        WebkitMaskImage: mask,
+        maskComposite: "intersect",
+        WebkitMaskComposite: "source-in",
+      }}
+    >
+      <div style={{ position: "absolute", left: `${(-x0 / (x1 - x0)) * 100}%`, top: `${(-y0 / (y1 - y0)) * 100}%`, width: `${(src[0] / (x1 - x0)) * 100}%`, height: `${(src[1] / (y1 - y0)) * 100}%` }}>
+        {img}
+      </div>
+    </div>
+  );
+};
 
 const Fly: React.FC<{ x: number; y: number; size: number; up: boolean; flip: boolean }> = ({ x, y, size, up, flip }) => (
   <svg

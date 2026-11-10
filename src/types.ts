@@ -16,6 +16,7 @@ export type Shot = {
   body?: [number, number]; // where stink/steam rises (default [0.5, 0.55])
   transition?: "cut" | "whip"; // into this shot, default "cut"
   seed?: number; // varies blinks/flies, default the shot index
+  blinkBox?: [number, number, number, number]; // eye region [x0, y0, x1, y1] in source px; only it is taken from _blink
 };
 
 export type Insert = {
@@ -65,6 +66,7 @@ export type Episode = {
   day: number; // DZIEŃ 01
   daysLeft: number; // 30 DNI DO WESELA (from day 2 it flips from daysLeft+1)
   durationSec: number;
+  imgSize?: [number, number]; // source image size in px (default 2160x3840), for blinkBox
   voice?: string; // "ep01/voice.mp3"
   words?: string; // "ep01/words.json"
   highlight?: string[]; // caption keywords in gold (case-insensitive, no punctuation)

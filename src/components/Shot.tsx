@@ -33,7 +33,7 @@ const camAt = (s: Shot, p: number): Cam => {
 };
 
 // One shot: the image (cover, 9:16) inside a camera box w x h; the focus point is centred, clamped to the image.
-export const ShotView: React.FC<{ shot: Shot; f: number; dur: number; seed: number }> = ({ shot, f, dur, seed }) => {
+export const ShotView: React.FC<{ shot: Shot; f: number; dur: number; seed: number; src: [number, number] }> = ({ shot, f, dur, seed, src }) => {
   const cam = camAt(shot, Math.min(1, Math.max(0, f / Math.max(1, dur))));
   const w = W * cam.z;
   const h = H * cam.z;
@@ -56,7 +56,7 @@ export const ShotView: React.FC<{ shot: Shot; f: number; dur: number; seed: numb
         }}
       >
         <Img src={staticFile(shot.img)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        {L.includes("blink") && <BlinkLayer shot={shot} f={f} seed={seed} />}
+        {L.includes("blink") && <BlinkLayer shot={shot} f={f} seed={seed} src={src} />}
         {L.includes("stink") && <Wisps f={f} at={body} w={w} h={h} kind="stink" />}
         {L.includes("steam") && <Wisps f={f} at={body} w={w} h={h} kind="steam" />}
         {L.includes("flies") && <Flies f={f} seed={seed} head={head} w={w} h={h} />}
@@ -67,7 +67,7 @@ export const ShotView: React.FC<{ shot: Shot; f: number; dur: number; seed: numb
 
 // All shots of an episode: hard cuts by default; "whip" slides the new shot in from the left over 6 frames
 // while the old one leaves to the right, with a horizontal motion blur.
-export const ShotTrack: React.FC<{ shots: Shot[]; total: number }> = ({ shots, total }) => {
+export const ShotTrack: React.FC<{ shots: Shot[]; total: number; src?: [number, number] }> = ({ shots, total, src = [2160, 3840] }) => {
   const frame = useCurrentFrame();
   const starts = shots.map((s) => sec(s.at));
   const ends = shots.map((_, i) => (i + 1 < shots.length ? starts[i + 1] : total));
@@ -99,7 +99,7 @@ export const ShotTrack: React.FC<{ shots: Shot[]; total: number }> = ({ shots, t
             </filter>
           </svg>
         )}
-        <ShotView shot={s} f={f} dur={ends[i] - a} seed={s.seed ?? i} />
+        <ShotView shot={s} f={f} dur={ends[i] - a} seed={s.seed ?? i} src={src} />
       </AbsoluteFill>,
     );
   });
