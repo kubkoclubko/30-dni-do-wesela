@@ -327,5 +327,11 @@
       "label": "Fryzjer",
       "icon": "scissors"
     }
-  }
+  },
+  "sfx": [
+    {
+      "at": 26.2,
+      "name": "door"
+    }
+  ]
 }

@@ -79,6 +79,7 @@ export type Episode = {
   inserts?: Insert[];
   phone?: Phone[];
   end?: ChoiceEnd | CommentEnd;
+  sfx?: { at: number; name: string }[]; // manual cues on top of the automatic ones (e.g. "door")
 };
 
 export type Word = { w: string; s: number; e: number };

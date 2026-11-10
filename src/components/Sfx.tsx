@@ -1,0 +1,74 @@
+import { useEffect, useState } from "react";
+import { Audio, Sequence, continueRender, delayRender, interpolate, staticFile } from "remotion";
+import { CHOICE_B_AT } from "./ChoiceCard";
+import { HUD_FLIP_AT } from "./Hud";
+import { VOTE_BAR_AT } from "./VoteResult";
+import { FPS, sec } from "../theme";
+import type { Episode, Word } from "../types";
+
+// Sound files and levels live in public/shared/sfx/sfx.json: {"pop": {"file": "pop.mp3", "db": -8}, ...}.
+// A name missing there (or no sfx.json at all) is simply silent, so episodes never break on a missing file.
+type Lib = Record<string, { file: string; db?: number }>;
+
+const useLib = (): Lib => {
+  const [lib, setLib] = useState<Lib>({});
+  const [h] = useState(() => delayRender("sfx.json"));
+  useEffect(() => {
+    fetch(staticFile("shared/sfx/sfx.json"))
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({}))
+      .then((j: Lib) => {
+        setLib(j);
+        continueRender(h);
+      });
+  }, [h]);
+  return lib;
+};
+
+// All cues come from the episode data itself; ep.sfx adds manual ones (e.g. the door when mama comes in).
+export const cues = (ep: Episode, words: Word[]): { at: number; name: string }[] => {
+  const c: { at: number; name: string }[] = [{ at: 0, name: "pop" }];
+  if (ep.day >= 2) c.push({ at: HUD_FLIP_AT, name: "pop" });
+  if (ep.vote) c.push({ at: VOTE_BAR_AT, name: "pop" }, { at: VOTE_BAR_AT + 6, name: "pop" });
+  for (const p of ep.phone ?? []) for (const m of p.messages) c.push({ at: sec(m.at), name: "blip" });
+  for (const s of ep.shots) if (s.transition === "whip") c.push({ at: sec(s.at) - 2, name: "whoosh" });
+  if (ep.end?.type === "choice") c.push({ at: sec(ep.end.at + 0.1), name: "pop" }, { at: sec(ep.end.at + CHOICE_B_AT), name: "pop" });
+  if (ep.end) {
+    const voiceEnd = words.length ? words[words.length - 1].e : ep.end.at;
+    c.push({ at: sec(Math.max(ep.end.at, voiceEnd) + 0.25), name: "slide" });
+  }
+  for (const s of ep.sfx ?? []) c.push({ at: sec(s.at), name: s.name });
+  return c.filter((x) => x.at >= 0);
+};
+
+export const Sfx: React.FC<{ ep: Episode; words: Word[] }> = ({ ep, words }) => {
+  const lib = useLib();
+  return (
+    <>
+      {cues(ep, words).map((c, i) =>
+        lib[c.name] ? (
+          <Sequence key={i} from={c.at} layout="none">
+            <Audio src={staticFile(`shared/sfx/${lib[c.name].file}`)} volume={Math.pow(10, (lib[c.name].db ?? -6) / 20)} />
+          </Sequence>
+        ) : null,
+      )}
+    </>
+  );
+};
+
+// --music: public/shared/music.mp3 under the whole episode, ducked by 20 dB while the voice speaks
+// (6-frame ramps, gaps shorter than 0.6 s stay ducked). Without --music the music is added at upload instead.
+export const Music: React.FC<{ words: Word[] }> = ({ words }) => {
+  const spans: [number, number][] = [];
+  for (const w of words) {
+    const last = spans[spans.length - 1];
+    if (last && w.s - last[1] < 0.6) last[1] = w.e;
+    else spans.push([w.s, w.e]);
+  }
+  const vol = (f: number) => {
+    const t = f / FPS;
+    const duck = Math.max(0, ...spans.map(([a, b]) => interpolate(t, [a - 0.2, a, b, b + 0.2], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })));
+    return 0.5 * Math.pow(10, (-20 * duck) / 20);
+  };
+  return <Audio src={staticFile("shared/music.mp3")} loop volume={vol} />;
+};

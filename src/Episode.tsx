@@ -1,6 +1,7 @@
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
 import "./theme";
 import { Captions, useWords } from "./components/Captions";
+import { Music, Sfx } from "./components/Sfx";
 import { ChoiceCard } from "./components/ChoiceCard";
 import { CommentCard } from "./components/CommentCard";
 import { Hud } from "./components/Hud";
@@ -11,7 +12,8 @@ import { sec } from "./theme";
 import type { Episode as Ep } from "./types";
 
 // One episode, built only from its JSON. Layer order: shots, inserts, end card, phone, vote, captions, HUD.
-export const Episode: React.FC<{ ep: Ep }> = ({ ep }) => {
+// music: render with --props='{"music":true}' (scripts/r.sh final epXX --music).
+export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) => {
   const f = useCurrentFrame();
   const words = useWords(ep.words);
   const total = sec(ep.durationSec);
@@ -30,6 +32,8 @@ export const Episode: React.FC<{ ep: Ep }> = ({ ep }) => {
       <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} />
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}
+      <Sfx ep={ep} words={words} />
+      {music && <Music words={words} />}
     </AbsoluteFill>
   );
 };
