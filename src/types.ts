@@ -79,7 +79,20 @@ export type Episode = {
   inserts?: Insert[];
   phone?: Phone[];
   end?: ChoiceEnd | CommentEnd;
+  rigs?: Record<string, Rig>; // keyed by image path; shots of that image get breathing + nods
+  music?: boolean; // public/shared/music.mp3 under the whole episode (ducked under the voice)
   sfx?: { at: number; name: string }[]; // manual cues on top of the automatic ones (e.g. "door")
 };
+
+// Character rig for image warps (fractions of the source image). Masks: scripts/make_rig.py.
+export type Figure = {
+  outline: [number, number][]; // body polygon (soft-edged in the mask)
+  head: [number, number, number, number]; // head ellipse cx, cy, rx, ry
+  neck: [number, number]; // nod pivot
+  feet: number; // y where the figure stands (0 lift there); > 1 if the feet are out of frame
+  facing?: -1 | 0 | 1; // nod direction: 1 = faces right, -1 = left, 0 = frontal (dip only)
+  seed?: number;
+};
+export type Rig = { figures: Figure[] }; // at most 2 figures
 
 export type Word = { w: string; s: number; e: number };

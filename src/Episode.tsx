@@ -19,7 +19,7 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
   const total = sec(ep.durationSec);
   return (
     <AbsoluteFill style={{ background: "#1C1A22" }}>
-      <ShotTrack shots={ep.shots} total={ep.end && (ep.end.type === "comment" || ep.end.img) ? sec(ep.end.at) : total} src={ep.imgSize} />
+      <ShotTrack shots={ep.shots} total={ep.end && (ep.end.type === "comment" || ep.end.img) ? sec(ep.end.at) : total} src={ep.imgSize} rigs={ep.rigs} />
       {(ep.inserts ?? []).map((ins, i) => (
         <Polaroid key={i} ins={ins} />
       ))}
@@ -33,7 +33,7 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}
       <Sfx ep={ep} words={words} />
-      {music && <Music words={words} />}
+      {(music || ep.music) && <Music words={words} total={total} />}
     </AbsoluteFill>
   );
 };

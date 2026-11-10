@@ -11,13 +11,17 @@ remotion.config.ts      angle + concurrency 2
 src/index.ts, Root.tsx  Root turns every episodes/epXX.json into a composition "epXX" (require.context)
 src/types.ts            the episode JSON contract
 src/Episode.tsx         builds one episode from its JSON
-src/components/         Shot, Overlays, Hud, VoteResult, Captions, Phone, ChoiceCard, CommentCard
+src/components/         Shot, ShotGL (WebGL warp: breathing + nods + blink), Overlays, Hud, VoteResult, Captions, Phone, ChoiceCard, CommentCard, Sfx
+src/camera.ts           camera planner: ease-in, continues across shots of the same image, auto-limited to <= 1.8 px/frame
 episodes/epXX.json      one file per episode (shots, HUD day, vote, phone, end card)
 public/epXX/            images (sNN_name.png + sNN_name_blink.png), voice.mp3, words.json, fix.json
 public/shared/          sprites (flies), icons, sfx/, fonts/, music.mp3 (only for --music)
 scripts/r.sh            still | preview | final (logs to out/, prints tail -20)
 scripts/transcribe.py   faster-whisper → words_raw.json (lang pl, model medium)
 scripts/fix_words.py    words_raw.json → words.json (energy onsets, spellings from fix.json)
+scripts/make_rig.py     ep.rigs (outline/head/neck/feet per figure) -> public/epXX/rig/*_figN.png soft masks
+scripts/check_cam.ts    node scripts/check_cam.ts episodes/epXX.json: max camera jump per shot (must be <= 2 px)
+scripts/make_music.py   original piano theme -> public/shared/music.mp3 (-16 LUFS), see MUSIC_LICENSE.txt
 scripts/short_qa.py     QA of the final mp4 (LUFS, peak, black/white/frozen frames, contact sheets)
 out/                    renders (gitignored)
 ```

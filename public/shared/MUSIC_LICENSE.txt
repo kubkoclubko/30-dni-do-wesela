@@ -1,0 +1,8 @@
+music.mp3 / music.mid - "30 dni" piano theme
+
+Original composition written for this project by scripts/make_music.py (95 BPM, C major, C-Am-F-G).
+The audio is synthesised in the same script by a numpy piano model (additive sine harmonics + convolution
+reverb). No samples, loops, soundfonts or third-party recordings are used, so no third-party licence applies.
+fluidsynth/FluidR3_GM was not used (not installed on this machine).
+
+Rights: owned by the channel owner; free to use commercially on Instagram, TikTok, YouTube and elsewhere.

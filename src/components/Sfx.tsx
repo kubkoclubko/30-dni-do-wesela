@@ -56,19 +56,15 @@ export const Sfx: React.FC<{ ep: Episode; words: Word[] }> = ({ ep, words }) => 
   );
 };
 
-// --music: public/shared/music.mp3 under the whole episode, ducked by 20 dB while the voice speaks
-// (6-frame ramps, gaps shorter than 0.6 s stay ducked). Without --music the music is added at upload instead.
-export const Music: React.FC<{ words: Word[] }> = ({ words }) => {
-  const spans: [number, number][] = [];
-  for (const w of words) {
-    const last = spans[spans.length - 1];
-    if (last && w.s - last[1] < 0.6) last[1] = w.e;
-    else spans.push([w.s, w.e]);
-  }
+// Music: public/shared/music.mp3 from 0 s under the whole episode. Ducked by 20 dB while the voice runs, back to
+// full volume (0.5 s ramp) once the voice ends (end card), fade-out over the last 2 s.
+export const Music: React.FC<{ words: Word[]; total: number }> = ({ words, total }) => {
+  const end = words.length ? words[words.length - 1].e : 0;
   const vol = (f: number) => {
     const t = f / FPS;
-    const duck = Math.max(0, ...spans.map(([a, b]) => interpolate(t, [a - 0.2, a, b, b + 0.2], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })));
-    return 0.5 * Math.pow(10, (-20 * duck) / 20);
+    const duck = interpolate(t, [end, end + 0.5], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    const fade = interpolate(f, [total - 2 * FPS, total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    return Math.pow(10, (-20 * duck) / 20) * fade;
   };
-  return <Audio src={staticFile("shared/music.mp3")} loop volume={vol} />;
+  return <Audio src={staticFile("shared/music.mp3")} volume={vol} />;
 };
