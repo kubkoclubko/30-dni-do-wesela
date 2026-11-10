@@ -1,0 +1,23 @@
+{
+  "fix": {
+    "34": "trzydzieści cztery",
+    "30": "trzydzieści",
+    "wfie.": "WF-ie.",
+    "inie.": "imię.",
+    "tego": "czego",
+    "zacznie.": "zacznie?",
+    "dodaje.": "dodaje:",
+    "prawnikiem,": "Prawnikiem.",
+    "narzeczonym,": "narzeczonym.",
+    "dni,": "dni.",
+    "a": "A",
+    "żabki.": "Żabki."
+  },
+  "merge": [
+    [
+      "hot",
+      "dogi",
+      "hot-dogi"
+    ]
+  ]
+}

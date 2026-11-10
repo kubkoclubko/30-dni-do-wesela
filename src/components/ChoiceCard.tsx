@@ -53,11 +53,11 @@ export const ChoiceCard: React.FC<{ end: ChoiceEnd }> = ({ end }) => {
   const ctaOn = interpolate(f, [sec(CHOICE_B_AT + 0.4), sec(CHOICE_B_AT + 0.7)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
     <AbsoluteFill>
-      <AbsoluteFill style={{ overflow: "hidden", background: C.ink }}>
-        <Img
+      <AbsoluteFill style={{ overflow: "hidden", background: end.img ? C.ink : undefined }}>
+        {end.img && <Img
           src={staticFile(end.img)}
           style={{ width: "100%", height: "100%", objectFit: "cover", transformOrigin: `${fx * 100}% ${fy * 100}%`, transform: `scale(${interpolate(bounce, [0, 1], [1.15, 1])})` }}
-        />
+        />}
         <AbsoluteFill style={{ background: "linear-gradient(rgba(20,18,24,0.15), rgba(20,18,24,0.55) 30%, rgba(20,18,24,0.55) 60%, rgba(20,18,24,0.1))" }} />
       </AbsoluteFill>
       <div style={{ position: "absolute", top: 600, left: 60, right: 60, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0 22px" }}>

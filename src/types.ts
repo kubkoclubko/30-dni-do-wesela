@@ -1,7 +1,7 @@
 // Episode data contract: episodes/epXX.json. All times in seconds, all image paths relative to public/.
 // Image coordinates ([x, y]) are fractions 0..1 of the source image (source ideally 2160x3840, 9:16).
 
-export type Move = "push" | "pull" | "panX" | "tiltDown" | "dutch" | "static";
+export type Move = "push" | "pull" | "panX" | "tiltDown" | "dutch" | "bounce" | "static";
 export type Layer = "blink" | "flies" | "stink" | "steam" | "breath";
 
 export type Shot = {
@@ -11,6 +11,10 @@ export type Shot = {
   focus?: [number, number]; // image point kept in the frame centre (clamped to the image), default [0.5, 0.5]
   to?: [number, number]; // end focus (panX / tiltDown override)
   zoom?: number; // 1 = whole image fills the frame (default 1; tiltDown/panX default 1.6/1.2)
+  zoomTo?: number; // end zoom (push default zoom*1.08)
+  keys?: { at: number; focus: [number, number]; zoom?: number; dur?: number }[]; // quick re-frames at absolute times
+  punch?: number; // absolute time of a short zoom punch (+14 % in 4 frames)
+  shake?: number; // absolute time of a camera shake (0.5 s)
   layers?: Layer[];
   head?: [number, number]; // where flies circle (default [0.5, 0.35])
   body?: [number, number]; // where stink/steam rises (default [0.5, 0.55])
@@ -43,7 +47,7 @@ export type Phone = { at: number; until: number; name: string; subtitle?: string
 export type ChoiceEnd = {
   type: "choice";
   at: number;
-  img: string; // the wide shot the camera bounces out to
+  img?: string; // own background with the 1.15 -> 1 bounce; omit to keep the last shot (give it move 'bounce')
   focus?: [number, number];
   title: string; // "OD CZEGO ZACZNIE?"
   a: { label: string; icon: string }; // icon: built-in name (shower, scissors) or an .svg/.png path

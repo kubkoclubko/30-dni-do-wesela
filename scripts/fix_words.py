@@ -17,13 +17,26 @@ dur = len(a) / sr
 out = []
 for x in raw:
     if x["s"] >= CUT: continue  # garbled TTS tail (cut from voice.wav)
-    if x["w"].startswith("-") and out:
+    if x["w"][:1] in "-'" and out:
         out[-1]["w"] += x["w"]; out[-1]["e"] = x["e"]; continue
     out.append(dict(x))
 import os
 CFG = json.load(open(V + "fix.json", encoding="utf-8")) if os.path.exists(V + "fix.json") else {}
 FIX = CFG.get("fix", {})  # whisper -> script spelling
-for x in out: x["w"] = FIX.get(x["w"].lower(), x["w"])
+for a_, b_, joined in CFG.get("merge", []):  # two Whisper words -> one script word ("hot" "dogi" -> "hot-dogi")
+    for k in range(len(out) - 1):
+        if out[k]["w"] and out[k + 1]["w"] and out[k]["w"].lower() == a_.lower() and out[k + 1]["w"].lower() == b_.lower():
+            out[k]["w"] = joined; out[k]["e"] = out[k + 1]["e"]; out[k + 1]["w"] = None
+    out = [x for x in out if x["w"] is not None]
+fixed = []
+for x in out:
+    w = FIX.get(x["w"].lower(), x["w"])
+    parts = w.split(" ")  # "34" -> "trzydzieści cztery": split the time by letter count
+    n = sum(len(q) for q in parts); t = x["s"]
+    for q in parts:
+        d = (x["e"] - x["s"]) * len(q) / n
+        fixed.append({**x, "w": q, "s": round(t, 3), "e": round(t + d, 3)}); t += d
+out = fixed
 def onset(s):
     i = int(s * 100); lo = max(0, i - 15); seg = quiet[lo:i + 8]
     if not seg.any(): return s
