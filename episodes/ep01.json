@@ -3,39 +3,329 @@
   "day": 1,
   "daysLeft": 30,
   "durationSec": 42.7,
-  "imgSize": [1438, 2576],
+  "imgSize": [
+    1438,
+    2576
+  ],
   "voice": "ep01/voice.mp3",
   "words": "ep01/words.json",
-  "highlight": ["Mirek", "trzydzieści", "Żabki", "imię", "SMS", "Kasia", "Warszawy", "wyprowadzasz", "Prysznic", "fryzjer"],
+  "highlight": [
+    "Mirek",
+    "trzydzieści",
+    "Żabki",
+    "imię",
+    "SMS",
+    "Kasia",
+    "Warszawy",
+    "wyprowadzasz",
+    "Prysznic",
+    "fryzjer"
+  ],
   "shots": [
-    { "at": 0, "img": "ep01/s01_room_wide.jpg", "move": "push", "zoom": 1.0, "zoomTo": 1.15, "focus": [0.47, 0.45], "layers": ["flies", "stink"], "head": [0.47, 0.37], "body": [0.47, 0.5] },
-    { "at": 2.44, "img": "ep01/s01_room_wide.jpg", "move": "push", "zoom": 1.6, "zoomTo": 1.7, "focus": [0.47, 0.42], "layers": ["flies", "stink"], "head": [0.47, 0.37], "body": [0.47, 0.5] },
-    { "at": 4.01, "img": "ep01/s04_hotdog_pc.jpg", "move": "panX", "zoom": 1.05, "focus": [0.25, 0.45], "to": [0.75, 0.45] },
-    { "at": 7.8, "img": "ep01/s03_face_closeup.jpg", "move": "push", "zoom": 1.0, "zoomTo": 1.06, "focus": [0.5, 0.42], "layers": ["flies"], "head": [0.5, 0.3] },
-    { "at": 10.13, "img": "ep01/s03_face_closeup.jpg", "move": "push", "zoom": 1.35, "zoomTo": 1.42, "focus": [0.5, 0.48], "layers": ["flies"], "head": [0.5, 0.32] },
-    { "at": 11.96, "img": "ep01/s01_room_wide.jpg", "move": "tiltDown", "zoom": 1.6, "focus": [0.5, 0.45], "to": [0.45, 0.85] },
-    { "at": 14.79, "img": "ep01/s05_under_bed.jpg", "move": "push", "zoom": 1.0, "zoomTo": 1.06, "focus": [0.5, 0.52] },
-    { "at": 16.45, "img": "ep01/s05_under_bed.jpg", "move": "push", "zoom": 1.8, "zoomTo": 2.0, "focus": [0.5, 0.54], "punch": 17.74 },
-    { "at": 18.26, "img": "ep01/s02_mirek_medium.jpg", "move": "push", "zoom": 1.0, "zoomTo": 1.05, "focus": [0.5, 0.45], "layers": ["blink"], "blinkBox": [550, 1000, 950, 1250], "seed": 3 },
-    { "at": 21.22, "img": "ep01/s06_kasia.jpg", "move": "static", "zoom": 1.9, "focus": [0.21, 0.27], "keys": [{ "at": 23.47, "focus": [0.62, 0.55], "zoom": 1.55, "dur": 0.45 }] },
-    { "at": 26.28, "img": "ep01/s07_mama.jpg", "move": "dutch", "zoom": 1.5, "focus": [0.24, 0.3], "transition": "whip" },
-    { "at": 27.6, "img": "ep01/s07_mama.jpg", "move": "dutch", "zoom": 1.05, "focus": [0.45, 0.42], "shake": 29.74 },
-    { "at": 30.88, "img": "ep01/s08_calendar.jpg", "move": "push", "zoom": 1.0, "zoomTo": 1.08, "focus": [0.45, 0.5] },
-    { "at": 32.3, "img": "ep01/s08_calendar.jpg", "move": "push", "zoom": 1.7, "zoomTo": 1.9, "focus": [0.36, 0.58] },
-    { "at": 34.14, "img": "ep01/s02_mirek_medium.jpg", "move": "bounce", "zoom": 1.0, "focus": [0.5, 0.5], "layers": ["blink"], "blinkBox": [550, 1000, 950, 1250], "seed": 7 }
+    {
+      "at": 0,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "move": "push",
+      "zoom": 1.0,
+      "zoomTo": 1.15,
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "layers": [
+        "flies",
+        "stink",
+        "blink"
+      ],
+      "head": [
+        0.52,
+        0.36
+      ],
+      "body": [
+        0.5,
+        0.58
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 1
+    },
+    {
+      "at": 2.44,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "move": "push",
+      "zoom": 1.7,
+      "zoomTo": 1.8,
+      "focus": [
+        0.52,
+        0.42
+      ],
+      "layers": [
+        "flies",
+        "stink",
+        "blink"
+      ],
+      "head": [
+        0.52,
+        0.36
+      ],
+      "body": [
+        0.5,
+        0.52
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 2
+    },
+    {
+      "at": 4.01,
+      "img": "ep01/s04_hotdog_pc.jpg",
+      "move": "panX",
+      "zoom": 1.05,
+      "focus": [
+        0.25,
+        0.45
+      ],
+      "to": [
+        0.75,
+        0.45
+      ]
+    },
+    {
+      "at": 7.8,
+      "img": "ep01/s03_face_closeup.jpg",
+      "move": "push",
+      "zoom": 1.0,
+      "zoomTo": 1.06,
+      "focus": [
+        0.5,
+        0.42
+      ],
+      "layers": [
+        "flies"
+      ],
+      "head": [
+        0.5,
+        0.3
+      ]
+    },
+    {
+      "at": 10.13,
+      "img": "ep01/s03_face_closeup.jpg",
+      "move": "push",
+      "zoom": 1.35,
+      "zoomTo": 1.42,
+      "focus": [
+        0.5,
+        0.48
+      ],
+      "layers": [
+        "flies"
+      ],
+      "head": [
+        0.5,
+        0.32
+      ]
+    },
+    {
+      "at": 11.96,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "move": "tiltDown",
+      "zoom": 1.6,
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "to": [
+        0.5,
+        0.88
+      ],
+      "layers": [
+        "blink"
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 4
+    },
+    {
+      "at": 14.79,
+      "img": "ep01/s05_under_bed.jpg",
+      "move": "push",
+      "zoom": 1.0,
+      "zoomTo": 1.06,
+      "focus": [
+        0.5,
+        0.52
+      ]
+    },
+    {
+      "at": 16.45,
+      "img": "ep01/s05_under_bed.jpg",
+      "move": "push",
+      "zoom": 1.8,
+      "zoomTo": 2.0,
+      "focus": [
+        0.5,
+        0.54
+      ],
+      "punch": 17.74
+    },
+    {
+      "at": 18.26,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "move": "push",
+      "zoom": 1.0,
+      "zoomTo": 1.05,
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "layers": [
+        "blink"
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 3
+    },
+    {
+      "at": 21.22,
+      "img": "ep01/s06_kasia.jpg",
+      "move": "static",
+      "zoom": 1.9,
+      "focus": [
+        0.21,
+        0.27
+      ],
+      "keys": [
+        {
+          "at": 23.47,
+          "focus": [
+            0.62,
+            0.55
+          ],
+          "zoom": 1.55,
+          "dur": 0.45
+        }
+      ]
+    },
+    {
+      "at": 26.28,
+      "img": "ep01/s07_mama.jpg",
+      "move": "dutch",
+      "zoom": 1.5,
+      "focus": [
+        0.24,
+        0.3
+      ],
+      "transition": "whip"
+    },
+    {
+      "at": 27.6,
+      "img": "ep01/s07_mama.jpg",
+      "move": "dutch",
+      "zoom": 1.05,
+      "focus": [
+        0.45,
+        0.42
+      ],
+      "shake": 29.74
+    },
+    {
+      "at": 30.88,
+      "img": "ep01/s08_calendar.jpg",
+      "move": "push",
+      "zoom": 1.0,
+      "zoomTo": 1.08,
+      "focus": [
+        0.45,
+        0.5
+      ]
+    },
+    {
+      "at": 32.3,
+      "img": "ep01/s08_calendar.jpg",
+      "move": "push",
+      "zoom": 1.7,
+      "zoomTo": 1.9,
+      "focus": [
+        0.36,
+        0.58
+      ]
+    },
+    {
+      "at": 34.14,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "move": "bounce",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "layers": [
+        "blink"
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 7
+    }
   ],
   "phone": [
     {
-      "at": 18.45, "until": 21.22, "name": "Ola", "subtitle": "siostra",
+      "at": 18.45,
+      "until": 21.22,
+      "name": "Ola",
+      "subtitle": "siostra",
       "messages": [
-        { "at": 18.95, "from": "them", "text": "Mirek, wesele za 30 dni. Jesteś moim świadkiem 🙏", "typing": 0.35 },
-        { "at": 19.9, "from": "them", "text": "Kasia też będzie. Z narzeczonym.", "typing": 0.4 },
-        { "at": 20.6, "from": "me", "text": "😐" }
+        {
+          "at": 18.95,
+          "from": "them",
+          "text": "Mirek, wesele za 30 dni. Jesteś moim świadkiem 🙏",
+          "typing": 0.35
+        },
+        {
+          "at": 19.9,
+          "from": "them",
+          "text": "Kasia też będzie. Z narzeczonym.",
+          "typing": 0.4
+        },
+        {
+          "at": 20.6,
+          "from": "me",
+          "text": "😐"
+        }
       ]
     }
   ],
   "end": {
-    "type": "choice", "at": 34.14, "title": "OD CZEGO ZACZNIE?",
-    "a": { "label": "Prysznic", "icon": "shower" }, "b": { "label": "Fryzjer", "icon": "scissors" }
+    "type": "choice",
+    "at": 34.14,
+    "title": "OD CZEGO ZACZNIE?",
+    "a": {
+      "label": "Prysznic",
+      "icon": "shower"
+    },
+    "b": {
+      "label": "Fryzjer",
+      "icon": "scissors"
+    }
   }
 }
