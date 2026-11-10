@@ -1,0 +1,12 @@
+{
+  "id": "test-comment",
+  "day": 2,
+  "daysLeft": 29,
+  "durationSec": 4,
+  "shots": [{ "at": 0, "img": "test/room.png" }],
+  "end": {
+    "type": "comment", "at": 0, "img": "test/room.png", "character": "test/mirek_full.png",
+    "kicker": "30 DNI: MIREK · DZIEŃ 02", "title": "Co Mirek ma zrobić dalej?",
+    "pill1": "Napisz pomysł w komentarzu", "pill2": "Wygrywa komentarz z największą liczbą lajków"
+  }
+}
