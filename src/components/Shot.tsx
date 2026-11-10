@@ -45,7 +45,7 @@ const camAt = (s: Shot, p: number, f: number): Cam => {
     if (q <= 0) continue;
     fx += (k.focus[0] - fx) * q;
     fy += (k.focus[1] - fy) * q;
-    if (k.zoom) z += (k.zoom - z) * q;
+    if (k.zoom) z += (z * (k.zoom / z0) - z) * q; // relative, so the base push keeps going after the key
   }
   if (s.punch !== undefined && t >= s.punch) z *= 1 + 0.14 * Easing.out(Easing.cubic)(Math.min(1, ((t - s.punch) * FPS) / 4));
   let dx = 0;

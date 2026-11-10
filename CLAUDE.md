@@ -51,3 +51,10 @@ out/                    renders (gitignored)
 20. Check with `npx remotion still --scale=0.4` (`scripts/r.sh still`), not a full render. At most 3 stills per step.
 21. The series is data-driven: a new episode is `episodes/epXX.json` + images + audio and must never need a code change.
 22. Keep chat replies short and don't repeat code that is already in files.
+
+## Learnings (ep01, 2026-11-10)
+1. AI `_blink` variants differ in every pixel, not just the eyes. Set `blinkBox` (eye region in source px) plus the episode's `imgSize`; only that feathered crop is pasted.
+2. Whisper `medium` (pl) needs a `fix.json` every time. In ep01: numbers come out as digits ("34" → two words, split by `fix`), hyphenated words split ("hot" "dogi" → `merge`), and some words are misheard ("imię" → "inie", "czego" → "tego"). The first run downloads the model (~1.5 GB).
+3. With a low-res source (s04 at 768 px, max zoom 1.05), a pan clamps against the image edge and freezes. Keep `focus`/`to` within the visible margin (±(1-1/zoom)/2 around 0.5). `short_qa.py` catches it under "frozen spans".
+4. Render times on the GTX 1660 SUPER: a whole 43 s episode at 1080×1920 takes ~80 s including QA, the 0.5 preview of the whole episode ~50 s, a wav of the audio only ~18 s.
+5. SFX sit ~10 LU under the voice (voice −14 LUFS). The slide whistle after the voice ends is ~6 LU under. Levels live only in `public/shared/sfx/sfx.json`.
