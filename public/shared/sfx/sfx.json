@@ -1,0 +1,7 @@
+{
+  "pop": { "file": "pop.wav", "db": -6.5 },
+  "blip": { "file": "blip.wav", "db": -11 },
+  "whoosh": { "file": "whoosh.wav", "db": -6.5 },
+  "slide": { "file": "slide.wav", "db": -11.5 },
+  "door": { "file": "door.wav", "db": -7 }
+}
