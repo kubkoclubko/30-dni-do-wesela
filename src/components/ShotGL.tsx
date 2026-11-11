@@ -21,7 +21,17 @@ precision highp float;
 uniform sampler2D uImg, uBlink, uM0, uM1;
 uniform vec4 uBox; uniform vec2 uImgPx; uniform float uCover;
 uniform vec4 uF0, uN0, uF1, uN1; uniform float uBlinkOn; uniform vec4 uBB;
+uniform vec4 uLid0, uLid1; uniform vec3 uSkin; uniform float uLidOn;
 in vec2 vPos; out vec4 o;
+// painted closed eye: skin-coloured ellipse over the eye (soft edge) + a dark lash line curving down (lid closed)
+vec3 lid(vec3 col, vec2 q, vec4 L){
+  if (L.z <= 0.0) return col;
+  vec2 d = (q - L.xy) / L.zw; float e = length(d);
+  col = mix(col, uSkin * (0.93 + 0.07 * clamp(-d.y, 0.0, 1.0)), 1.0 - smoothstep(0.82, 1.0, e));
+  float yl = 0.1 + 0.28 * (1.0 - d.x * d.x);
+  float ln = (1.0 - smoothstep(0.07, 0.16, abs(d.y - yl))) * (1.0 - smoothstep(0.78, 0.95, abs(d.x)));
+  return mix(col, vec3(0.09, 0.07, 0.08), ln);
+}
 vec2 fig(vec2 p, float body, float head, vec4 F, vec4 N){
   float ramp = clamp((F.x - p.y) / max(1.0, F.x - F.y), 0.0, 1.0);
   p.y += F.z * body * ramp;                       // content rises -> sample from below
@@ -44,6 +54,7 @@ void main(){
             * smoothstep(uBB.y, uBB.y + fw.y, q.y) * (1.0 - smoothstep(uBB.w - fw.y, uBB.w, q.y));
     col = mix(col, texture(uBlink, q), w);
   }
+  if (uLidOn > 0.5) { col.rgb = lid(col.rgb, q, uLid0); col.rgb = lid(col.rgb, q, uLid1); }
   o = vec4(col.rgb, 1.0);
 }`;
 
@@ -70,7 +81,10 @@ const nod = (t: number, seed: number) => {
 
 type GLS = { gl: WebGL2RenderingContext; prog: WebGLProgram; tex: WebGLTexture[]; size: [number, number] };
 
-export const ShotGL: React.FC<{ img: string; cam: Cam; t: number; rig: Rig; blinkOn: boolean; blinkBox?: [number, number, number, number] }> = ({ img, cam, t, rig, blinkOn, blinkBox }) => {
+type Lid = [number, number, number, number];
+const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255) as [number, number, number];
+
+export const ShotGL: React.FC<{ img: string; cam: Cam; t: number; rig: Rig; blinkOn: boolean; blinkBox?: Lid; lids?: Lid[]; skin?: string; lidOn?: boolean }> = ({ img, cam, t, rig, blinkOn, blinkBox, lids, skin, lidOn }) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const [st, setSt] = useState<GLS | null>(null);
   const [handle] = useState(() => delayRender(`gl ${img}`));
@@ -149,6 +163,9 @@ export const ShotGL: React.FC<{ img: string; cam: Cam; t: number; rig: Rig; blin
     }
     gl.uniform1f(U("uBlinkOn"), blinkOn && blinkBox ? 1 : 0);
     if (blinkBox) gl.uniform4f(U("uBB"), blinkBox[0] / iw, blinkBox[1] / ih, blinkBox[2] / iw, blinkBox[3] / ih);
+    gl.uniform1f(U("uLidOn"), lidOn && lids?.length ? 1 : 0);
+    for (let i = 0; i < 2; i++) gl.uniform4f(U(`uLid${i}`), ...((lids?.[i] ?? [0, 0, 0, 0]) as Lid));
+    gl.uniform3f(U("uSkin"), ...hex(skin ?? "#e8b09a"));
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     if (!done.current) {
       done.current = true;

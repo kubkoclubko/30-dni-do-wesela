@@ -71,7 +71,7 @@ export const planCamera = (shots: Shot[], total: number): Plan[] => {
     const a = Math.round(s.at * FPS);
     const b = i + 1 < shots.length ? Math.round(shots[i + 1].at * FPS) : total;
     const prev = plans[i - 1];
-    const cont = !!prev && shots[i - 1].img === s.img && s.transition !== "whip";
+    const cont = !!prev && shots[i - 1].img === s.img && s.transition !== "whip" && !s.cut;
     const move = s.move ?? "push";
     let s0: St;
     if (cont) s0 = { ...prev.s1 };

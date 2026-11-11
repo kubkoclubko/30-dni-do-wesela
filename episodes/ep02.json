@@ -1,0 +1,924 @@
+{
+  "id": "ep02",
+  "day": 2,
+  "daysLeft": 29,
+  "durationSec": 46.7,
+  "imgSize": [
+    1536,
+    2752
+  ],
+  "voice": "ep02/voice.mp3",
+  "words": "ep02/words.json",
+  "music": true,
+  "highlight": [
+    "Prysznic",
+    "Fryzjer",
+    "Żabki",
+    "zatkał",
+    "przetarł",
+    "przestraszył",
+    "Kasia",
+    "świadkiem",
+    "siedem",
+    "Kciuk",
+    "studniówkę",
+    "jaskiniowca"
+  ],
+  "vote": {
+    "title": "WYNIK GŁOSOWANIA",
+    "a": {
+      "label": "Prysznic",
+      "votes": 90
+    },
+    "b": {
+      "label": "Fryzjer",
+      "votes": 10
+    },
+    "dur": 4,
+    "stamp": "WYGRYWA!"
+  },
+  "shots": [
+    {
+      "at": 0,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "move": "push",
+      "zoomTo": 1.08,
+      "layers": [
+        "flies",
+        "blink"
+      ],
+      "head": [
+        0.52,
+        0.36
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 1
+    },
+    {
+      "at": 2.2,
+      "img": "ep01/s02_mirek_medium.jpg",
+      "zoom": 1.5,
+      "focus": [
+        0.52,
+        0.43
+      ],
+      "cut": true,
+      "move": "push",
+      "layers": [
+        "flies",
+        "blink"
+      ],
+      "head": [
+        0.52,
+        0.36
+      ],
+      "blinkBox": [
+        550,
+        1000,
+        950,
+        1250
+      ],
+      "seed": 2
+    },
+    {
+      "at": 3.92,
+      "img": "ep02/s09_shower_2x.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.42
+      ],
+      "move": "push",
+      "layers": [
+        "vapor"
+      ]
+    },
+    {
+      "at": 5.1,
+      "img": "ep02/s09_shower_2x.jpg",
+      "zoom": 1.7,
+      "focus": [
+        0.53,
+        0.29
+      ],
+      "cut": true,
+      "move": "push",
+      "layers": [
+        "vapor"
+      ]
+    },
+    {
+      "at": 6.38,
+      "img": "ep02/s10_drain_2x.jpg",
+      "zoom": 1.1,
+      "focus": [
+        0.6,
+        0.5
+      ],
+      "move": "push",
+      "spin": [
+        0,
+        4
+      ]
+    },
+    {
+      "at": 8.44,
+      "img": "ep02/s10_drain_2x.jpg",
+      "zoom": 1.4,
+      "focus": [
+        0.62,
+        0.52
+      ],
+      "cut": true,
+      "move": "push",
+      "spin": [
+        4,
+        6
+      ]
+    },
+    {
+      "at": 9.84,
+      "img": "ep02/s10_drain_2x.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "cut": true,
+      "move": "push",
+      "spin": [
+        6,
+        8
+      ],
+      "punch": 10.52,
+      "clip": {
+        "src": "ep02/s10_drain.mp4",
+        "at": 9.84,
+        "from": 1.22,
+        "until": 11.26
+      }
+    },
+    {
+      "at": 11.26,
+      "img": "ep02/s10_drain_2x.jpg",
+      "zoom": 1.2,
+      "focus": [
+        0.58,
+        0.48
+      ],
+      "cut": true,
+      "move": "pull",
+      "spin": [
+        8,
+        8
+      ]
+    },
+    {
+      "at": 13.35,
+      "img": "ep02/s12_mirror_2x.jpg",
+      "zoom": 1.1,
+      "focus": [
+        0.5,
+        0.38
+      ],
+      "move": "push",
+      "fog": {
+        "box": [
+          0.115,
+          0.095,
+          0.885,
+          0.665
+        ],
+        "wipe": 14.22
+      },
+      "lids": [
+        [
+          0.474,
+          0.332,
+          0.037,
+          0.021
+        ],
+        [
+          0.6,
+          0.332,
+          0.034,
+          0.021
+        ]
+      ],
+      "skin": "#e9b09c",
+      "seed": 3
+    },
+    {
+      "at": 15.16,
+      "img": "ep02/s12_mirror_2x.jpg",
+      "zoom": 1.4,
+      "focus": [
+        0.53,
+        0.35
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.474,
+          0.332,
+          0.037,
+          0.021
+        ],
+        [
+          0.6,
+          0.332,
+          0.034,
+          0.021
+        ]
+      ],
+      "skin": "#e9b09c",
+      "seed": 4
+    },
+    {
+      "at": 17.34,
+      "img": "ep02/s12_mirror_2x.jpg",
+      "zoom": 1.8,
+      "focus": [
+        0.54,
+        0.33
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.474,
+          0.332,
+          0.037,
+          0.021
+        ],
+        [
+          0.6,
+          0.332,
+          0.034,
+          0.021
+        ]
+      ],
+      "skin": "#e9b09c",
+      "seed": 5
+    },
+    {
+      "at": 18.9,
+      "img": "ep02/s12_mirror_2x.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "cut": true,
+      "move": "push",
+      "punch": 19.44,
+      "clip": {
+        "src": "ep02/s12_mirror.mp4",
+        "at": 18.9,
+        "from": 0.85,
+        "until": 20.28
+      }
+    },
+    {
+      "at": 20.28,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "move": "push",
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "layers": [
+        "flies"
+      ],
+      "head": [
+        0.47,
+        0.3
+      ],
+      "seed": 6
+    },
+    {
+      "at": 21.74,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.6,
+      "focus": [
+        0.47,
+        0.5
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "seed": 7
+    },
+    {
+      "at": 23.9,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.3,
+      "focus": [
+        0.5,
+        0.53
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "layers": [
+        "flies"
+      ],
+      "head": [
+        0.47,
+        0.3
+      ],
+      "seed": 8
+    },
+    {
+      "at": 26.17,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.8,
+      "focus": [
+        0.46,
+        0.48
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "seed": 9
+    },
+    {
+      "at": 28.54,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.35,
+      "focus": [
+        0.5,
+        0.53
+      ],
+      "cut": true,
+      "move": "push",
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "seed": 10
+    },
+    {
+      "at": 30.48,
+      "img": "ep02/s14_phone_towel_2x.jpg",
+      "zoom": 1.7,
+      "focus": [
+        0.47,
+        0.49
+      ],
+      "cut": true,
+      "move": "push",
+      "punch": 31.2,
+      "lids": [
+        [
+          0.434,
+          0.321,
+          0.022,
+          0.015
+        ],
+        [
+          0.505,
+          0.318,
+          0.03,
+          0.017
+        ]
+      ],
+      "skin": "#f2bea4",
+      "seed": 11
+    },
+    {
+      "at": 32.4,
+      "img": "ep01/s06_kasia.jpg",
+      "zoom": 1.0,
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "move": "push"
+    },
+    {
+      "at": 34.18,
+      "img": "ep01/s06_kasia.jpg",
+      "zoom": 1.5,
+      "focus": [
+        0.3,
+        0.58
+      ],
+      "cut": true,
+      "move": "push"
+    },
+    {
+      "at": 36.58,
+      "img": "ep02/s15_mama_door_a_2x.jpg",
+      "zoom": 1.3,
+      "focus": [
+        0.4,
+        0.42
+      ],
+      "move": "dutch"
+    },
+    {
+      "at": 38.05,
+      "img": "ep02/s15_mama_door_a_2x.jpg",
+      "zoom": 1.05,
+      "focus": [
+        0.45,
+        0.45
+      ],
+      "cut": true,
+      "move": "dutch",
+      "shake": 39.1,
+      "clip": {
+        "src": "ep02/s15_mama_door.mp4",
+        "at": 38.05,
+        "from": 0.45,
+        "until": 40.08
+      }
+    }
+  ],
+  "phone": [
+    {
+      "at": 20.56,
+      "until": 36.5,
+      "name": "Kasia",
+      "subtitle": "online",
+      "shake": 20.56,
+      "y": 1130,
+      "scale": 0.8,
+      "messages": [
+        {
+          "at": 22.43,
+          "from": "them",
+          "text": "Hej Mirek! Ola mówi, że jesteś świadkiem 😄 Widzimy się na weselu?",
+          "typing": 0.5
+        },
+        {
+          "at": 31.2,
+          "from": "me",
+          "text": "👍"
+        },
+        {
+          "at": 33.37,
+          "from": "them",
+          "text": "Pamiętasz naszą studniówkę? 😂",
+          "typing": 0.45
+        },
+        {
+          "at": 35.4,
+          "from": "them",
+          "img": "ep01/s06_kasia.jpg",
+          "crop": [
+            0.3,
+            0.36,
+            2.0
+          ],
+          "typing": 0.3
+        }
+      ],
+      "drafts": [
+        {
+          "at": 26.4,
+          "text": "Hej Kasia, ja…",
+          "type": 1.0,
+          "hold": 0.5,
+          "del": 0.5
+        },
+        {
+          "at": 28.6,
+          "text": "siema",
+          "type": 0.4,
+          "hold": 0.35,
+          "del": 0.25
+        },
+        {
+          "at": 29.7,
+          "text": "…",
+          "type": 0.15,
+          "hold": 0.4,
+          "del": 0.15
+        },
+        {
+          "at": 30.55,
+          "text": "👍",
+          "type": 0.1,
+          "hold": 0.55,
+          "del": 0
+        }
+      ]
+    }
+  ],
+  "end": {
+    "type": "comment",
+    "at": 40.08,
+    "img": "ep02/s14_phone_towel_2x.jpg",
+    "kicker": "30 DNI: MIREK · DZIEŃ 02",
+    "title": "Co Mirek ma zrobić dalej?",
+    "pill1": "Napisz pomysł w komentarzu",
+    "pill2": "🏆 Wygrywa komentarz z największą liczbą lajków"
+  },
+  "rigs": {
+    "ep01/s02_mirek_medium.jpg": {
+      "figures": [
+        {
+          "outline": [
+            [
+              0.38,
+              0.29
+            ],
+            [
+              0.62,
+              0.29
+            ],
+            [
+              0.66,
+              0.4
+            ],
+            [
+              0.64,
+              0.52
+            ],
+            [
+              0.72,
+              0.57
+            ],
+            [
+              0.7,
+              0.75
+            ],
+            [
+              0.72,
+              0.87
+            ],
+            [
+              0.64,
+              0.89
+            ],
+            [
+              0.66,
+              1.0
+            ],
+            [
+              0.32,
+              1.0
+            ],
+            [
+              0.31,
+              0.89
+            ],
+            [
+              0.25,
+              0.87
+            ],
+            [
+              0.26,
+              0.7
+            ],
+            [
+              0.29,
+              0.57
+            ],
+            [
+              0.36,
+              0.52
+            ],
+            [
+              0.34,
+              0.4
+            ]
+          ],
+          "head": [
+            0.5,
+            0.42,
+            0.13,
+            0.125
+          ],
+          "neck": [
+            0.5,
+            0.555
+          ],
+          "feet": 1.18,
+          "facing": 0,
+          "seed": 1
+        }
+      ]
+    },
+    "ep02/s09_shower_2x.jpg": {
+      "figures": [
+        {
+          "outline": [
+            [
+              0.36,
+              0.17
+            ],
+            [
+              0.68,
+              0.17
+            ],
+            [
+              0.71,
+              0.3
+            ],
+            [
+              0.65,
+              0.41
+            ],
+            [
+              0.4,
+              0.41
+            ],
+            [
+              0.33,
+              0.3
+            ]
+          ],
+          "head": [
+            0.52,
+            0.27,
+            0.13,
+            0.1
+          ],
+          "neck": [
+            0.52,
+            0.37
+          ],
+          "feet": 0.6,
+          "facing": 0,
+          "seed": 1
+        }
+      ]
+    },
+    "ep02/s12_mirror_2x.jpg": {
+      "figures": [
+        {
+          "outline": [
+            [
+              0.3,
+              0.19
+            ],
+            [
+              0.72,
+              0.19
+            ],
+            [
+              0.76,
+              0.4
+            ],
+            [
+              0.8,
+              0.62
+            ],
+            [
+              0.25,
+              0.62
+            ],
+            [
+              0.28,
+              0.4
+            ]
+          ],
+          "head": [
+            0.53,
+            0.32,
+            0.15,
+            0.13
+          ],
+          "neck": [
+            0.53,
+            0.46
+          ],
+          "feet": 0.75,
+          "facing": 0,
+          "seed": 4
+        },
+        {
+          "outline": [
+            [
+              0.72,
+              0.26
+            ],
+            [
+              0.97,
+              0.24
+            ],
+            [
+              1.0,
+              0.4
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.55,
+              1.0
+            ],
+            [
+              0.62,
+              0.76
+            ],
+            [
+              0.78,
+              0.66
+            ],
+            [
+              0.74,
+              0.45
+            ]
+          ],
+          "head": [
+            0.88,
+            0.4,
+            0.12,
+            0.13
+          ],
+          "neck": [
+            0.86,
+            0.55
+          ],
+          "feet": 1.3,
+          "facing": 0,
+          "seed": 4
+        }
+      ]
+    },
+    "ep02/s14_phone_towel_2x.jpg": {
+      "figures": [
+        {
+          "outline": [
+            [
+              0.4,
+              0.21
+            ],
+            [
+              0.58,
+              0.21
+            ],
+            [
+              0.64,
+              0.3
+            ],
+            [
+              0.63,
+              0.38
+            ],
+            [
+              0.76,
+              0.45
+            ],
+            [
+              0.83,
+              0.56
+            ],
+            [
+              0.8,
+              0.67
+            ],
+            [
+              0.71,
+              0.73
+            ],
+            [
+              0.62,
+              0.92
+            ],
+            [
+              0.45,
+              0.93
+            ],
+            [
+              0.2,
+              0.88
+            ],
+            [
+              0.22,
+              0.7
+            ],
+            [
+              0.28,
+              0.6
+            ],
+            [
+              0.27,
+              0.46
+            ],
+            [
+              0.36,
+              0.4
+            ],
+            [
+              0.37,
+              0.3
+            ]
+          ],
+          "head": [
+            0.48,
+            0.31,
+            0.12,
+            0.11
+          ],
+          "neck": [
+            0.48,
+            0.41
+          ],
+          "feet": 0.92,
+          "facing": 0,
+          "seed": 2
+        }
+      ]
+    }
+  },
+  "sfx": [
+    {
+      "at": 3.92,
+      "name": "water"
+    },
+    {
+      "at": 10.4,
+      "name": "gurgle"
+    },
+    {
+      "at": 20.56,
+      "name": "buzz"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 // Image coordinates ([x, y]) are fractions 0..1 of the source image (source ideally 2160x3840, 9:16).
 
 export type Move = "push" | "pull" | "panX" | "tiltDown" | "dutch" | "bounce" | "static";
-export type Layer = "blink" | "flies" | "stink" | "steam" | "breath";
+export type Layer = "blink" | "flies" | "stink" | "steam" | "breath" | "vapor";
 
 export type Shot = {
   at: number; // start (cut on a sentence/clause start); lasts until the next shot
@@ -21,6 +21,12 @@ export type Shot = {
   transition?: "cut" | "whip"; // into this shot, default "cut"
   seed?: number; // varies blinks/flies, default the shot index
   blinkBox?: [number, number, number, number]; // eye region [x0, y0, x1, y1] in source px; only it is taken from _blink
+  lids?: [number, number, number, number][]; // painted blink (no _blink image): eye ellipses cx, cy, rx, ry (fractions), rigged shots only
+  skin?: string; // lid colour for `lids`, e.g. "#e9b09c"
+  cut?: boolean; // new framing (zoom/focus) even after a shot of the same image, instead of continuing its camera
+  spin?: [number, number]; // rotation in deg from shot start to end, around the frame centre (overscan added automatically)
+  clip?: { src: string; at: number; from: number; until: number }; // muted video over the image from `at` to `until` (absolute s), starting at clip time `from`
+  fog?: { box: [number, number, number, number]; wipe: number }; // misted region x0,y0,x1,y1 (fractions), wiped left->right in 15 frames at `wipe` (absolute s)
 };
 
 export type Insert = {
@@ -33,7 +39,7 @@ export type Insert = {
 };
 
 export type VoteOption = { label: string; votes: number };
-export type Vote = { title?: string; a: VoteOption; b: VoteOption; dur?: number }; // winner = more votes; dur default 4
+export type Vote = { title?: string; a: VoteOption; b: VoteOption; dur?: number; stamp?: string }; // winner = more votes; dur default 4; shown as % of all votes
 
 export type ChatMsg = {
   at: number;
@@ -41,8 +47,10 @@ export type ChatMsg = {
   text?: string;
   img?: string;
   typing?: number; // seconds of "…" before the message appears
+  crop?: [number, number, number]; // img: crop centre x, y and zoom (shown as an old faded photo)
 };
-export type Phone = { at: number; until: number; name: string; subtitle?: string; messages: ChatMsg[] };
+export type Draft = { at: number; text: string; type?: number; hold?: number; del?: number }; // text typed into the input field, then deleted (s)
+export type Phone = { at: number; until: number; name: string; subtitle?: string; messages: ChatMsg[]; drafts?: Draft[]; shake?: number; y?: number; scale?: number };
 
 export type ChoiceEnd = {
   type: "choice";

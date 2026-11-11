@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Img, OffthreadVideo, Sequence, interpolate, random, spring, staticFile, useCurrentFrame } from "remotion";
 import { camAt, planCamera, type Cam, type Plan } from "../camera";
 import { C, FONT, FPS, H, W, sec } from "../theme";
 import type { Insert, Rig, Shot } from "../types";
@@ -19,10 +19,34 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
   const head = shot.head ?? [0.5, 0.35];
   const body = shot.body ?? [0.5, 0.55];
   const { w, h, left, top } = cam;
-  const tf = cam.rot ? `rotate(${cam.rot}deg) scale(1.13)` : cam.dx || cam.dy ? "scale(1.03)" : undefined;
+  // spin: slow rotation around the frame centre, overscanned so the corners never show
+  const sp = shot.spin ? shot.spin[0] + (shot.spin[1] - shot.spin[0]) * Math.min(1, f / Math.max(1, plan.b - plan.a)) : 0;
+  const rad = (Math.abs(sp) * Math.PI) / 180;
+  const over = sp ? Math.cos(rad) + (H / W) * Math.sin(rad) : 1;
+  const tf = sp
+    ? `rotate(${(cam.rot + sp).toFixed(3)}deg) scale(${(over * (cam.rot ? 1.13 : 1)).toFixed(4)})`
+    : cam.rot
+      ? `rotate(${cam.rot}deg) scale(1.13)`
+      : cam.dx || cam.dy
+        ? "scale(1.03)"
+        : undefined;
+  const t = shot.at + f / FPS;
+  const clip = shot.clip;
   return (
     <AbsoluteFill style={{ overflow: "hidden", transform: tf, filter: blur > 0.5 ? `blur(${blur.toFixed(1)}px)` : undefined }}>
-      {rig && <ShotGL img={shot.img} cam={cam} t={f / FPS} rig={rig} blinkOn={L.includes("blink") && isBlinking(f, seed)} blinkBox={shot.blinkBox} />}
+      {rig && (
+        <ShotGL
+          img={shot.img}
+          cam={cam}
+          t={f / FPS}
+          rig={rig}
+          blinkOn={L.includes("blink") && isBlinking(f, seed)}
+          blinkBox={shot.blinkBox}
+          lids={shot.lids}
+          skin={shot.skin}
+          lidOn={!!shot.lids && isBlinking(f, seed) && !(clip && t >= clip.at && t < clip.until)}
+        />
+      )}
       <div
         style={{
           position: "absolute",
@@ -36,13 +60,65 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
       >
         {!rig && <Img src={staticFile(shot.img)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
         {!rig && L.includes("blink") && <BlinkLayer shot={shot} f={f} seed={seed} src={src} />}
+        {clip && (
+          <Sequence from={sec(clip.at)} durationInFrames={sec(clip.until) - sec(clip.at)} layout="none">
+            <OffthreadVideo src={staticFile(clip.src)} muted trimBefore={Math.round(clip.from * FPS)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+          </Sequence>
+        )}
+        {shot.fog && <Fog fog={shot.fog} t={t} />}
         {L.includes("stink") && <Wisps f={f} at={body} w={w} h={h} kind="stink" />}
         {L.includes("steam") && <Wisps f={f} at={body} w={w} h={h} kind="steam" />}
         {L.includes("flies") && <Flies f={f} seed={seed} head={head} w={w} h={h} />}
       </div>
+      {L.includes("vapor") && <Vapor t={t} />}
     </AbsoluteFill>
   );
 };
+
+// Misted mirror: a milky, blurred pane over `box`; at `wipe` a soft-edged band clears it left -> right in 15 frames.
+const Fog: React.FC<{ fog: NonNullable<Shot["fog"]>; t: number }> = ({ fog, t }) => {
+  const p = interpolate((t - fog.wipe) * FPS, [0, 15], [0, 1], { easing: Easing.inOut(Easing.quad), extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  if (p >= 1) return null;
+  const [x0, y0, x1, y1] = fog.box;
+  const e = p * 125 - 12; // wipe edge in % of the box width, 12 % soft
+  const wipe = p > 0 ? `linear-gradient(to right, transparent ${e}%, black ${e + 12}%)` : "linear-gradient(black, black)";
+  const feather = "linear-gradient(to bottom, transparent, black 6%, black 94%, transparent)";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: `${x0 * 100}%`,
+        top: `${y0 * 100}%`,
+        width: `${(x1 - x0) * 100}%`,
+        height: `${(y1 - y0) * 100}%`,
+        backdropFilter: "blur(18px)",
+        background:
+          "radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.55), transparent 60%), radial-gradient(ellipse at 70% 75%, rgba(255,255,255,0.4), transparent 55%), rgba(236,242,240,0.62)",
+        maskImage: `${wipe}, ${feather}`,
+        WebkitMaskImage: `${wipe}, ${feather}`,
+        maskComposite: "intersect",
+        WebkitMaskComposite: "source-in",
+      }}
+    />
+  );
+};
+
+// Shower vapour over the whole frame: big soft white puffs drifting slowly upward (screen space, ~6 s cycle).
+const Vapor: React.FC<{ t: number }> = ({ t }) => (
+  <AbsoluteFill style={{ pointerEvents: "none" }}>
+    {Array.from({ length: 7 }, (_, i) => {
+      const r = (k: string) => random(`vap${i}${k}`);
+      const per = 5 + r("p") * 3;
+      const ph = ((t + r("o") * per) % per) / per;
+      const size = 520 + r("s") * 420;
+      const x = r("x") * W + Math.sin(t * 0.5 + i) * 40 - size / 2;
+      const y = H * (1.05 - ph * 1.1) - size / 2;
+      const op = Math.sin(ph * Math.PI) * (0.22 + r("a") * 0.16);
+      return <div key={i} style={{ position: "absolute", left: x, top: y, width: size, height: size, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 68%)", opacity: op, filter: "blur(20px)" }} />;
+    })}
+    <AbsoluteFill style={{ background: "linear-gradient(to top, rgba(255,255,255,0.18), rgba(255,255,255,0.04) 60%)" }} />
+  </AbsoluteFill>
+);
 
 // All shots: hard cuts by default; "whip" slides the new shot in from the left over 8 frames (ease in-out) while
 // the old one leaves to the right, with a horizontal motion blur sized to the per-frame travel.

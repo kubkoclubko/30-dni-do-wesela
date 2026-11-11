@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Audio, Sequence, continueRender, delayRender, interpolate, staticFile } from "remotion";
 import { CHOICE_B_AT } from "./ChoiceCard";
 import { HUD_FLIP_AT } from "./Hud";
-import { VOTE_BAR_AT } from "./VoteResult";
+import { VOTE_STAMP_AT } from "./VoteResult";
 import { FPS, sec } from "../theme";
 import type { Episode, Word } from "../types";
 
@@ -29,7 +29,7 @@ const useLib = (): Lib => {
 export const cues = (ep: Episode, words: Word[]): { at: number; name: string }[] => {
   const c: { at: number; name: string }[] = [{ at: 0, name: "pop" }];
   if (ep.day >= 2) c.push({ at: HUD_FLIP_AT, name: "pop" });
-  if (ep.vote) c.push({ at: VOTE_BAR_AT, name: "pop" }, { at: VOTE_BAR_AT + 6, name: "pop" });
+  if (ep.vote) c.push({ at: VOTE_STAMP_AT, name: "pop" });
   for (const p of ep.phone ?? []) for (const m of p.messages) c.push({ at: sec(m.at), name: "blip" });
   for (const s of ep.shots) if (s.transition === "whip") c.push({ at: sec(s.at) - 2, name: "whoosh" });
   if (ep.end?.type === "choice") c.push({ at: sec(ep.end.at + 0.1), name: "pop" }, { at: sec(ep.end.at + CHOICE_B_AT), name: "pop" });

@@ -5,3 +5,4 @@
 - slide.wav  <- https://freesound.org/s/497092/ (v0idation, "fx swanee whistle up")
 - door.wav   <- https://freesound.org/s/571797/ (nachtmahrtv, "door slamming hard")
 Levels live in sfx.json (dB applied in Remotion). Measured on ep01: voice -14 LUFS, SFX momentary max ~6-10 LU under it.
+- water.wav, gurgle.wav, buzz.wav <- synthesised by scripts/make_sfx.py (our own, free for commercial use)

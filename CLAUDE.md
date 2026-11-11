@@ -73,5 +73,5 @@ out/                    renders (gitignored)
 
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
-- Next: ep02 (day 2, `daysLeft` 29, `vote` with the result Prysznic/Fryzjer, end card `comment` or `choice`). It needs `episodes/ep02.json`, images, `voice.mp3` and `rigs`; no code changes.
+- ep02 is done (2026-11-11): `out/ep02.mp4` (46.7 s, local only). Details and new contract fields in `LOG.md`.
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.
