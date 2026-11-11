@@ -2,7 +2,7 @@
   "id": "ep02",
   "day": 2,
   "daysLeft": 29,
-  "durationSec": 46.7,
+  "durationSec": 52.9,
   "imgSize": [
     1536,
     2752
@@ -22,7 +22,9 @@
     "siedem",
     "Kciuk",
     "studniówkę",
-    "jaskiniowca"
+    "jaskiniowca",
+    "lajków",
+    "decyduje"
   ],
   "vote": {
     "title": "WYNIK GŁOSOWANIA",
@@ -593,8 +595,8 @@
     "img": "ep02/s14_phone_towel_2x.jpg",
     "kicker": "30 DNI: MIREK · DZIEŃ 02",
     "title": "Co Mirek ma zrobić dalej?",
-    "pill1": "Napisz pomysł w komentarzu",
-    "pill2": "🏆 Wygrywa komentarz z największą liczbą lajków"
+    "pill1": "Napisz swój pomysł w komentarzu",
+    "pill2": "🏆 Najbardziej lajkowany komentarz decyduje"
   },
   "rigs": {
     "ep01/s02_mirek_medium.jpg": {
