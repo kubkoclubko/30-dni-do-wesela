@@ -47,6 +47,7 @@ out/                    renders (gitignored)
 10. A still and the same frame in the video can differ. For the final QA, pull frames from the mp4 with ffmpeg.
 11. The final QA is `scripts/short_qa.py` (LUFS, peaks, black/white/frozen frames).
 12. Hook: frame 0 is never an empty wide. Show a character in a medium shot, with something moving in the first second.
+    Owner rule (2026-11-11): every episode opens with a smooth camera close-up on Mirek, a continuous eased push-in toward his face with no hard cut in the first seconds.
 13. Something new appears on screen every ~1–1.5 s. A reaction lands 0–3 frames before its word.
 14. Keep a short `LOG.md` with bullets for each episode, so the history never needs re-reading.
 15. Save to Graphify (`remember`, repo `kubkoclubko/30-dni-do-wesela`) only final decisions and real gotchas, a few per session at most, with tags and `occurred_at`. Before new work, run `recall`.
@@ -74,5 +75,5 @@ out/                    renders (gitignored)
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
-- Next: ep03 (day 3, `daysLeft` 28). Opening `vote` = result of the most-liked comment from ep02; end card `comment` (most-liked comment decides). Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- Next: ep03 (day 3, `daysLeft` 28). Opening `vote` = result from ep02. The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.
