@@ -16,7 +16,13 @@ export const CommentCard: React.FC<{ end: CommentEnd }> = ({ end }) => {
   // once in, the pills breathe gently (1.0 <-> 1.04, 1 s cycle, the second half a cycle later)
   const pulse = (d: number, ph: number) => (f < d + 14 ? undefined : `scale(${1 + 0.04 * (0.5 - 0.5 * Math.cos(((f - d - 14) / FPS) * Math.PI * 2 + ph))})`);
   return (
-    <AbsoluteFill style={{ background: "#2A2530" }}>
+    <AbsoluteFill
+      style={{
+        background: end.img
+          ? "#2A2530"
+          : `linear-gradient(to bottom, rgba(28,26,34,${0.92 * Math.min(1, inn(0) * 1.5)}) 0px, rgba(28,26,34,${0.85 * Math.min(1, inn(0) * 1.5)}) ${(end.shotY ?? 0) + 80}px, rgba(28,26,34,0) ${(end.shotY ?? 0) + 330}px)`,
+      }}
+    >
       {end.img && <Img src={staticFile(end.img)} style={{ position: "absolute", width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.45) saturate(0.8)" }} />}
       {end.character && (
         <Img

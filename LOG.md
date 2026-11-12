@@ -8,3 +8,4 @@
 - Painted blink (lids drawn in the ShotGL shader) on s12 + s14; s09 has closed eyes already. Opening shot uses s02 from ep01 (no s01_room_wide exists).
 - End: CommentCard. The original "Co dalej? Golić brodę czy zostawić?..." was cut at 39.98 s (original kept as voice_full.mp3) and a new ElevenLabs ending appended at 40.05 s ("Co Mirek ma zrobić dalej? ... najwięcej lajków, zdecyduje..."). Video 52.9 s.
 - SFX: pop on the stamp, synthesised water / gurgle / buzz (scripts/make_sfx.py), blip on 👍.
+- 2026-11-12 fix: new drain jpg (already 2K, used as is) + new drain clip (from 1.03 s, bubble pops on "zatkał"); both came from Downloads because public/ep02 still held the old files. s14_phone_towel replaced everywhere by s14_phone (bathrobe, upscaled 2x, same face position, so the same lids/rig). End: CommentCard has no img, the rigged s14_phone shot keeps running underneath and slides down 480 px (`end.shotY`), captions at y 1790 (`end.capY`).

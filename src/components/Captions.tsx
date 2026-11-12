@@ -39,7 +39,7 @@ const group = (words: Word[]) => {
 
 // White rounded sans with a 6 px dark outline; words appear as spoken; keywords in gold. y ~ 62 % of the height
 // (moved below the phone while a phone is on screen).
-export const Captions: React.FC<{ words: Word[]; highlight?: string[]; lowered?: boolean }> = ({ words, highlight = [], lowered }) => {
+export const Captions: React.FC<{ words: Word[]; highlight?: string[]; lowered?: boolean; y?: number }> = ({ words, highlight = [], lowered, y }) => {
   const f = useCurrentFrame();
   const t = f / FPS;
   const hl = new Set(highlight.map(norm));
@@ -52,7 +52,7 @@ export const Captions: React.FC<{ words: Word[]; highlight?: string[]; lowered?:
       <div
         style={{
           position: "absolute",
-          top: lowered ? 1600 : 1190,
+          top: y ?? (lowered ? 1600 : 1190),
           left: 90,
           right: 90,
           display: "flex",

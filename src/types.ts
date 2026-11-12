@@ -65,7 +65,9 @@ export type ChoiceEnd = {
 export type CommentEnd = {
   type: "comment";
   at: number;
-  img?: string; // background (dimmed); default dark
+  img?: string; // background (dimmed); omit to keep the shots running underneath (rigged, moving)
+  shotY?: number; // no img: px the running shot slides down (spring) so the card sits above the character
+  capY?: number; // caption centre y while the card is up (default 1600)
   character?: string; // full-body cut-out, bottom centre
   kicker: string; // "30 DNI: MIREK · DZIEŃ 02"
   title: string; // "Co Mirek ma zrobić dalej?"

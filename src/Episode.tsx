@@ -1,4 +1,4 @@
-import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, spring, staticFile, useCurrentFrame } from "remotion";
 import "./theme";
 import { Captions, useWords } from "./components/Captions";
 import { Music, Sfx } from "./components/Sfx";
@@ -8,7 +8,7 @@ import { Hud } from "./components/Hud";
 import { Phone, isPhoneOn } from "./components/Phone";
 import { Polaroid, ShotTrack } from "./components/Shot";
 import { VoteResult } from "./components/VoteResult";
-import { sec } from "./theme";
+import { FPS, sec } from "./theme";
 import type { Episode as Ep } from "./types";
 
 // One episode, built only from its JSON. Layer order: shots, inserts, end card, phone, vote, captions, HUD.
@@ -17,9 +17,16 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
   const f = useCurrentFrame();
   const words = useWords(ep.words);
   const total = sec(ep.durationSec);
+  const end = ep.end;
+  const cardBg = !!end?.img;
+  // comment card without img: the shots keep running underneath and slide down by shotY so the card sits above
+  const slide = end?.type === "comment" && !end.img && end.shotY ? end.shotY * spring({ frame: f - sec(end.at), fps: FPS, config: { damping: 16, stiffness: 120, mass: 0.8 } }) : 0;
+  const cardOn = !!end && f >= sec(end.at);
   return (
     <AbsoluteFill style={{ background: "#1C1A22" }}>
-      <ShotTrack shots={ep.shots} total={ep.end && (ep.end.type === "comment" || ep.end.img) ? sec(ep.end.at) : total} src={ep.imgSize} rigs={ep.rigs} />
+      <AbsoluteFill style={{ transform: slide ? `translateY(${slide}px)` : undefined }}>
+        <ShotTrack shots={ep.shots} total={cardBg ? sec(end!.at) : total} src={ep.imgSize} rigs={ep.rigs} />
+      </AbsoluteFill>
       {(ep.inserts ?? []).map((ins, i) => (
         <Polaroid key={i} ins={ins} />
       ))}
@@ -29,7 +36,7 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
         <Phone key={i} p={p} />
       ))}
       {ep.vote && <VoteResult vote={ep.vote} />}
-      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} />
+      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : undefined} />
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}
       <Sfx ep={ep} words={words} />
