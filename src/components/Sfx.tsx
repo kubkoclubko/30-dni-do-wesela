@@ -27,6 +27,7 @@ const useLib = (): Lib => {
 
 // All cues come from the episode data itself; ep.sfx adds manual ones (e.g. the door when mama comes in).
 export const cues = (ep: Episode, words: Word[]): { at: number; name: string }[] => {
+  if (ep.autoSfx === false) return (ep.sfx ?? []).map((s) => ({ at: sec(s.at), name: s.name })).filter((x) => x.at >= 0);
   const c: { at: number; name: string }[] = [{ at: 0, name: "pop" }];
   if (ep.day >= 2) c.push({ at: HUD_FLIP_AT, name: "pop" });
   if (ep.vote) c.push({ at: VOTE_STAMP_AT, name: "pop" });

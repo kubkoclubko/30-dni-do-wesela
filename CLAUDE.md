@@ -72,8 +72,14 @@ out/                    renders (gitignored)
 8. Music is now part of the main render (`"music": true` in the episode): our own piano theme from `scripts/make_music.py`, synthesised in numpy because fluidsynth isn't installed. Ducked −20 dB under the voice, full volume once the voice ends, 2 s fade-out.
 9. Tooling gotchas: Python under Git Bash can't open `/tmp/...` paths (use a project path). Node 26 runs `.ts` directly (`node scripts/check_cam.ts`). `gh` isn't logged in, so a new repo is created on github.com and pushed with plain git.
 
+## Learnings (ep03, 2026-11-13)
+10. Python on this machine (user novyn) is only `py` (the `python` alias is the Store stub). Real-ESRGAN is in `~/tools/realesrgan`; Pillow had to be installed (`py -m pip install pillow`). `r.sh` falls back to `py` for the QA step.
+11. New contract fields: `intro` (follower count-up with confetti + Instagram comment card with stamp), `shot.free` (big eased in-out zoom, exempt from the 1.08 cap and speed limit, e.g. 1.0 -> 2.0 hook), `shot.flash` / `transition: "flash"`, layer `hair`, `msg.fresh` (normal photo in chat), `phone.punch` (zoom onto the header name), `autoSfx: false` (only the manual cues, to keep SFX <= 5).
+12. A changed voice opening is spliced in silence (new clip to end of speech + 70 ms, old voice from 30 ms before the next word), then every time >= the splice shifts by the difference; keep the original as `voice_v1.mp3`. The render comes out ~-18 LUFS, so the final gets a two-pass `loudnorm` (I -15, TP -1.5) with the video stream copied.
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
-- Next: ep03 (day 3, `daysLeft` 28). Opening `vote` = result from ep02. The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- ep03 is done (2026-11-13): `out/ep03.mp4` (46.3 s, local only), see `LOG.md`.
+- Next: ep04 (day 4, `daysLeft` 27). Earlier note for ep03: Opening `vote` = result from ep02. The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.

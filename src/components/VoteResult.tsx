@@ -57,13 +57,13 @@ const Spark: React.FC<{ a: number; p: number }> = ({ a, p }) => {
   );
 };
 
-const Stamp: React.FC<{ text: string; f: number }> = ({ text, f }) => {
-  const g = f - VOTE_STAMP_AT;
+export const Stamp: React.FC<{ text: string; f: number; at?: number; left?: number; top?: number }> = ({ text, f, at = VOTE_STAMP_AT, left = 574, top = 398 }) => {
+  const g = f - at;
   if (g < 0) return null;
   const s = spring({ frame: g, fps: FPS, config: { damping: 9, stiffness: 260, mass: 0.6 } });
   const sp = Math.min(1, g / 16);
   return (
-    <div style={{ position: "absolute", left: 574, top: 398, width: 0, height: 0 }}>
+    <div style={{ position: "absolute", left, top, width: 0, height: 0 }}>
       {g < 16 && Array.from({ length: 9 }, (_, i) => <Spark key={i} a={(i / 9) * Math.PI * 2 + 0.3} p={sp} />)}
       <div
         style={{

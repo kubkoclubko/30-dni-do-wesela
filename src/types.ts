@@ -2,7 +2,7 @@
 // Image coordinates ([x, y]) are fractions 0..1 of the source image (source ideally 2160x3840, 9:16).
 
 export type Move = "push" | "pull" | "panX" | "tiltDown" | "dutch" | "bounce" | "static";
-export type Layer = "blink" | "flies" | "stink" | "steam" | "breath" | "vapor";
+export type Layer = "blink" | "flies" | "stink" | "steam" | "breath" | "vapor" | "hair"; // hair: cut strands flying across the frame, on top
 
 export type Shot = {
   at: number; // start (cut on a sentence/clause start); lasts until the next shot
@@ -18,7 +18,9 @@ export type Shot = {
   layers?: Layer[];
   head?: [number, number]; // where flies circle (default [0.5, 0.35])
   body?: [number, number]; // where stink/steam rises (default [0.5, 0.55])
-  transition?: "cut" | "whip"; // into this shot, default "cut"
+  transition?: "cut" | "whip" | "flash"; // into this shot, default "cut"; flash = white flash fading out over 10 frames
+  flash?: number; // absolute time of a camera-flash (white frame, 8 frames)
+  free?: boolean; // big deliberate zoom: zoom -> zoomTo eased in-out over the shot, no x1.08 cap / speed limit
   seed?: number; // varies blinks/flies, default the shot index
   blinkBox?: [number, number, number, number]; // eye region [x0, y0, x1, y1] in source px; only it is taken from _blink
   lids?: [number, number, number, number][]; // painted blink (no _blink image): eye ellipses cx, cy, rx, ry (fractions), rigged shots only
@@ -48,9 +50,10 @@ export type ChatMsg = {
   img?: string;
   typing?: number; // seconds of "…" before the message appears
   crop?: [number, number, number]; // img: crop centre x, y and zoom (shown as an old faded photo)
+  fresh?: boolean; // crop shown as a normal new photo (no fade, no border)
 };
 export type Draft = { at: number; text: string; type?: number; hold?: number; del?: number }; // text typed into the input field, then deleted (s)
-export type Phone = { at: number; until: number; name: string; subtitle?: string; messages: ChatMsg[]; drafts?: Draft[]; shake?: number; y?: number; scale?: number };
+export type Phone = { at: number; until: number; name: string; subtitle?: string; messages: ChatMsg[]; drafts?: Draft[]; shake?: number; y?: number; scale?: number; punch?: number }; // punch: zoom onto the header name (abs s)
 
 export type ChoiceEnd = {
   type: "choice";
@@ -92,6 +95,14 @@ export type Episode = {
   rigs?: Record<string, Rig>; // keyed by image path; shots of that image get breathing + nods
   music?: boolean; // public/shared/music.mp3 under the whole episode (ducked under the voice)
   sfx?: { at: number; name: string }[]; // manual cues on top of the automatic ones (e.g. "door")
+  autoSfx?: boolean; // false = only the manual ep.sfx cues (no automatic pops/blips/slide)
+  intro?: Intro;
+};
+
+// Opening overlays (day 3+): a follower milestone with confetti, then the winning comment as an Instagram card.
+export type Intro = {
+  followers?: { at: number; until: number; count: number; label: string; sub?: string }; // "1 000" counts up from 0
+  comment?: { at: number; until: number; user: string; text: string; likes: number; stamp?: string; stampAt?: number };
 };
 
 // Character rig for image warps (fractions of the source image). Masks: scripts/make_rig.py.

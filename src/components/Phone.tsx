@@ -1,4 +1,4 @@
-import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { C, FONT, FPS, sec } from "../theme";
 import type { ChatMsg, Draft, Phone as PhoneT } from "../types";
 
@@ -40,24 +40,24 @@ const Bubble: React.FC<{ m: ChatMsg; f: number }> = ({ m, f }) => {
           opacity: Math.min(1, s * 2),
         }}
       >
-        {typing ? <Typing f={f} /> : m.img && m.crop ? <OldPhoto img={m.img} crop={m.crop} /> : m.img ? <Img src={staticFile(m.img)} style={{ width: 360, borderRadius: 8, display: "block" }} /> : m.text}
+        {typing ? <Typing f={f} /> : m.img && m.crop ? <OldPhoto img={m.img} crop={m.crop} fresh={m.fresh} /> : m.img ? <Img src={staticFile(m.img)} style={{ width: 360, borderRadius: 8, display: "block" }} /> : m.text}
       </div>
     </div>
   );
 };
 
 // A crop of a 9:16 picture shown as an old, faded print (white border, warm tint).
-const OldPhoto: React.FC<{ img: string; crop: [number, number, number] }> = ({ img, crop }) => {
+const OldPhoto: React.FC<{ img: string; crop: [number, number, number]; fresh?: boolean }> = ({ img, crop, fresh }) => {
   const [fx, fy, z] = crop;
   const cw = 360;
   const ch = 300;
   const iw = cw * z;
   const ih = iw * (16 / 9);
   return (
-    <div style={{ background: "#FBF6EA", padding: "10px 10px 26px", transform: "rotate(-2deg)", boxShadow: "0 3px 6px rgba(0,0,0,0.25)" }}>
-      <div style={{ position: "relative", width: cw, height: ch, overflow: "hidden" }}>
-        <Img src={staticFile(img)} style={{ position: "absolute", width: iw, height: ih, left: cw / 2 - fx * iw, top: ch / 2 - fy * ih, filter: "sepia(0.45) saturate(0.8) contrast(0.95) brightness(1.05)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 55%, rgba(90,60,20,0.35))" }} />
+    <div style={fresh ? { borderRadius: 14, overflow: "hidden" } : { background: "#FBF6EA", padding: "10px 10px 26px", transform: "rotate(-2deg)", boxShadow: "0 3px 6px rgba(0,0,0,0.25)" }}>
+      <div style={{ position: "relative", width: cw, height: fresh ? 400 : ch, overflow: "hidden" }}>
+        <Img src={staticFile(img)} style={{ position: "absolute", width: iw, height: ih, left: cw / 2 - fx * iw, top: (fresh ? 400 : ch) / 2 - fy * ih, filter: fresh ? undefined : "sepia(0.45) saturate(0.8) contrast(0.95) brightness(1.05)" }} />
+        {!fresh && <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 55%, rgba(90,60,20,0.35))" }} />}
       </div>
     </div>
   );
@@ -94,6 +94,9 @@ export const Phone: React.FC<{ p: PhoneT }> = ({ p }) => {
   const sc = p.scale ?? 1;
   const cy = p.y ?? 960;
   const draft = draftText(p.drafts, f / FPS);
+  // punch: fast zoom (4 f) onto the header name, held ~1 s, eased back over 10 f
+  const pk = p.punch !== undefined ? f - sec(p.punch) : -1;
+  const pz = pk < 0 ? 0 : pk < 4 ? Easing.out(Easing.cubic)(pk / 4) : pk < 34 ? 1 : Math.max(0, 1 - Easing.inOut(Easing.cubic)((pk - 34) / 10));
   return (
     <AbsoluteFill>
       <div
@@ -108,7 +111,8 @@ export const Phone: React.FC<{ p: PhoneT }> = ({ p }) => {
           background: C.ink,
           padding: 16,
           boxShadow: "0 30px 60px rgba(0,0,0,0.5)",
-          transform: `translateX(${bx}px) scale(${sc * interpolate(s, [0, 1], [0.8, 1]) * interpolate(out, [0, 1], [0.9, 1])}) rotate(${interpolate(s, [0, 1], [-8, 0]) + br}deg)`,
+          transformOrigin: pz > 0 ? "32% 7%" : undefined,
+          transform: `translateX(${bx}px) scale(${sc * (1 + 0.45 * pz) * interpolate(s, [0, 1], [0.8, 1]) * interpolate(out, [0, 1], [0.9, 1])}) rotate(${interpolate(s, [0, 1], [-8, 0]) + br}deg)`,
           opacity: Math.min(1, s * 3) * out,
         }}
       >

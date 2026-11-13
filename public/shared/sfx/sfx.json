@@ -1,10 +1,12 @@
 {
-  "pop": { "file": "pop.wav", "db": -6.5 },
-  "blip": { "file": "blip.wav", "db": -11 },
-  "whoosh": { "file": "whoosh.wav", "db": -6.5 },
-  "slide": { "file": "slide.wav", "db": -11.5 },
-  "door": { "file": "door.wav", "db": -7 },
-  "water": { "file": "water.wav", "db": -27 },
-  "gurgle": { "file": "gurgle.wav", "db": -9 },
-  "buzz": { "file": "buzz.wav", "db": -12 }
+  "pop": {"file": "pop.wav", "db": -6.5},
+  "blip": {"file": "blip.wav", "db": -11},
+  "whoosh": {"file": "whoosh.wav", "db": -6.5},
+  "slide": {"file": "slide.wav", "db": -11.5},
+  "door": {"file": "door.wav", "db": -7},
+  "water": {"file": "water.wav", "db": -27},
+  "gurgle": {"file": "gurgle.wav", "db": -9},
+  "buzz": {"file": "buzz.wav", "db": -12},
+  "haircut": {"file": "haircut.wav", "db": -13},
+  "shutter": {"file": "shutter.wav", "db": -9}
 }

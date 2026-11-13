@@ -5,6 +5,7 @@ import { Music, Sfx } from "./components/Sfx";
 import { ChoiceCard } from "./components/ChoiceCard";
 import { CommentCard } from "./components/CommentCard";
 import { Hud } from "./components/Hud";
+import { Intro } from "./components/Intro";
 import { Phone, isPhoneOn } from "./components/Phone";
 import { Polaroid, ShotTrack } from "./components/Shot";
 import { VoteResult } from "./components/VoteResult";
@@ -36,6 +37,7 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
         <Phone key={i} p={p} />
       ))}
       {ep.vote && <VoteResult vote={ep.vote} />}
+      {ep.intro && <Intro intro={ep.intro} />}
       <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : undefined} />
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}

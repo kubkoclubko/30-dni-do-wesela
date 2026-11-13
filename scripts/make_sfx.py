@@ -34,3 +34,19 @@ motor = np.sign(np.sin(2 * np.pi * 170 * t + 0.4 * np.sin(2 * np.pi * 9 * t))) *
 env = ((t < 0.22) | ((t > 0.36) & (t < 0.58))).astype(float)
 env = np.convolve(env, np.ones(240) / 240, "same")
 save("buzz", lp(motor * env, 0.6))
+# haircut (ep03): 2.4 s of scissor snips (two metal clicks each) over a hair-clipper hum (~120 Hz, rich harmonics)
+n = int(2.4 * SR); t = np.arange(n) / SR
+hum = sum(np.sin(2 * np.pi * 120 * k * t + k) / k for k in range(1, 9)) * (0.55 + 0.1 * np.sin(2 * np.pi * 3 * t))
+hum *= np.clip((t - 0.9) / 0.15, 0, 1) * 0.5
+x = hum + lp(rng.standard_normal(n), 0.3) * 0.04 * (t > 0.9)
+for k in [0.05, 0.3, 0.52, 0.78, 1.6, 1.95, 2.2]:
+    for d, g in [(0, 1.0), (0.045, 0.7)]:
+        i = int((k + d) * SR); L = int(0.035 * SR); tt = np.arange(L) / SR
+        x[i:i + L] += g * (np.sin(2 * np.pi * 3800 * tt) + 0.6 * np.sin(2 * np.pi * 6100 * tt) + rng.standard_normal(L) * 0.5) * np.exp(-tt * 160)
+save("haircut", fade(x, 0.005, 0.3))
+# shutter (ep03): camera shutter, two quick clicks + a short noise burst
+n = int(0.28 * SR); t = np.arange(n) / SR; x = np.zeros(n)
+for k, g in [(0.0, 1.0), (0.09, 0.8)]:
+    i = int(k * SR); L = int(0.05 * SR); tt = np.arange(L) / SR
+    x[i:i + L] += g * (rng.standard_normal(L) * 0.8 + np.sin(2 * np.pi * 2500 * tt)) * np.exp(-tt * 90)
+save("shutter", lp(x, 0.2))

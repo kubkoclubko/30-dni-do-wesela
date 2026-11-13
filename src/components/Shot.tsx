@@ -71,6 +71,9 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
         {L.includes("flies") && <Flies f={f} seed={seed} head={head} w={w} h={h} />}
       </div>
       {L.includes("vapor") && <Vapor t={t} />}
+      {L.includes("hair") && <Hair t={t} />}
+      {shot.transition === "flash" && f < 10 && <AbsoluteFill style={{ background: "#fff", opacity: 1 - f / 10 }} />}
+      {shot.flash !== undefined && t >= shot.flash && t < shot.flash + 8 / FPS && <AbsoluteFill style={{ background: "#fff", opacity: 1 - ((t - shot.flash) * FPS) / 8 }} />}
     </AbsoluteFill>
   );
 };
@@ -104,6 +107,30 @@ const Fog: React.FC<{ fog: NonNullable<Shot["fog"]>; t: number }> = ({ fog, t })
 };
 
 // Shower vapour over the whole frame: big soft white puffs drifting slowly upward (screen space, ~6 s cycle).
+// Cut hair: dark curly strands flung across the frame (on top of the picture, outside the camera box).
+const Hair: React.FC<{ t: number }> = ({ t }) => (
+  <AbsoluteFill style={{ pointerEvents: "none" }}>
+    {Array.from({ length: 16 }, (_, i) => {
+      const r = (k: string) => random(`hair${i}${k}`);
+      const per = 0.7 + r("p") * 0.6;
+      const ph = ((t + r("o") * per) % per) / per;
+      const fromL = r("d") < 0.5;
+      const x = fromL ? -300 + ph * 1700 : 1380 - ph * 1700;
+      const y = 200 + r("y") * 1500 + (ph - 0.5) * (r("v") - 0.5) * 900 + ph * ph * 300;
+      const size = 90 + r("s") * 220;
+      const rot = r("r") * 360 + ph * (fromL ? 540 : -540);
+      const k = 30 + r("c") * 40;
+      return (
+        <svg key={i} width={size} height={size} viewBox="0 0 100 100" style={{ position: "absolute", left: x, top: y, transform: `rotate(${rot}deg)`, filter: "blur(1px)", opacity: 0.92 }}>
+          <path d={`M5 50 C 25 ${50 - k}, 40 ${50 + k}, 55 50 S 85 ${50 - k}, 95 ${45 + k / 3}`} stroke="#2A1E16" strokeWidth={4} fill="none" strokeLinecap="round" />
+          <path d={`M10 58 C 30 ${58 - k / 2}, 48 ${58 + k / 2}, 70 56 S 88 ${50 - k / 2}, 96 60`} stroke="#3B2A1E" strokeWidth={3} fill="none" strokeLinecap="round" />
+          <path d={`M15 44 C 35 ${44 + k / 2}, 55 ${44 - k / 2}, 80 42`} stroke="#1C140F" strokeWidth={3} fill="none" strokeLinecap="round" />
+        </svg>
+      );
+    })}
+  </AbsoluteFill>
+);
+
 const Vapor: React.FC<{ t: number }> = ({ t }) => (
   <AbsoluteFill style={{ pointerEvents: "none" }}>
     {Array.from({ length: 7 }, (_, i) => {

@@ -5,7 +5,7 @@ import type { Shot } from "./types";
 // Rules: every move eases in (bezier 0.45,0,0.55,1) but never eases out, so it is still moving at the cut;
 // a push is at most x1.08 per shot; consecutive shots of the same image continue from where the previous one
 // ended (no jump); every planned move is scaled down until no image point moves more than MAX_JUMP px per frame.
-// Exempt (deliberate): punch, shake, keys (fast re-frame with motion blur), whip.
+// Exempt (deliberate): punch, shake, keys (fast re-frame with motion blur), whip, shots with free: true (hook zoom).
 
 export const W = 1080;
 export const H = 1920;
@@ -16,7 +16,7 @@ const STRETCH = 1.6; // the ease curve is laid over 1.6x the shot, so at the cut
 const ease = (p: number) => E(Math.min(1, p / STRETCH)) / E(1 / STRETCH);
 
 type St = { z: number; fx: number; fy: number };
-export type Plan = { a: number; b: number; s0: St; s1: St; cont: boolean; rot: number };
+export type Plan = { a: number; b: number; s0: St; s1: St; cont: boolean; rot: number; free?: boolean };
 export type Cam = { z: number; fx: number; fy: number; rot: number; dx: number; dy: number; left: number; top: number; w: number; h: number; fast: number };
 
 const lerp = (a: St, b: St, k: number): St => ({ z: a.z + (b.z - a.z) * k, fx: a.fx + (b.fx - a.fx) * k, fy: a.fy + (b.fy - a.fy) * k });
@@ -40,12 +40,13 @@ export const jump = (a: St, b: St) => {
   return m;
 };
 
-const stateAt = (p: Plan, f: number) => lerp(p.s0, p.s1, p.cont ? f / Math.max(1, p.b - p.a) : ease(f / Math.max(1, p.b - p.a)));
+const IO = Easing.inOut(Easing.cubic);
+const stateAt = (p: Plan, f: number) => lerp(p.s0, p.s1, p.free ? IO(Math.min(1, f / Math.max(1, p.b - p.a))) : p.cont ? f / Math.max(1, p.b - p.a) : ease(f / Math.max(1, p.b - p.a)));
 
 const target = (s: Shot, s0: St): { s1: St; rot: number } => {
   const move = s.move ?? "push";
   const [fx, fy] = s.focus ?? [s0.fx, s0.fy];
-  const cap = (z: number) => Math.min(z, s0.z * 1.08);
+  const cap = (z: number) => (s.free ? z : Math.min(z, s0.z * 1.08));
   switch (move) {
     case "pull":
       return { s1: { z: s0.z / 1.08, fx, fy }, rot: 0 };
@@ -81,9 +82,9 @@ export const planCamera = (shots: Shot[], total: number): Plan[] => {
       s0 = move === "pull" || move === "bounce" ? { z: z * 1.08, fx, fy } : { z, fx, fy };
     }
     const t = target(s, s0);
-    const plan: Plan = { a, b, s0, s1: t.s1, cont, rot: t.rot };
+    const plan: Plan = { a, b, s0, s1: t.s1, cont, rot: t.rot, free: s.free };
     // speed limit: scale the move until the worst frame-to-frame jump is under MAX_JUMP
-    for (let it = 0; it < 4; it++) {
+    for (let it = 0; it < (s.free ? 0 : 4); it++) {
       let worst = 0;
       for (let f = 0; f < b - a; f++) worst = Math.max(worst, jump(stateAt(plan, f), stateAt(plan, f + 1)));
       if (worst <= MAX_JUMP) break;
