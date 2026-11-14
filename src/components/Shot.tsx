@@ -69,9 +69,12 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
         {L.includes("stink") && <Wisps f={f} at={body} w={w} h={h} kind="stink" />}
         {L.includes("steam") && <Wisps f={f} at={body} w={w} h={h} kind="steam" />}
         {L.includes("flies") && <Flies f={f} seed={seed} head={head} w={w} h={h} />}
+        {(shot.sparkle ?? []).map((g, i) => <Sparkle key={i} g={g} t={t} w={w} h={h} />)}
+        {shot.tag && <Tag tag={shot.tag} t={t} w={w} h={h} />}
       </div>
       {L.includes("vapor") && <Vapor t={t} />}
       {L.includes("hair") && <Hair t={t} />}
+      {L.includes("buttons") && <Buttons t={t - (shot.punch ?? shot.at)} />}
       {shot.transition === "flash" && f < 10 && <AbsoluteFill style={{ background: "#fff", opacity: 1 - f / 10 }} />}
       {shot.flash !== undefined && t >= shot.flash && t < shot.flash + 8 / FPS && <AbsoluteFill style={{ background: "#fff", opacity: 1 - ((t - shot.flash) * FPS) / 8 }} />}
     </AbsoluteFill>
@@ -130,6 +133,64 @@ const Hair: React.FC<{ t: number }> = ({ t }) => (
     })}
   </AbsoluteFill>
 );
+
+// Shirt buttons: two bursts from the frame centre at t = 0 and 0.35 s, spinning outward with gravity (screen space).
+const Buttons: React.FC<{ t: number }> = ({ t }) => (
+  <AbsoluteFill style={{ pointerEvents: "none" }}>
+    {Array.from({ length: 14 }, (_, i) => {
+      const r = (k: string) => random(`btn${i}${k}`);
+      const tt = t - (i % 2) * 0.35 - r("d") * 0.08;
+      if (tt < 0 || tt > 1.6) return null;
+      const a = r("a") * Math.PI * 2;
+      const v = 1400 + r("v") * 1200;
+      const x = 540 + Math.cos(a) * v * tt;
+      const y = 900 + Math.sin(a) * v * tt + 1600 * tt * tt;
+      const size = 70 + r("s") * 60;
+      const rot = r("r") * 360 + tt * (r("w") < 0.5 ? -900 : 900);
+      return (
+        <svg key={i} width={size} height={size} viewBox="-50 -50 100 100" style={{ position: "absolute", left: x - size / 2, top: y - size / 2, transform: `rotate(${rot}deg) scaleX(${Math.cos(tt * 9 + i).toFixed(3)})` }}>
+          <circle r={44} fill="#3A3330" stroke="#15110F" strokeWidth={7} />
+          <circle r={30} fill="none" stroke="#5B514C" strokeWidth={4} />
+          {[[-11, -11], [11, -11], [-11, 11], [11, 11]].map(([cx, cy], k) => <circle key={k} cx={cx} cy={cy} r={6} fill="#15110F" />)}
+        </svg>
+      );
+    })}
+  </AbsoluteFill>
+);
+
+// Glint: a white 4-point star scaling up with a quarter turn, then fading (0.7 s), plus two small twinkles.
+const Sparkle: React.FC<{ g: { at: number; pos: [number, number] }; t: number; w: number; h: number }> = ({ g, t, w, h }) => {
+  const p = (t - g.at) / 0.7;
+  if (p < 0 || p >= 1) return null;
+  const star = (dx: number, dy: number, size: number, q: number, k: number) => {
+    if (q <= 0 || q >= 1) return null;
+    const s = Math.sin(q * Math.PI);
+    return (
+      <svg key={k} width={size} height={size} viewBox="-50 -50 100 100" style={{ position: "absolute", left: g.pos[0] * w + dx - size / 2, top: g.pos[1] * h + dy - size / 2, transform: `scale(${s.toFixed(3)}) rotate(${(q * 90).toFixed(1)}deg)`, filter: "drop-shadow(0 0 12px rgba(255,240,170,0.95))" }}>
+        <path d="M0 -50 Q6 -6 50 0 Q6 6 0 50 Q-6 6 -50 0 Q-6 -6 0 -50 Z" fill="#FFFDF2" />
+      </svg>
+    );
+  };
+  return (
+    <>
+      {star(0, 0, w * 0.16, p, 0)}
+      {star(w * 0.07, -h * 0.03, w * 0.06, p * 1.4 - 0.2, 1)}
+      {star(-w * 0.05, h * 0.04, w * 0.05, p * 1.5 - 0.45, 2)}
+    </>
+  );
+};
+
+// Sticker label on the picture: springs in with a tilt at `at`, then stays.
+const Tag: React.FC<{ tag: NonNullable<Shot["tag"]>; t: number; w: number; h: number }> = ({ tag, t, w, h }) => {
+  const g = Math.round((t - tag.at) * FPS);
+  if (g < 0) return null;
+  const s = spring({ frame: g, fps: FPS, config: { damping: 9, stiffness: 240, mass: 0.6 } });
+  return (
+    <div style={{ position: "absolute", left: tag.pos[0] * w, top: tag.pos[1] * h, transform: `translate(-50%, -50%) rotate(-7deg) scale(${(s * w) / 2400})`, transformOrigin: "50% 50%", padding: "10px 30px", background: C.gold, border: `6px solid ${C.ink}`, borderRadius: 18, fontFamily: FONT, fontWeight: 900, fontSize: 84, color: C.ink, whiteSpace: "nowrap", boxShadow: "0 8px 0 rgba(0,0,0,0.35)" }}>
+      {tag.text}
+    </div>
+  );
+};
 
 const Vapor: React.FC<{ t: number }> = ({ t }) => (
   <AbsoluteFill style={{ pointerEvents: "none" }}>

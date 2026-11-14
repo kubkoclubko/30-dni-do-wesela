@@ -77,9 +77,15 @@ out/                    renders (gitignored)
 11. New contract fields: `intro` (follower count-up with confetti + Instagram comment card with stamp), `shot.free` (big eased in-out zoom, exempt from the 1.08 cap and speed limit, e.g. 1.0 -> 2.0 hook), `shot.flash` / `transition: "flash"`, layer `hair`, `msg.fresh` (normal photo in chat), `phone.punch` (zoom onto the header name), `autoSfx: false` (only the manual cues, to keep SFX <= 5).
 12. A changed voice opening is spliced in silence (new clip to end of speech + 70 ms, old voice from 30 ms before the next word), then every time >= the splice shifts by the difference; keep the original as `voice_v1.mp3`. The render comes out ~-18 LUFS, so the final gets a two-pass `loudnorm` (I -15, TP -1.5) with the video stream copied.
 
+## Learnings (ep04, 2026-11-14)
+13. Multiple `keys` in one shot compound their zoom: each key multiplies by `zoom / shot.zoom`. For a second key with a net target Z after a first key K, write `zoom = Z / K * shot.zoom` (e.g. 1.6 -> 1.8 -> net 1.5 needs 1.333).
+14. A shot driven only by `keys` should be `move: "static"`: the default push adds to the key moves and `check_cam.ts` fails (2.02 px on s25).
+15. Generate the episode JSON from a small Python script (`scripts/mk_ep04.py`): lids, skin and rigs are shared per image, so one table replaces 20 repeated blocks. New contract fields this time: layer `buttons` (burst at `shot.punch`), `shot.sparkle`, `shot.tag`, emoji icons on the ChoiceCard.
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
 - ep03 is done (2026-11-13): `out/ep03.mp4` (46.3 s, local only), see `LOG.md`.
-- Next: ep04 (day 4, `daysLeft` 27). Earlier note for ep03: Opening `vote` = result from ep02. The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- ep04 is done (2026-11-14): `out/ep04.mp4` (47.35 s, local only), see `LOG.md`.
+- Next: ep05 (day 5, `daysLeft` 26). The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.

@@ -1,4 +1,4 @@
-# usage: python scripts/make_sfx.py   -> public/shared/sfx/{water,gurgle,buzz}.wav (48 kHz mono, synthesised in numpy,
+# usage: python scripts/make_sfx.py   -> public/shared/sfx/{water,gurgle,buzz,haircut,shutter,ping,cling}.wav (48 kHz mono, synthesised in numpy,
 # our own sounds, free for commercial use). Levels are set in public/shared/sfx/sfx.json.
 import wave
 import numpy as np
@@ -50,3 +50,15 @@ for k, g in [(0.0, 1.0), (0.09, 0.8)]:
     i = int(k * SR); L = int(0.05 * SR); tt = np.arange(L) / SR
     x[i:i + L] += g * (rng.standard_normal(L) * 0.8 + np.sin(2 * np.pi * 2500 * tt)) * np.exp(-tt * 90)
 save("shutter", lp(x, 0.2))
+# ping (ep04): buttons flying off, three bright metallic ticks with a short ring
+n = int(0.5 * SR); t = np.arange(n) / SR; x = np.zeros(n)
+for k, f0, g in [(0.0, 2650, 1.0), (0.07, 3150, 0.7), (0.15, 2350, 0.55)]:
+    i = int(k * SR); tt = t[: n - i]
+    x[i:] += g * (np.sin(2 * np.pi * f0 * tt) + 0.4 * np.sin(2 * np.pi * f0 * 2.76 * tt)) * np.exp(-tt * 22)
+save("ping", fade(x, 0.002, 0.08))
+# cling (ep04): glint on the new outfit, a soft bell chord rising, with shimmer
+n = int(1.1 * SR); t = np.arange(n) / SR; x = np.zeros(n)
+for k, f0 in enumerate([1568, 2093, 2637, 3136]):
+    i = int(k * 0.05 * SR); tt = t[: n - i]
+    x[i:] += (np.sin(2 * np.pi * f0 * tt) + 0.25 * np.sin(2 * np.pi * f0 * 3 * tt)) * np.exp(-tt * 5) * (0.9 - 0.12 * k)
+save("cling", fade(x, 0.003, 0.2))

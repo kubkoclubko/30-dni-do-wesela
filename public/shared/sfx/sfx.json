@@ -8,5 +8,7 @@
   "gurgle": {"file": "gurgle.wav", "db": -9},
   "buzz": {"file": "buzz.wav", "db": -12},
   "haircut": {"file": "haircut.wav", "db": -13},
-  "shutter": {"file": "shutter.wav", "db": -9}
+  "shutter": {"file": "shutter.wav", "db": -9},
+  "ping": {"file": "ping.wav", "db": -14},
+  "cling": {"file": "cling.wav", "db": -15}
 }

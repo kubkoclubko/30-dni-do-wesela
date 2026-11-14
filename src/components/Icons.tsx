@@ -2,7 +2,7 @@ import { Img, staticFile } from "remotion";
 import { C } from "../theme";
 
 // Line-art icons (blue-grey + mustard) for ChoiceCard. Add new ones here once; episodes refer to them by name,
-// or pass an .svg/.png path under public/ instead.
+// or pass an .svg/.png path under public/ instead, or an emoji ("🪒").
 const S = { fill: "none", strokeWidth: 7, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 const ICONS: Record<string, React.ReactNode> = {
   shower: (
@@ -27,6 +27,8 @@ const ICONS: Record<string, React.ReactNode> = {
 export const Icon: React.FC<{ name: string; size: number }> = ({ name, size }) =>
   /\.(svg|png|jpe?g|webp)$/i.test(name) ? (
     <Img src={staticFile(name)} style={{ width: size, height: size, objectFit: "contain" }} />
+  ) : !ICONS[name] && /\p{Extended_Pictographic}/u.test(name) ? (
+    <div style={{ width: size, height: size, fontSize: size * 0.78, lineHeight: `${size}px`, textAlign: "center" }}>{name}</div>
   ) : (
     <svg width={size} height={size} viewBox="0 0 150 150">
       {ICONS[name] ?? <circle cx={75} cy={75} r={50} stroke={C.lineBlue} {...S} />}

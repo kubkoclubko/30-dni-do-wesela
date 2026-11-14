@@ -2,7 +2,7 @@
 // Image coordinates ([x, y]) are fractions 0..1 of the source image (source ideally 2160x3840, 9:16).
 
 export type Move = "push" | "pull" | "panX" | "tiltDown" | "dutch" | "bounce" | "static";
-export type Layer = "blink" | "flies" | "stink" | "steam" | "breath" | "vapor" | "hair"; // hair: cut strands flying across the frame, on top
+export type Layer = "blink" | "flies" | "stink" | "steam" | "breath" | "vapor" | "hair" | "buttons"; // hair: cut strands flying across the frame, on top; buttons: burst at shot.punch (or shot start)
 
 export type Shot = {
   at: number; // start (cut on a sentence/clause start); lasts until the next shot
@@ -29,6 +29,8 @@ export type Shot = {
   spin?: [number, number]; // rotation in deg from shot start to end, around the frame centre (overscan added automatically)
   clip?: { src: string; at: number; from: number; until: number }; // muted video over the image from `at` to `until` (absolute s), starting at clip time `from`
   fog?: { box: [number, number, number, number]; wipe: number }; // misted region x0,y0,x1,y1 (fractions), wiped left->right in 15 frames at `wipe` (absolute s)
+  sparkle?: { at: number; pos: [number, number] }[]; // 4-point glint on the picture (image fractions), 0.7 s from `at` (abs s)
+  tag?: { at: number; text: string; pos: [number, number] }; // sticker label popping in on the picture (e.g. "200 zł"), stays to the end of the shot
 };
 
 export type Insert = {
