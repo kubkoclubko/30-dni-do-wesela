@@ -62,3 +62,15 @@ for k, f0 in enumerate([1568, 2093, 2637, 3136]):
     i = int(k * 0.05 * SR); tt = t[: n - i]
     x[i:] += (np.sin(2 * np.pi * f0 * tt) + 0.25 * np.sin(2 * np.pi * f0 * 3 * tt)) * np.exp(-tt * 5) * (0.9 - 0.12 * k)
 save("cling", fade(x, 0.003, 0.2))
+# tick: ~2.2 s of clock ticks speeding up (timelapse), alternating tick/tock pitch
+n = int(2.2 * SR); x = np.zeros(n); k = 0.0; j = 0
+while k < 2.1:
+    i = int(k * SR); L = int(0.025 * SR); tt = np.arange(L) / SR; f0 = 3400 if j % 2 == 0 else 2700
+    x[i:i + L] += (np.sin(2 * np.pi * f0 * tt) + 0.5 * rng.standard_normal(L)) * np.exp(-tt * 260)
+    k += max(0.06, 0.24 * (1 - k / 1.2)); j += 1
+save("tick", fade(x, 0.002, 0.15))
+# boing: cartoon spring, a low tone with a fast decaying pitch wobble
+n = int(0.75 * SR); t = np.arange(n) / SR
+fq = 150 + 260 * np.exp(-t * 7) * (1 + 0.55 * np.sin(2 * np.pi * 15 * t))
+x = np.sin(2 * np.pi * np.cumsum(fq) / SR) * np.exp(-t * 4.2)
+save("boing", fade(x, 0.003, 0.1))

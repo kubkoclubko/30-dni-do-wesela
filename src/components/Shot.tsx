@@ -71,6 +71,9 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
         {L.includes("flies") && <Flies f={f} seed={seed} head={head} w={w} h={h} />}
         {(shot.sparkle ?? []).map((g, i) => <Sparkle key={i} g={g} t={t} w={w} h={h} />)}
         {shot.tag && <Tag tag={shot.tag} t={t} w={w} h={h} />}
+        {(shot.clocks ?? []).map((c, i) => <Clock key={i} c={c} t={t - shot.at} t0={shot.at} w={w} h={h} />)}
+        {shot.blush && <Blush b={shot.blush} t={t} w={w} h={h} />}
+        {(shot.pops ?? []).map((p, i) => <Pop key={i} p={p} img={shot.img} t={t} w={w} h={h} />)}
       </div>
       {L.includes("vapor") && <Vapor t={t} />}
       {L.includes("hair") && <Hair t={t} />}
@@ -157,6 +160,50 @@ const Buttons: React.FC<{ t: number }> = ({ t }) => (
     })}
   </AbsoluteFill>
 );
+
+// Timelapse wall clock: the painted hands are covered by a face-coloured disc and redrawn spinning.
+const Clock: React.FC<{ c: NonNullable<Shot["clocks"]>[number]; t: number; t0: number; w: number; h: number }> = ({ c, t, t0, w, h }) => {
+  const run = Math.max(0, c.until !== undefined ? Math.min(t, c.until - t0) : t);
+  const m = run * (c.rps ?? 1.5) * 360 + 60;
+  const r = c.r * w;
+  const hand = (len: number, wd: number, deg: number) => (
+    <div style={{ position: "absolute", left: -wd / 2, top: -len, width: wd, height: len, background: "#2A2A2A", borderRadius: wd, transformOrigin: "50% 100%", transform: `rotate(${deg}deg)` }} />
+  );
+  return (
+    <div style={{ position: "absolute", left: c.pos[0] * w, top: c.pos[1] * h, width: 0, height: 0 }}>
+      <div style={{ position: "absolute", left: -r * 0.82, top: -r * 0.82, width: r * 1.64, height: r * 1.64, borderRadius: "50%", background: "radial-gradient(#E3E5DC 70%, rgba(222,224,215,0) 100%)" }} />
+      {hand(r * 0.5, r * 0.13, m / 12 + 300)}
+      {hand(r * 0.72, r * 0.09, m)}
+      <div style={{ position: "absolute", left: -r * 0.1, top: -r * 0.1, width: r * 0.2, height: r * 0.2, borderRadius: "50%", background: "#2A2A2A" }} />
+    </div>
+  );
+};
+
+// Pink cheeks: soft red ellipses fading in (multiply, so the line art stays).
+const Blush: React.FC<{ b: NonNullable<Shot["blush"]>; t: number; w: number; h: number }> = ({ b, t, w, h }) => {
+  const o = interpolate(t, [b.at, b.at + (b.dur ?? 0.8)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  if (o <= 0) return null;
+  const r = b.r * w;
+  return (
+    <>
+      {b.pos.map(([x, y], i) => (
+        <div key={i} style={{ position: "absolute", left: x * w - r, top: y * h - r * 0.7, width: r * 2, height: r * 1.4, borderRadius: "50%", background: "radial-gradient(rgba(240,70,90,0.55), rgba(240,70,90,0) 70%)", mixBlendMode: "multiply", opacity: o }} />
+      ))}
+    </>
+  );
+};
+
+// Icon pop: a round crop of the picture itself kicks 1 -> 1.3 -> 1 with a drop shadow (0.5 s).
+const Pop: React.FC<{ p: NonNullable<Shot["pops"]>[number]; img: string; t: number; w: number; h: number }> = ({ p, img, t, w, h }) => {
+  const q = (t - p.at) / 0.5;
+  if (q < 0 || q >= 1) return null;
+  const k = 1 + 0.3 * Math.sin(q * Math.PI) * (1 - q * 0.3);
+  const r = p.r * w;
+  const x = p.pos[0] * w, y = p.pos[1] * h;
+  return (
+    <div style={{ position: "absolute", left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: "50%", backgroundImage: `url(${staticFile(img)})`, backgroundSize: `${w}px ${h}px`, backgroundPosition: `${-(x - r)}px ${-(y - r)}px`, transform: `scale(${k.toFixed(3)})`, boxShadow: `0 ${r * 0.08}px ${r * 0.25}px rgba(0,0,0,${(0.45 * Math.sin(q * Math.PI)).toFixed(2)})` }} />
+  );
+};
 
 // Glint: a white 4-point star scaling up with a quarter turn, then fading (0.7 s), plus two small twinkles.
 const Sparkle: React.FC<{ g: { at: number; pos: [number, number] }; t: number; w: number; h: number }> = ({ g, t, w, h }) => {

@@ -1,4 +1,4 @@
-import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { C, FONT, FPS, sec } from "../theme";
 import type { ChoiceEnd } from "../types";
 import { Icon } from "./Icons";
@@ -41,6 +41,42 @@ const Card: React.FC<{ label: string; icon: string; x: number; t0: number; f: nu
   );
 };
 
+const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+// Follower goal under the cards: "count / goal LABEL" counting up while the bar fills, plus a pulsing follow button
+// with a bouncing arrow pointing at it.
+const Follow: React.FC<{ fo: NonNullable<ChoiceEnd["follow"]>; f: number }> = ({ fo, f }) => {
+  if (f < 0) return null;
+  const inn = spring({ frame: f, fps: FPS, config: { damping: 14, stiffness: 160 } });
+  const fill = interpolate(f, [6, 6 + sec(1.2)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const bf = f - sec(1.0);
+  const bs = spring({ frame: bf, fps: FPS, config: { damping: 9, stiffness: 200, mass: 0.6 } });
+  const pulse = 1 + 0.06 * Math.max(0, Math.sin((bf / FPS) * Math.PI * 2.4));
+  const arrow = 14 * Math.abs(Math.sin((bf / FPS) * Math.PI * 2.4));
+  const pct = (fo.count / fo.goal) * fill;
+  return (
+    <div style={{ position: "absolute", top: 1080, left: 60, right: 60, opacity: inn, transform: `translateY(${(1 - inn) * 40}px)` }}>
+      <div style={{ textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 44, color: C.cream, ...outline }}>
+        <span style={{ color: C.gold }}>{fmt(fo.count * fill)}</span> / {fmt(fo.goal)} {fo.label}
+      </div>
+      <div style={{ position: "relative", marginTop: 14, height: 46, borderRadius: 23, background: "rgba(20,18,24,0.75)", border: `5px solid ${C.ink}`, boxShadow: `0 0 0 3px ${C.cream}`, overflow: "hidden" }}>
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct * 100}%`, background: `linear-gradient(${C.gold}, #D08A2A)` }} />
+      </div>
+      {bs > 0.001 && (
+        <div style={{ position: "absolute", top: 150, left: 0, right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: 24 }}>
+          <svg width={110} height={70} viewBox="0 0 110 70" style={{ transform: `translateX(${arrow}px)`, opacity: bs }}>
+            <path d="M5 35 H75 M55 12 L82 35 L55 58" stroke={C.ink} strokeWidth={22} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <path d="M5 35 H75 M55 12 L82 35 L55 58" stroke={C.gold} strokeWidth={11} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </svg>
+          <div style={{ transform: `scale(${(bs * pulse).toFixed(3)})`, padding: "14px 46px", background: "#E8344E", border: `6px solid ${C.ink}`, borderRadius: 999, fontFamily: FONT, fontWeight: 900, fontSize: 56, color: "#fff", boxShadow: `0 8px 0 ${C.ink}, 0 0 ${30 * (pulse - 1) / 0.06}px rgba(232,52,78,0.8)` }}>
+            {fo.button}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Binary choice end card: camera bounces out to the wide (scale 1.15 -> 1), title typed word by word, two cards,
 // then "NAPISZ W KOMENTARZU: X albo Y".
 export const ChoiceCard: React.FC<{ end: ChoiceEnd }> = ({ end }) => {
@@ -73,6 +109,7 @@ export const ChoiceCard: React.FC<{ end: ChoiceEnd }> = ({ end }) => {
       </div>
       <Card label={end.a.label} icon={end.a.icon} x={540 - 30 - 300} t0={0.1} f={f} phase={0} />
       <Card label={end.b.label} icon={end.b.icon} x={540 + 30} t0={CHOICE_B_AT} f={f} phase={1} />
+      {end.follow && <Follow fo={end.follow} f={frame - sec(end.follow.at)} />}
       <div style={{ position: "absolute", top: 1430, left: 30, right: 30, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 40, color: C.cream, ...outline, opacity: ctaOn, transform: `translateY(${(1 - ctaOn) * 20}px)` }}>
         {end.cta ?? (
           <>

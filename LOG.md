@@ -22,3 +22,10 @@
 - Intro: IG comment @s.szymanskiii (695 likes) + WYGRYWA! stamp over the s24 push on Mirek. Hook: free zoom 1.19 -> 1.8 onto the shirt (stink + flies), punch on "stała sama".
 - s25 keys: mama's face -> banknotes + "200 zł" tag -> fast re-frame to the door + shake. s26 clip 1.0-2.64 s (buttons pop on "wystrzeliły") + buttons layer. s27 sparkles on the jacket, zoom to the mirror face. s28 clip 0.85-2.22 s (bag drop), then Kasia + punch. s29 keys Kasia face -> back to Mirek. s30 phone (Kasia SMS), ChoiceCard OGOLIĆ SIĘ / DERMATOLOG with emoji icons.
 - New contract: layer `buttons`, `shot.sparkle`, `shot.tag`, emoji ChoiceCard icons. New SFX ping + cling (make_sfx.py). SFX (5): pop, whoosh, ping, cling, blip.
+
+## ep05 (2026-11-15)
+- Voice 43.8 s (ends 43.67), card + follower bar stay 3 s -> 46.7 s, -15 LUFS after two-pass loudnorm. words.json via transcribe + fix_words (fix: 80/%/3/10/5 as words, Biedronki, pomóżcie, Mirkowi).
+- All jpgs upscaled 2x (realesr-animevideov3). JSON from `scripts/mk_ep05.py`; rigs + painted lids on s31, s33-s36 (s32 only the doctor rigged, no lids behind the lens).
+- Vote DERMATOLOG 80 / OGOLIĆ SIĘ 20 over a push on Mirek. s31 timelapse clocks -> slow key to his face -> grandmas. Hook: free zoom 1.0 -> 1.8 onto the magnifier (8.1 s, the voice order puts the waiting room first). s32 clip 1.22-2.81 s (hair stands up), punch + shake on "dęba".
+- s33 free tiltDown along the prescription with icon pops (hot-dog, water, ointment). s34 whip in, free zoom onto the white face. s35 Kasia punch, then clip 0.75 s+ on Mirek ("maseczka"). s36 SMS from Kasia + blush, ChoiceCard SIŁOWNIA / WĄSY + 5 000 / 10 000 follower bar with OBSERWUJ.
+- SFX (5): pop, tick (new), boing (new), blip, pop.

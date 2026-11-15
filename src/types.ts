@@ -31,6 +31,9 @@ export type Shot = {
   fog?: { box: [number, number, number, number]; wipe: number }; // misted region x0,y0,x1,y1 (fractions), wiped left->right in 15 frames at `wipe` (absolute s)
   sparkle?: { at: number; pos: [number, number] }[]; // 4-point glint on the picture (image fractions), 0.7 s from `at` (abs s)
   tag?: { at: number; text: string; pos: [number, number] }; // sticker label popping in on the picture (e.g. "200 zł"), stays to the end of the shot
+  pops?: { at: number; pos: [number, number]; r: number }[]; // round crop of the picture (centre, radius as fraction of width) that kicks 1 -> 1.3 -> 1 (0.5 s)
+  clocks?: { pos: [number, number]; r: number; rps?: number; until?: number }[]; // wall clock repainted with hands spinning (timelapse), rps = minute-hand turns/s (default 1.5); stops at `until` (abs s)
+  blush?: { at: number; pos: [number, number][]; r: number; dur?: number }; // pink cheeks fading in from `at` over `dur` (default 0.8 s), r = fraction of width
 };
 
 export type Insert = {
@@ -66,6 +69,8 @@ export type ChoiceEnd = {
   a: { label: string; icon: string }; // icon: built-in name (shower, scissors) or an .svg/.png path
   b: { label: string; icon: string };
   cta?: string; // default "NAPISZ W KOMENTARZU: {a} albo {b}"
+  capY?: number; // caption centre y while the card is up (default unchanged)
+  follow?: { at: number; count: number; goal: number; label: string; button: string }; // follower bar under the cards filling to count/goal + pulsing follow button
 };
 export type CommentEnd = {
   type: "comment";

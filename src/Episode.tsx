@@ -38,7 +38,7 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
       ))}
       {ep.vote && <VoteResult vote={ep.vote} />}
       {ep.intro && <Intro intro={ep.intro} />}
-      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : undefined} />
+      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : cardOn ? end?.capY : undefined} />
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}
       <Sfx ep={ep} words={words} />
