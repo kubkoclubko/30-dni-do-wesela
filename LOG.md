@@ -1,5 +1,17 @@
 # Log
 
+## ep01 (2026-11-10), moved from CLAUDE.md on 2026-11-15
+- Done: `out/ep01.mp4` (42.7 s, local only). Pushed `a4ff93a`.
+- Whisper fixes needed: "34" split by `fix`, "hot" "dogi" -> `merge`, "imię" misheard as "inie", "czego" as "tego". First run downloads the model (~1.5 GB).
+- s04 was 768 px (max zoom 1.05): a pan clamped at the image edge and froze; `short_qa.py` caught it under "frozen spans".
+- Render times (GTX 1660 SUPER): whole 43 s episode at 1080x1920 ~80 s incl. QA, 0.5 preview of the whole episode ~50 s, audio-only wav ~18 s. The 3D short took ~3-4 min at 540x960, ~3.5-5.5 min for 2K.
+- Motion + music pass (2026-11-10): camera planner in `src/camera.ts`, WebGL warp in `ShotGL.tsx`, own piano theme (`scripts/make_music.py`, numpy synth, fluidsynth not installed).
+
+## Open questions (not decided by the owner, as of 2026-11-11)
+- On the ChoiceCard the cards cover Mirek's face (blink not visible).
+- Emoji in the phone look small.
+- The music has only been measured, not listened to by Claude.
+
 ## ep02 (2026-11-11)
 - Voice from Downloads (43.7 s), words.json via transcribe + fix_words (only fix: Żabki). Card stays 3 s after the voice.
 - All ep02 jpgs upscaled 2x with Real-ESRGAN ncnn (realesr-animevideov3, exe in C:\Users\ondri\tools\realesrgan) -> *_2x.jpg.
