@@ -74,3 +74,14 @@ n = int(0.75 * SR); t = np.arange(n) / SR
 fq = 150 + 260 * np.exp(-t * 7) * (1 + 0.55 * np.sin(2 * np.pi * 15 * t))
 x = np.sin(2 * np.pi * np.cumsum(fq) / SR) * np.exp(-t * 4.2)
 save("boing", fade(x, 0.003, 0.1))
+# clink (ep06): metal clank of a bare barbell, two inharmonic rings with a short noise tick
+n = int(0.9 * SR); t = np.arange(n) / SR
+x = rng.standard_normal(n) * np.exp(-t * 400) * 0.6
+for f0, g, d in [(1180, 1.0, 9), (2970, 0.7, 12), (4410, 0.45, 16), (6240, 0.3, 22)]:
+    x += g * np.sin(2 * np.pi * f0 * t) * np.exp(-t * d)
+save("clink", fade(x, 0.001, 0.15))
+# dun (ep06): dramatic low hit, 55 Hz sine drop with a soft thump and a dark tail
+n = int(1.5 * SR); t = np.arange(n) / SR
+fq = 55 + 70 * np.exp(-t * 18)
+x = np.sin(2 * np.pi * np.cumsum(fq) / SR) * np.exp(-t * 2.6) + 0.35 * lp(rng.standard_normal(n), 0.04) * np.exp(-t * 14)
+save("dun", fade(x, 0.002, 0.25))

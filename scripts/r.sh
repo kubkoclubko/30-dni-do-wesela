@@ -8,7 +8,7 @@ set -e
 mode=$1; ep=$2; mkdir -p out
 out=$ep; props=()
 if [ "$3" = "--music" ]; then out=${ep}_music; props=(--props='{"music":true}'); fi
-export TEMP=C:/Users/novyn/remotion-tmp TMP=C:/Users/novyn/remotion-tmp
+export TEMP=${REMOTION_TMP:-C:/Users/ondri/remotion-tmp} TMP=${REMOTION_TMP:-C:/Users/ondri/remotion-tmp}
 log=out/${ep}_${mode}.log
 case $mode in
   still)   npx remotion still src/index.ts $ep out/${ep}_f$3.jpg --frame=$3 --scale=${4:-0.4} --gl=angle > $log 2>&1 ;;

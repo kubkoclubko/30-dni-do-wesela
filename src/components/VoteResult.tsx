@@ -116,6 +116,25 @@ export const VoteResult: React.FC<{ vote: Vote }> = ({ vote }) => {
       >
         {(vote.title ?? "WYNIK GŁOSOWANIA").toUpperCase()}
       </div>
+      {vote.sub && (
+        <div
+          style={{
+            position: "absolute",
+            top: 306,
+            width: "100%",
+            textAlign: "center",
+            fontFamily: FONT,
+            fontWeight: 900,
+            fontSize: 24,
+            letterSpacing: "0.18em",
+            color: C.gold,
+            textShadow: "0 2px 6px rgba(0,0,0,0.75)",
+            opacity: interpolate(f, [4, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+          }}
+        >
+          {vote.sub.toUpperCase()}
+        </div>
+      )}
       <Card o={w} win pct={(w.votes / tot) * 100} enterAt={VOTE_IN} f={f} y={340} />
       <Card o={l} win={false} pct={(l.votes / tot) * 100} enterAt={VOTE_IN + 6} f={f} y={480} />
       <Stamp text={vote.stamp ?? "WYGRYWA!"} f={f} />

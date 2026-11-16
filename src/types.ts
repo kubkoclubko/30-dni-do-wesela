@@ -46,7 +46,7 @@ export type Insert = {
 };
 
 export type VoteOption = { label: string; votes: number };
-export type Vote = { title?: string; a: VoteOption; b: VoteOption; dur?: number; stamp?: string }; // winner = more votes; dur default 4; shown as % of all votes
+export type Vote = { title?: string; sub?: string; /* small line under the title, e.g. "400+ KOMENTARZY" */ a: VoteOption; b: VoteOption; dur?: number; stamp?: string }; // winner = more votes; dur default 4; shown as % of all votes
 
 export type ChatMsg = {
   at: number;

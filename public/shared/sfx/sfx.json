@@ -12,5 +12,7 @@
   "ping": {"file": "ping.wav", "db": -14},
   "cling": {"file": "cling.wav", "db": -15},
   "tick": {"file": "tick.wav", "db": -14},
-  "boing": {"file": "boing.wav", "db": -10}
+  "boing": {"file": "boing.wav", "db": -10},
+  "clink": {"file": "clink.wav", "db": -13},
+  "dun": {"file": "dun.wav", "db": -9}
 }

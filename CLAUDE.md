@@ -73,11 +73,17 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 17. Focus is clamped to ±(1-1/zoom)/2 around 0.5, so a face near the image edge (Kasia at x 0.775) can't be centred even at 1.8. Pick framings with that in mind instead of expecting the face in the middle.
 18. New contract fields: `shot.clocks` (wall clock repainted with spinning hands, timelapse), `shot.pops` (round crop of the picture kicks 1 -> 1.3, for icons painted in the image), `shot.blush`, `end.follow` (follower bar + pulsing OBSERWUJ button under the ChoiceCard) and `end.capY` for the choice card too. New SFX tick + boing (make_sfx.py, appended at the end so older sounds stay byte-identical).
 
+## Learnings (ep06, 2026-11-16)
+19. `fix_words.py` looks fixes up by the lowercased Whisper word (`"huntle?"`, not `"Huntle?"`). Check the brief against the voice before trimming: ep06's voice did not start with the announced "Dzień zero cztery" (energy + transcript), so nothing was cut and the quoted lines in the brief were only paraphrases; time the shots from `words.json`, not from the brief.
+20. A `clip` is drawn inside the camera box (it zooms with the picture) and when it ends the base image shows again. So a clip shot needs the same zoom as the shots around it, and its last frame must equal the base image: extract freeze frames with `ffmpeg -ss <t> -frames:v 1 -pix_fmt yuvj420p` (not at the very last frame, 7.8 for a 7.9 s clip), upscale them 2x and use them as the image of the following shot. Keep `until - at + from` below the clip length.
+21. `shot.shake` is one 0.5 s shake, so a constant jitter is several same-image shots each with its own `shake`. New: `vote.sub` (small line under the vote title), SFX `clink` + `dun` (appended to make_sfx.py). `r.sh` temp dir is now `${REMOTION_TMP:-C:/Users/ondri/remotion-tmp}`; the Whisper step needs `python` (not `py`, which lacks faster-whisper on this PC).
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
 - ep03 is done (2026-11-13): `out/ep03.mp4` (46.3 s, local only), see `LOG.md`.
 - ep04 is done (2026-11-14): `out/ep04.mp4` (47.35 s, local only), see `LOG.md`.
 - ep05 is done (2026-11-15): `out/ep05.mp4` (46.7 s, local only), see `LOG.md`.
-- Next: ep06 (day 6, `daysLeft` 25). The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- ep06 is done (2026-11-16): `out/ep06.mp4` (63.4 s, local only), see `LOG.md`.
+- Next: ep07 (day 7, `daysLeft` 24). The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.

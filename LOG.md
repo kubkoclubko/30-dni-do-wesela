@@ -41,3 +41,10 @@
 - Vote DERMATOLOG 80 / OGOLIĆ SIĘ 20 over a push on Mirek. s31 timelapse clocks -> slow key to his face -> grandmas. Hook: free zoom 1.0 -> 1.8 onto the magnifier (8.1 s, the voice order puts the waiting room first). s32 clip 1.22-2.81 s (hair stands up), punch + shake on "dęba".
 - s33 free tiltDown along the prescription with icon pops (hot-dog, water, ointment). s34 whip in, free zoom onto the white face. s35 Kasia punch, then clip 0.75 s+ on Mirek ("maseczka"). s36 SMS from Kasia + blush, ChoiceCard SIŁOWNIA / WĄSY + 5 000 / 10 000 follower bar with OBSERWUJ.
 - SFX (5): pop, tick (new), boing (new), blip, pop.
+
+## ep06 (2026-11-16)
+- Voice 60.4 s (ends 60.32), no trim: it does not start with "Dzień zero cztery". Card + follower bar stay 3 s -> 63.4 s, -15 LUFS after two-pass loudnorm. words.json via transcribe + fix_words (fix: czterysta, Hantle).
+- All jpgs upscaled 2x; freeze frames from the clips (s65_wink 2.5 s, s65_cry 7.8 s, s66_phone 5.1 s, s66_shock 7.8 s) upscaled too. JSON from `scripts/mk_ep06.py`; rigs on s61, s62, s64, s65 (2 figures), s66; no lids, no rig on the lying s63.
+- Vote SIŁOWNIA 82 / WĄSY 18 with the new `sub` line "400+ KOMENTARZY". s62 jitter = 3 shake shots + zoom 1.8 on "defibrylatora". s63 tilt, zoom on the bar end, punch + shake on "wygrywa". s64 pop on the pink dumbbells, whip + flash. s65 clip 0-2.5 s then freeze, clip 6.0-7.9 s (tears). s66 biceps clip 0-2.55 s, belly + beard zooms, phone clip 3.9-5.1 s, freeze + chat, clip 5.1-7.9 s into the shock, punch + shake on "Chłopak?".
+- End card ODPISAĆ KASI / ZNÓW SIŁOWNIA + OBSERWUJ with the 5 000 / 10 000 bar (same numbers as ep05, no new figure from the owner).
+- SFX (5): pop, clink (new), shutter, blip, dun (new).
