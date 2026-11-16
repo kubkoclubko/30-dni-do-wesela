@@ -78,12 +78,17 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 20. A `clip` is drawn inside the camera box (it zooms with the picture) and when it ends the base image shows again. So a clip shot needs the same zoom as the shots around it, and its last frame must equal the base image: extract freeze frames with `ffmpeg -ss <t> -frames:v 1 -pix_fmt yuvj420p` (not at the very last frame, 7.8 for a 7.9 s clip), upscale them 2x and use them as the image of the following shot. Keep `until - at + from` below the clip length.
 21. `shot.shake` is one 0.5 s shake, so a constant jitter is several same-image shots each with its own `shake`. New: `vote.sub` (small line under the vote title), SFX `clink` + `dun` (appended to make_sfx.py). `r.sh` temp dir is now `${REMOTION_TMP:-C:/Users/ondri/remotion-tmp}`; the Whisper step needs `python` (not `py`, which lacks faster-whisper on this PC).
 
+## Learnings (ep06 re-take, 2026-11-16)
+22. A new voice take with the same text needs no rebuild: keep the old JSON as `epXX_v1.json` and remap every time (shot `at`, shake, punch, flash, keys, pops, clip, phone, end, sfx) through a piecewise-linear map of old word starts to new ones (`scripts/remap_ep06.py`). Keep each clip's playback length, only move its start.
+23. Run Python scripts that print Polish text with `PYTHONIOENCODING=utf-8` or `-X utf8`, and open JSON with `encoding="utf-8"`: the console is cp1250 and fails on `ł`/`ó`.
+24. The brief's quoted opening ("Dzień zero cztery!") may again be missing from the voice: check `words.json` first and only trim if the words are really there.
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
 - ep03 is done (2026-11-13): `out/ep03.mp4` (46.3 s, local only), see `LOG.md`.
 - ep04 is done (2026-11-14): `out/ep04.mp4` (47.35 s, local only), see `LOG.md`.
 - ep05 is done (2026-11-15): `out/ep05.mp4` (46.7 s, local only), see `LOG.md`.
-- ep06 is done (2026-11-16): `out/ep06.mp4` (63.4 s, local only), see `LOG.md`.
+- ep06 is done (2026-11-16): `out/ep06.mp4` (62.7 s, re-done on the v4 voice, local only), see `LOG.md`.
 - Next: ep07 (day 7, `daysLeft` 24). The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.
