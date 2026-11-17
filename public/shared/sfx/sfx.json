@@ -14,5 +14,7 @@
   "tick": {"file": "tick.wav", "db": -14},
   "boing": {"file": "boing.wav", "db": -10},
   "clink": {"file": "clink.wav", "db": -13},
-  "dun": {"file": "dun.wav", "db": -9}
+  "dun": {"file": "dun.wav", "db": -9},
+  "gong": {"file": "gong.wav", "db": -9},
+  "thud": {"file": "thud.wav", "db": -7}
 }

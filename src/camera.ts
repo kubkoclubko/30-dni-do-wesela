@@ -121,6 +121,10 @@ export const camAt = (s: Shot, p: Plan, f: number): Cam => {
     dx = amp * Math.sin(k * 2.9);
     dy = amp * Math.cos(k * 3.7);
   }
+  for (const h of s.hops ?? []) {
+    const q = (t - h) / 0.28;
+    if (q >= 0 && q < 1) dy -= 26 * Math.sin(q * Math.PI);
+  }
   const bx = box({ z, fx, fy });
   return { z, fx, fy, rot: p.rot, dx, dy, left: bx.left + dx, top: bx.top + dy, w: bx.w, h: bx.h, fast };
 };

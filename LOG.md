@@ -49,3 +49,9 @@
 - End card ODPISAĆ KASI / ZNÓW SIŁOWNIA + OBSERWUJ with the 5 000 / 10 000 bar (same numbers as ep05, no new figure from the owner).
 - SFX (5): pop, clink (new), shutter, blip, dun (new).
 - ep06 re-done on a new voice take (ElevenLabs 13_10_59 v4, same text, 59.8 s, still no "Dzień zero cztery" so no trim; old take kept as voice_v1.mp3, words_v1.json, episodes/ep06_v1.json). `scripts/remap_ep06.py` moves every time in the JSON onto the new words (piecewise-linear on word starts). 62.7 s, -15 LUFS / -1.4 dBTP after two-pass loudnorm. out/ep06.mp4.
+
+## ep07 (2026-11-17)
+- Voice = main take (40.9 s, ends "pisze znowu") + the ending take ("Co ma jej odpisać?…", 4.6 s) joined with a 0.35 s gap -> 45.86 s, no trim; card stays 3 s -> 48.86 s. words.json via transcribe + fix_words (fix: 10 -> dziesięć, 10 % -> procent, box -> boks, glowup + .pl merged).
+- All jpgs 2x (realesr-animevideov3); app_glowup.png with realesrgan-x4plus (4x) then resized to 2x with Lanczos (the x4plus model has no 2x). Lying freeze frame from s73 clip at 6.4 s. JSON from `scripts/mk_ep07.py`; rigs on s71, s72, s74, s75 (2 figures), s76, s77; no lids (blink skipped), no rig on s73.
+- New contract fields: `voteStamp` (title + WYGRYWA stamp, red slash, TWIST stamp; no bars because the percentages are unknown), `mocks` (phone mockup grows out of a point, zoom keys, tag, corner badge), `shot.rewind`, `shot.hops`, `shot.flashFrames`, `ChatMsg.ghost` (typing dots that vanish), ChoiceEnd `open` (empty reply bubble + 2-line prompt, `follow.goal: 0` = button only).
+- SFX (5 types): gong (new), thud (new), boing x3, dun, blip x2.

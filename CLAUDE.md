@@ -83,6 +83,11 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 23. Run Python scripts that print Polish text with `PYTHONIOENCODING=utf-8` or `-X utf8`, and open JSON with `encoding="utf-8"`: the console is cp1250 and fails on `ł`/`ó`.
 24. The brief's quoted opening ("Dzień zero cztery!") may again be missing from the voice: check `words.json` first and only trim if the words are really there.
 
+## Learnings (ep07, 2026-11-17)
+25. The voice can arrive as two ElevenLabs files (main take + the ending line): join them with `apad` + `concat` (0.35 s gap), transcribe both, shift the second file's word times by duration + 0.35 and write one `words_raw.json`. Real-ESRGAN `realesrgan-x4plus` is 4x only: for a 2x of a UI screenshot resize its output with Lanczos.
+26. New contract fields: `voteStamp` (no bars when the percentages are unknown), `mocks` (phone mockup growing out of a point, zoom keys that scale the whole phone, tag hides while zoomed), `shot.rewind`, `shot.hops`, `shot.flashFrames`, `ChatMsg.ghost`, ChoiceEnd `open` + `follow.goal: 0`. Bash heredocs with quotes/emoji broke again: write scripts with the Write tool.
+27. A clip hit time is found from a 3 fps contact sheet; set `from = clip_hit - (word_start + offset - at)` so the hit lands on its word. A clip that ends mid-fall needs a freeze frame of the lying pose as the next shot (hard cut + punch + shake works as the thud).
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
@@ -90,5 +95,6 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 - ep04 is done (2026-11-14): `out/ep04.mp4` (47.35 s, local only), see `LOG.md`.
 - ep05 is done (2026-11-15): `out/ep05.mp4` (46.7 s, local only), see `LOG.md`.
 - ep06 is done (2026-11-16): `out/ep06.mp4` (62.7 s, re-done on the v4 voice, local only), see `LOG.md`.
-- Next: ep07 (day 7, `daysLeft` 24). The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- ep07 is done (2026-11-17): `out/ep07.mp4` (48.9 s, local only), see `LOG.md`.
+- Next: ep08 (day 8, `daysLeft` 23). (Old note: ep07 was day 7, `daysLeft` 24.) The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.

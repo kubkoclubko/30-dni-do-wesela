@@ -18,6 +18,7 @@ const Bubble: React.FC<{ m: ChatMsg; f: number }> = ({ m, f }) => {
   if (f < typingFrom) return null;
   const me = m.from === "me";
   const typing = f < shown;
+  if (m.ghost && !typing) return null; // typing dots only, the message is never sent
   const s = spring({ frame: f - (typing ? typingFrom : shown), fps: FPS, config: { damping: 12, stiffness: 220, mass: 0.5 } });
   return (
     <div style={{ display: "flex", justifyContent: me ? "flex-end" : "flex-start" }}>

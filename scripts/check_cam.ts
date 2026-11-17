@@ -15,7 +15,7 @@ ep.shots.forEach((s: any, i: number) => {
   let worst = 0, at = 0, fx = 0;
   for (let f = 1; f < p.b - p.a; f++) {
     const a = camAt(s, p, f - 1), b = camAt(s, p, f);
-    const shaking = s.shake !== undefined && Math.abs(s.at + f / FPS - s.shake - 0.25) < 0.3;
+    const shaking = (s.shake !== undefined && Math.abs(s.at + f / FPS - s.shake - 0.25) < 0.3) || (s.hops ?? []).some((h) => { const q = (s.at + f / FPS - h) / 0.28; return q > -0.1 && q < 1.1; });
     const j = jump(a, b) + Math.hypot(b.dx - a.dx, b.dy - a.dy);
     if (a.fast || b.fast || shaking || s.free) { fx = Math.max(fx, j); continue; }
     if (j > worst) { worst = j; at = p.a + f; }

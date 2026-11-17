@@ -1,0 +1,890 @@
+{
+ "id": "ep07",
+ "day": 7,
+ "daysLeft": 24,
+ "durationSec": 48.86,
+ "imgSize": [
+  1536,
+  2752
+ ],
+ "voice": "ep07/voice.mp3",
+ "words": "ep07/words.json",
+ "music": true,
+ "autoSfx": false,
+ "highlight": [
+  "siłownia",
+  "twistem",
+  "glowup.pl",
+  "dziesięć",
+  "procent",
+  "Pewność",
+  "boks",
+  "Bandaże",
+  "worek",
+  "leży",
+  "Skakanka",
+  "brodę",
+  "powietrze",
+  "ziewa",
+  "Trafione",
+  "Kasia",
+  "kasuje",
+  "odpisać",
+  "Napiszcie",
+  "komentarz",
+  "wygrywa"
+ ],
+ "voteStamp": {
+  "title": "WYNIK GŁOSOWANIA",
+  "dur": 4.42,
+  "win": {
+   "at": 2.04,
+   "text": "WYGRYWA! SIŁOWNIA 💪"
+  },
+  "twist": {
+   "strike": 3.2,
+   "at": 3.4,
+   "text": "TWIST! 🥊 BOKS"
+  }
+ },
+ "mocks": [
+  {
+   "at": 5.0,
+   "until": 13.5,
+   "img": "ep07/app_glowup_2x.png",
+   "from": [
+    540,
+    990
+   ],
+   "w": 520,
+   "y": 880,
+   "badge": "WSPÓŁPRACA",
+   "tag": {
+    "at": 7.36,
+    "text": "glowup.pl · kod MIREK10 = -10%"
+   },
+   "keys": [
+    {
+     "at": 11.45,
+     "focus": [
+      0.5,
+      0.555
+     ],
+     "zoom": 2.0,
+     "dur": 0.45
+    },
+    {
+     "at": 12.75,
+     "focus": [
+      0.5,
+      0.5
+     ],
+     "zoom": 1.0,
+     "dur": 0.4
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0.0,
+   "img": "ep07/s73_heavy_bag_2x.jpg",
+   "zoom": 1.4,
+   "focus": [
+    0.45,
+    0.45
+   ],
+   "seed": 1,
+   "move": "static",
+   "punch": 0.28,
+   "shake": 0.3,
+   "clip": {
+    "src": "ep07/s73_heavy_bag.mp4",
+    "at": 0.0,
+    "from": 3.05,
+    "until": 1.15
+   }
+  },
+  {
+   "at": 0.8,
+   "img": "ep07/s71_app_entrance_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 2,
+   "transition": "whip",
+   "rewind": 0.5,
+   "shake": 3.42
+  },
+  {
+   "at": 4.42,
+   "img": "ep07/s71_app_entrance_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 3,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.47,
+    0.57
+   ],
+   "zoomTo": 2.2
+  },
+  {
+   "at": 5.5,
+   "img": "ep07/s71_app_entrance_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.47,
+    0.57
+   ],
+   "seed": 4
+  },
+  {
+   "at": 13.5,
+   "img": "ep07/s71_app_entrance_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 5,
+   "cut": true,
+   "transition": "whip",
+   "move": "static",
+   "keys": [
+    {
+     "at": 13.66,
+     "focus": [
+      0.45,
+      0.4
+     ],
+     "zoom": 1.8,
+     "dur": 0.45
+    }
+   ]
+  },
+  {
+   "at": 14.16,
+   "img": "ep07/s72_wraps_2x.jpg",
+   "zoom": 1.6,
+   "focus": [
+    0.4,
+    0.45
+   ],
+   "seed": 6,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.42,
+    0.6
+   ],
+   "zoomTo": 1.6
+  },
+  {
+   "at": 16.78,
+   "img": "ep07/s72_wraps_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.7
+   ],
+   "seed": 7,
+   "keys": [
+    {
+     "at": 18.0,
+     "focus": [
+      0.73,
+      0.86
+     ],
+     "zoom": 1.15,
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "at": 18.75,
+   "img": "ep07/s73_heavy_bag_2x.jpg",
+   "zoom": 1.15,
+   "focus": [
+    0.4,
+    0.45
+   ],
+   "seed": 8
+  },
+  {
+   "at": 20.4,
+   "img": "ep07/s73_heavy_bag_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.4,
+    0.45
+   ],
+   "seed": 9,
+   "clip": {
+    "src": "ep07/s73_heavy_bag.mp4",
+    "at": 20.4,
+    "from": 2.75,
+    "until": 22.09
+   }
+  },
+  {
+   "at": 22.09,
+   "img": "ep07/s73_lying_2x.jpg",
+   "zoom": 1.5,
+   "focus": [
+    0.42,
+    0.72
+   ],
+   "seed": 10,
+   "punch": 22.09,
+   "shake": 22.12
+  },
+  {
+   "at": 23.3,
+   "img": "ep07/s74_jump_rope_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 11,
+   "hops": [
+    24.06,
+    24.44,
+    24.82
+   ]
+  },
+  {
+   "at": 26.06,
+   "img": "ep07/s74_jump_rope_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 12,
+   "keys": [
+    {
+     "at": 26.18,
+     "focus": [
+      0.4,
+      0.43
+     ],
+     "zoom": 1.8,
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "at": 26.71,
+   "img": "ep07/s75_coach_yawn_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "seed": 13
+  },
+  {
+   "at": 28.55,
+   "img": "ep07/s75_coach_yawn_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "seed": 14,
+   "shake": 28.58
+  },
+  {
+   "at": 28.78,
+   "img": "ep07/s75_coach_yawn_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "seed": 15,
+   "shake": 28.8
+  },
+  {
+   "at": 29.0,
+   "img": "ep07/s75_coach_yawn_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "seed": 16,
+   "shake": 29.02
+  },
+  {
+   "at": 29.22,
+   "img": "ep07/s75_coach_yawn_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "seed": 17,
+   "free": true,
+   "zoomTo": 1.8,
+   "to": [
+    0.83,
+    0.34
+   ],
+   "move": "tiltDown"
+  },
+  {
+   "at": 30.51,
+   "img": "ep07/s76_pad_hit_2x.jpg",
+   "zoom": 1.2,
+   "focus": [
+    0.42,
+    0.45
+   ],
+   "seed": 18,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.3,
+    0.4
+   ],
+   "zoomTo": 1.7
+  },
+  {
+   "at": 32.92,
+   "img": "ep07/s76_pad_hit_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 19,
+   "cut": true,
+   "move": "static",
+   "punch": 34.0,
+   "flash": 33.99,
+   "flashFrames": 2,
+   "shake": 34.03,
+   "clip": {
+    "src": "ep07/s76_pad_hit.mp4",
+    "at": 32.92,
+    "from": 0.1,
+    "until": 35.13
+   }
+  },
+  {
+   "at": 35.13,
+   "img": "ep07/s77_locker_phone_2x.jpg",
+   "zoom": 1.25,
+   "focus": [
+    0.5,
+    0.52
+   ],
+   "seed": 20
+  },
+  {
+   "at": 37.5,
+   "img": "ep07/s77_locker_phone_2x.jpg",
+   "zoom": 1.25,
+   "focus": [
+    0.5,
+    0.52
+   ],
+   "seed": 21,
+   "blush": {
+    "at": 37.7,
+    "pos": [
+     [
+      0.43,
+      0.425
+     ],
+     [
+      0.545,
+      0.425
+     ]
+    ],
+    "r": 0.05,
+    "dur": 1.2
+   }
+  },
+  {
+   "at": 41.32,
+   "img": "ep07/s77_locker_phone_2x.jpg",
+   "zoom": 1.3,
+   "focus": [
+    0.5,
+    0.615
+   ],
+   "seed": 22,
+   "cut": true,
+   "blush": {
+    "at": 37.7,
+    "pos": [
+     [
+      0.43,
+      0.425
+     ],
+     [
+      0.545,
+      0.425
+     ]
+    ],
+    "r": 0.05,
+    "dur": 1.2
+   }
+  }
+ ],
+ "phone": [
+  {
+   "at": 36.2,
+   "until": 41.28,
+   "name": "Kasia",
+   "subtitle": "online",
+   "y": 1250,
+   "scale": 0.62,
+   "messages": [
+    {
+     "at": 36.3,
+     "from": "them",
+     "text": "Mój chłopak mówi, że widział cię dziś na siłowni 😂"
+    },
+    {
+     "at": 36.73,
+     "from": "them",
+     "text": "Hej, ignorujesz mnie? 🙈",
+     "typing": 0.4
+    },
+    {
+     "at": 39.15,
+     "from": "me",
+     "ghost": true,
+     "typing": 0.65
+    },
+    {
+     "at": 41.2,
+     "from": "me",
+     "ghost": true,
+     "typing": 1.1
+    }
+   ],
+   "drafts": [
+    {
+     "at": 38.6,
+     "text": "Hej Kas…",
+     "type": 0.55,
+     "hold": 0.1,
+     "del": 0.4
+    }
+   ]
+  }
+ ],
+ "end": {
+  "type": "choice",
+  "at": 41.32,
+  "title": "CO MA ODPISAĆ?",
+  "capY": 1690,
+  "open": {
+   "cta": "NAPISZ W KOMENTARZU 👇",
+   "cta2": "NAJBARDZIEJ POLUBIONY KOMENTARZ WYGRYWA"
+  },
+  "follow": {
+   "at": 43.4,
+   "count": 0,
+   "goal": 0,
+   "label": "",
+   "button": "OBSERWUJ",
+   "top": 1280
+  }
+ },
+ "rigs": {
+  "ep07/s71_app_entrance_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.2,
+       0.34
+      ],
+      [
+       0.62,
+       0.34
+      ],
+      [
+       0.64,
+       0.5
+      ],
+      [
+       0.6,
+       0.72
+      ],
+      [
+       0.62,
+       0.96
+      ],
+      [
+       0.28,
+       0.96
+      ],
+      [
+       0.3,
+       0.72
+      ],
+      [
+       0.18,
+       0.52
+      ]
+     ],
+     "head": [
+      0.46,
+      0.41,
+      0.14,
+      0.08
+     ],
+     "neck": [
+      0.45,
+      0.48
+     ],
+     "feet": 0.95,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep07/s72_wraps_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.18,
+       0.46
+      ],
+      [
+       0.62,
+       0.46
+      ],
+      [
+       0.66,
+       0.6
+      ],
+      [
+       0.64,
+       0.78
+      ],
+      [
+       0.5,
+       0.86
+      ],
+      [
+       0.2,
+       0.86
+      ],
+      [
+       0.16,
+       0.62
+      ]
+     ],
+     "head": [
+      0.4,
+      0.38,
+      0.13,
+      0.08
+     ],
+     "neck": [
+      0.4,
+      0.46
+     ],
+     "feet": 0.84,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep07/s74_jump_rope_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.2,
+       0.46
+      ],
+      [
+       0.65,
+       0.46
+      ],
+      [
+       0.67,
+       0.65
+      ],
+      [
+       0.62,
+       0.82
+      ],
+      [
+       0.6,
+       0.95
+      ],
+      [
+       0.25,
+       0.95
+      ],
+      [
+       0.22,
+       0.8
+      ],
+      [
+       0.18,
+       0.62
+      ]
+     ],
+     "head": [
+      0.42,
+      0.38,
+      0.13,
+      0.08
+     ],
+     "neck": [
+      0.42,
+      0.46
+     ],
+     "feet": 0.93,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep07/s75_coach_yawn_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.08,
+       0.46
+      ],
+      [
+       0.52,
+       0.46
+      ],
+      [
+       0.6,
+       0.62
+      ],
+      [
+       0.55,
+       0.8
+      ],
+      [
+       0.5,
+       0.95
+      ],
+      [
+       0.08,
+       0.95
+      ],
+      [
+       0.05,
+       0.75
+      ]
+     ],
+     "head": [
+      0.33,
+      0.38,
+      0.13,
+      0.08
+     ],
+     "neck": [
+      0.33,
+      0.46
+     ],
+     "feet": 0.94,
+     "facing": 1,
+     "seed": 1
+    },
+    {
+     "outline": [
+      [
+       0.68,
+       0.45
+      ],
+      [
+       0.98,
+       0.45
+      ],
+      [
+       0.99,
+       0.66
+      ],
+      [
+       0.96,
+       0.94
+      ],
+      [
+       0.72,
+       0.94
+      ],
+      [
+       0.68,
+       0.7
+      ]
+     ],
+     "head": [
+      0.83,
+      0.34,
+      0.075,
+      0.07
+     ],
+     "neck": [
+      0.83,
+      0.42
+     ],
+     "feet": 0.93,
+     "facing": -1,
+     "seed": 2
+    }
+   ]
+  },
+  "ep07/s76_pad_hit_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.05,
+       0.46
+      ],
+      [
+       0.5,
+       0.46
+      ],
+      [
+       0.55,
+       0.6
+      ],
+      [
+       0.5,
+       0.78
+      ],
+      [
+       0.45,
+       0.95
+      ],
+      [
+       0.05,
+       0.95
+      ],
+      [
+       0.04,
+       0.7
+      ]
+     ],
+     "head": [
+      0.3,
+      0.38,
+      0.12,
+      0.08
+     ],
+     "neck": [
+      0.3,
+      0.46
+     ],
+     "feet": 0.94,
+     "facing": 1,
+     "seed": 1
+    }
+   ]
+  },
+  "ep07/s77_locker_phone_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.28,
+       0.44
+      ],
+      [
+       0.74,
+       0.44
+      ],
+      [
+       0.78,
+       0.62
+      ],
+      [
+       0.72,
+       0.8
+      ],
+      [
+       0.65,
+       0.94
+      ],
+      [
+       0.28,
+       0.94
+      ],
+      [
+       0.22,
+       0.7
+      ]
+     ],
+     "head": [
+      0.5,
+      0.4,
+      0.14,
+      0.08
+     ],
+     "neck": [
+      0.5,
+      0.47
+     ],
+     "feet": 0.94,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  }
+ },
+ "sfx": [
+  {
+   "at": 0.28,
+   "name": "gong"
+  },
+  {
+   "at": 3.4,
+   "name": "gong"
+  },
+  {
+   "at": 20.98,
+   "name": "thud"
+  },
+  {
+   "at": 24.06,
+   "name": "boing"
+  },
+  {
+   "at": 24.44,
+   "name": "boing"
+  },
+  {
+   "at": 24.82,
+   "name": "boing"
+  },
+  {
+   "at": 33.99,
+   "name": "dun"
+  },
+  {
+   "at": 36.3,
+   "name": "blip"
+  },
+  {
+   "at": 36.73,
+   "name": "blip"
+  }
+ ]
+}

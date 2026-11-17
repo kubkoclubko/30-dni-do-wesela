@@ -33,6 +33,9 @@ export type Shot = {
   tag?: { at: number; text: string; pos: [number, number] }; // sticker label popping in on the picture (e.g. "200 zł"), stays to the end of the shot
   pops?: { at: number; pos: [number, number]; r: number }[]; // round crop of the picture (centre, radius as fraction of width) that kicks 1 -> 1.3 -> 1 (0.5 s)
   clocks?: { pos: [number, number]; r: number; rps?: number; until?: number }[]; // wall clock repainted with hands spinning (timelapse), rps = minute-hand turns/s (default 1.5); stops at `until` (abs s)
+  hops?: number[]; // abs times of small bounces of the whole picture (jump rope), 0.28 s each
+  rewind?: number; // seconds at the start of the shot: the picture runs backwards at 2x (zoom-out pulse, scanlines, jitter, "<<")
+  flashFrames?: number; // length of the `flash` in frames (default 8)
   blush?: { at: number; pos: [number, number][]; r: number; dur?: number }; // pink cheeks fading in from `at` over `dur` (default 0.8 s), r = fraction of width
 };
 
@@ -49,6 +52,7 @@ export type VoteOption = { label: string; votes: number };
 export type Vote = { title?: string; sub?: string; /* small line under the title, e.g. "400+ KOMENTARZY" */ a: VoteOption; b: VoteOption; dur?: number; stamp?: string }; // winner = more votes; dur default 4; shown as % of all votes
 
 export type ChatMsg = {
+  ghost?: boolean; // typing dots only (me or them) from at-typing to at, then they vanish (message never sent)
   at: number;
   from: "me" | "them";
   text?: string;
@@ -66,11 +70,12 @@ export type ChoiceEnd = {
   img?: string; // own background with the 1.15 -> 1 bounce; omit to keep the last shot (give it move 'bounce')
   focus?: [number, number];
   title: string; // "OD CZEGO ZACZNIE?"
-  a: { label: string; icon: string }; // icon: built-in name (shower, scissors) or an .svg/.png path
-  b: { label: string; icon: string };
+  a?: { label: string; icon: string }; // icon: built-in name (shower, scissors) or an .svg/.png path
+  b?: { label: string; icon: string };
+  open?: { bubble?: string; cta: string; cta2?: string }; // open challenge instead of 2 cards: empty reply bubble with a blinking caret + two-line prompt
   cta?: string; // default "NAPISZ W KOMENTARZU: {a} albo {b}"
   capY?: number; // caption centre y while the card is up (default unchanged)
-  follow?: { at: number; count: number; goal: number; label: string; button: string }; // follower bar under the cards filling to count/goal + pulsing follow button
+  follow?: { at: number; count: number; goal: number; label: string; button: string; top?: number } // goal 0 = button only, no bar; // follower bar under the cards filling to count/goal + pulsing follow button
 };
 export type CommentEnd = {
   type: "comment";
@@ -104,6 +109,21 @@ export type Episode = {
   sfx?: { at: number; name: string }[]; // manual cues on top of the automatic ones (e.g. "door")
   autoSfx?: boolean; // false = only the manual ep.sfx cues (no automatic pops/blips/slide)
   intro?: Intro;
+  voteStamp?: VoteStamp; // vote result without bars: title + winner stamp, optionally struck out by a twist stamp
+  mocks?: Mock[]; // big phone mockup with an app screenshot, grows out of a point in the picture
+};
+
+export type VoteStamp = { title?: string; dur: number; win: { at: number; text: string }; twist?: { strike: number; at: number; text: string } };
+export type Mock = {
+  at: number;
+  until: number;
+  img: string; // app screenshot (public/)
+  from: [number, number]; // screen px the mockup grows out of
+  y?: number; // centre y (default 930)
+  w?: number; // width px (default 560)
+  tag?: { at: number; text: string }; // gold sticker under the phone
+  badge?: string; // small corner label while the mockup is up
+  keys?: { at: number; focus: [number, number]; zoom: number; dur?: number }[]; // zoom into the screenshot (focus = image fractions)
 };
 
 // Opening overlays (day 3+): a follower milestone with confetti, then the winning comment as an Instagram card.

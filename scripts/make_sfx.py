@@ -85,3 +85,14 @@ n = int(1.5 * SR); t = np.arange(n) / SR
 fq = 55 + 70 * np.exp(-t * 18)
 x = np.sin(2 * np.pi * np.cumsum(fq) / SR) * np.exp(-t * 2.6) + 0.35 * lp(rng.standard_normal(n), 0.04) * np.exp(-t * 14)
 save("dun", fade(x, 0.002, 0.25))
+# gong (ep07): boxing-ring bell, inharmonic metal partials with a long ring, a hard clang at the start
+n = int(2.4 * SR); t = np.arange(n) / SR
+x = rng.standard_normal(n) * np.exp(-t * 90) * 0.5
+for f0, g, d in [(520, 1.0, 2.2), (1040, 0.7, 2.8), (1417, 0.6, 3.4), (2193, 0.45, 4.5), (3011, 0.3, 6.0)]:
+    x += g * np.sin(2 * np.pi * f0 * t + 0.4 * np.sin(2 * np.pi * 5 * t) * np.exp(-t)) * np.exp(-t * d)
+save("gong", fade(x, 0.001, 0.4))
+# thud (ep07): dull punch on a heavy bag, 80 Hz sine drop + low-passed noise burst
+n = int(0.5 * SR); t = np.arange(n) / SR
+fq = 62 + 90 * np.exp(-t * 30)
+x = np.sin(2 * np.pi * np.cumsum(fq) / SR) * np.exp(-t * 9) + 0.8 * lp(rng.standard_normal(n), 0.05) * np.exp(-t * 28)
+save("thud", fade(x, 0.001, 0.08))

@@ -57,7 +57,7 @@ const Spark: React.FC<{ a: number; p: number }> = ({ a, p }) => {
   );
 };
 
-export const Stamp: React.FC<{ text: string; f: number; at?: number; left?: number; top?: number }> = ({ text, f, at = VOTE_STAMP_AT, left = 574, top = 398 }) => {
+export const Stamp: React.FC<{ text: string; f: number; at?: number; left?: number; top?: number; size?: number }> = ({ text, f, at = VOTE_STAMP_AT, left = 574, top = 398, size = 40 }) => {
   const g = f - at;
   if (g < 0) return null;
   const s = spring({ frame: g, fps: FPS, config: { damping: 9, stiffness: 260, mass: 0.6 } });
@@ -76,7 +76,7 @@ export const Stamp: React.FC<{ text: string; f: number; at?: number; left?: numb
           background: "rgba(30,27,34,0.88)",
           fontFamily: FONT,
           fontWeight: 900,
-          fontSize: 40,
+          fontSize: size,
           letterSpacing: "0.05em",
           color: "#FFD66B",
           whiteSpace: "nowrap",

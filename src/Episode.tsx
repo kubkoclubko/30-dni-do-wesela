@@ -8,6 +8,8 @@ import { Hud } from "./components/Hud";
 import { Intro } from "./components/Intro";
 import { Phone, isPhoneOn } from "./components/Phone";
 import { Polaroid, ShotTrack } from "./components/Shot";
+import { Mock } from "./components/Mock";
+import { VoteStampView } from "./components/VoteStamp";
 import { VoteResult } from "./components/VoteResult";
 import { FPS, sec } from "./theme";
 import type { Episode as Ep } from "./types";
@@ -36,9 +38,11 @@ export const Episode: React.FC<{ ep: Ep; music?: boolean }> = ({ ep, music }) =>
       {(ep.phone ?? []).map((p, i) => (
         <Phone key={i} p={p} />
       ))}
+      {(ep.mocks ?? []).map((m, i) => <Mock key={i} m={m} />)}
       {ep.vote && <VoteResult vote={ep.vote} />}
+      {ep.voteStamp && <VoteStampView v={ep.voteStamp} />}
       {ep.intro && <Intro intro={ep.intro} />}
-      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f)} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : cardOn ? end?.capY : undefined} />
+      <Captions words={words} highlight={ep.highlight} lowered={isPhoneOn(ep.phone, f) || (ep.mocks ?? []).some((m) => f >= sec(m.at) && f < sec(m.until))} y={cardOn && end?.type === "comment" ? (end.capY ?? 1600) : cardOn ? end?.capY : undefined} />
       <Hud day={ep.day} daysLeft={ep.daysLeft} />
       {ep.voice && <Audio src={staticFile(ep.voice)} />}
       <Sfx ep={ep} words={words} />

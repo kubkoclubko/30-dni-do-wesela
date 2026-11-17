@@ -11,8 +11,12 @@ const WHIP = 8; // frames
 // One shot. Rigged images (ep.rigs) are drawn by ShotGL (warp + blink in a shader); others as a plain image.
 // Flies / stink / steam stay DOM layers on top, inside the camera box so they move with the picture.
 export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: number; src: [number, number]; rig?: Rig }> = ({ shot, plan, f, seed, src, rig }) => {
-  const cam: Cam = camAt(shot, plan, f);
-  const prev: Cam = camAt(shot, plan, Math.max(0, f - 1));
+  // rewind: the first `rewind` s run backwards at 2x (camera time reversed), with a zoom-out pulse, jitter and scanlines
+  const R = Math.round((shot.rewind ?? 0) * FPS);
+  const inRew = f < R;
+  const fe = inRew ? (R - f) * 2 : f - R;
+  const cam: Cam = camAt(shot, plan, fe);
+  const prev: Cam = camAt(shot, plan, Math.max(0, inRew ? fe + 2 : fe - 1));
   const speed = Math.max(Math.abs(cam.left - prev.left), Math.abs(cam.top - prev.top), Math.abs(cam.w - prev.w) / 2);
   const blur = cam.fast ? Math.min(24, speed / 3) : 0; // motion blur only on the deliberate fast moves
   const L = shot.layers ?? [];
@@ -23,17 +27,20 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
   const sp = shot.spin ? shot.spin[0] + (shot.spin[1] - shot.spin[0]) * Math.min(1, f / Math.max(1, plan.b - plan.a)) : 0;
   const rad = (Math.abs(sp) * Math.PI) / 180;
   const over = sp ? Math.cos(rad) + (H / W) * Math.sin(rad) : 1;
-  const tf = sp
+  const rq = inRew ? (R - f) / R : 0;
+  const rw = inRew ? `translateX(${(9 * Math.sin(f * 4.1)).toFixed(1)}px) scale(${(1 + 0.32 * rq * rq).toFixed(4)})` : "";
+  const tf0 = sp
     ? `rotate(${(cam.rot + sp).toFixed(3)}deg) scale(${(over * (cam.rot ? 1.13 : 1)).toFixed(4)})`
     : cam.rot
       ? `rotate(${cam.rot}deg) scale(1.13)`
       : cam.dx || cam.dy
         ? "scale(1.03)"
         : undefined;
+  const tf = [rw, tf0].filter(Boolean).join(" ") || undefined;
   const t = shot.at + f / FPS;
   const clip = shot.clip;
   return (
-    <AbsoluteFill style={{ overflow: "hidden", transform: tf, filter: blur > 0.5 ? `blur(${blur.toFixed(1)}px)` : undefined }}>
+    <AbsoluteFill style={{ overflow: "hidden", transform: tf, filter: [blur > 0.5 ? `blur(${blur.toFixed(1)}px)` : "", inRew ? "saturate(0.6) contrast(1.15) brightness(1.08)" : ""].filter(Boolean).join(" ") || undefined }}>
       {rig && (
         <ShotGL
           img={shot.img}
@@ -78,8 +85,13 @@ export const ShotView: React.FC<{ shot: Shot; plan: Plan; f: number; seed: numbe
       {L.includes("vapor") && <Vapor t={t} />}
       {L.includes("hair") && <Hair t={t} />}
       {L.includes("buttons") && <Buttons t={t - (shot.punch ?? shot.at)} />}
+      {inRew && (
+        <AbsoluteFill style={{ pointerEvents: "none", background: "repeating-linear-gradient(to bottom, rgba(0,0,0,0.28) 0 4px, rgba(0,0,0,0) 4px 9px)", opacity: 0.55 + 0.45 * rq }}>
+          <div style={{ position: "absolute", right: 70, top: 250, fontFamily: FONT, fontWeight: 900, fontSize: 90, color: "#fff", textShadow: `0 0 0 ${C.ink}, 4px 4px 0 ${C.ink}, -4px -4px 0 ${C.ink}, 4px -4px 0 ${C.ink}, -4px 4px 0 ${C.ink}`, opacity: Math.floor(f / 3) % 2 ? 0.4 : 1 }}>◀◀</div>
+        </AbsoluteFill>
+      )}
       {shot.transition === "flash" && f < 10 && <AbsoluteFill style={{ background: "#fff", opacity: 1 - f / 10 }} />}
-      {shot.flash !== undefined && t >= shot.flash && t < shot.flash + 8 / FPS && <AbsoluteFill style={{ background: "#fff", opacity: 1 - ((t - shot.flash) * FPS) / 8 }} />}
+      {shot.flash !== undefined && t >= shot.flash && t < shot.flash + (shot.flashFrames ?? 8) / FPS && <AbsoluteFill style={{ background: "#fff", opacity: shot.flashFrames ? 1 : 1 - ((t - shot.flash) * FPS) / 8 }} />}
     </AbsoluteFill>
   );
 };
