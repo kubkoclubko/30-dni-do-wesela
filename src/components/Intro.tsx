@@ -97,7 +97,13 @@ const Comment: React.FC<{ d: NonNullable<IntroT["comment"]>; f: number }> = ({ d
           <div style={{ fontWeight: 900, fontSize: 40, color: "#262626" }}>
             {d.user} <span style={{ fontWeight: 800, fontSize: 30, color: "#8E8E8E" }}>2 d</span>
           </div>
-          <div style={{ fontWeight: 900, fontSize: 64, color: "#111", marginTop: 4 }}>{d.text}</div>
+          <div style={{ fontWeight: 900, fontSize: 64, color: "#111", marginTop: 4 }}>
+            {d.typeAt === undefined ? d.text : (() => {
+              const n = Math.floor(d.text.length * Math.min(1, Math.max(0, (f - sec(d.typeAt)) / (FPS * (d.typeDur ?? 1)))));
+              const caret = n < d.text.length && Math.floor(f / 5) % 2 === 0 ? "|" : "";
+              return <><span>{d.text.slice(0, n)}{caret}</span><span style={{ opacity: 0 }}>{d.text.slice(n)}</span></>;
+            })()}
+          </div>
           <div style={{ fontWeight: 800, fontSize: 28, color: "#8E8E8E", marginTop: 6 }}>Odpowiedz</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 120 }}>
@@ -105,6 +111,9 @@ const Comment: React.FC<{ d: NonNullable<IntroT["comment"]>; f: number }> = ({ d
           <div style={{ fontWeight: 900, fontSize: 40, color: "#262626", marginTop: 4 }}>{fmt(count(f, a + 8, 36, d.likes))}</div>
         </div>
       </div>
+      {d.title && (
+        <div style={{ position: "absolute", left: 0, width: 1080, top: cardTop - 290, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 84, color: C.capGold, WebkitTextStroke: `10px ${C.ink}`, paintOrder: "stroke fill", transform: `scale(${interpolate(s, [0, 1], [0.4, 1])}) rotate(-2deg)`, textShadow: "0 8px 0 rgba(0,0,0,0.35)" }}>{d.title}</div>
+      )}
       {d.stamp && (
         <div style={{ position: "absolute", inset: 0, transform: "scale(1.7)", transformOrigin: "540px 420px" }}>
           <Stamp text={d.stamp} f={f} at={sec(d.stampAt ?? d.at + 0.5)} left={540} top={420} />

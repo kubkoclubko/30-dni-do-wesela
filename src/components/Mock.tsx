@@ -45,6 +45,16 @@ export const Mock: React.FC<{ m: MockT }> = ({ m }) => {
         <div style={{ position: "absolute", inset: 0, borderRadius: 66, background: "#0E0D12", border: "4px solid #2A2830", boxShadow: "0 0 70px rgba(232,176,74,0.45), 0 0 18px rgba(232,176,74,0.5), 0 34px 60px rgba(0,0,0,0.6)" }} />
         <div style={{ position: "absolute", left: 14, top: 14, width: w, height: ih, borderRadius: 52, overflow: "hidden" }}>
           <Img src={staticFile(m.img)} style={{ width: iw, height: ih, display: "block", }} />
+          {m.circle && f >= sec(m.circle.at) && (() => {
+            const q = Math.min(1, (f - sec(m.circle!.at)) / 10);
+            const cx = m.circle!.pos[0] * iw, cy2 = m.circle!.pos[1] * ih, rx = m.circle!.rx * iw, ry = m.circle!.ry * ih;
+            const len = Math.PI * (3 * (rx + ry) - Math.sqrt((3 * rx + ry) * (rx + 3 * ry)));
+            return (
+              <svg width={iw} height={ih} style={{ position: "absolute", left: 0, top: 0 }}>
+                <ellipse cx={cx} cy={cy2} rx={rx} ry={ry} fill="none" stroke="#E5252A" strokeWidth={9} strokeLinecap="round" strokeDasharray={`${len * q} ${len}`} transform={`rotate(-4 ${cx} ${cy2})`} />
+              </svg>
+            );
+          })()}
         </div>
       </div>
       {m.tag && tagS > 0.001 && (

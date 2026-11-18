@@ -88,6 +88,11 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 26. New contract fields: `voteStamp` (no bars when the percentages are unknown), `mocks` (phone mockup growing out of a point, zoom keys that scale the whole phone, tag hides while zoomed), `shot.rewind`, `shot.hops`, `shot.flashFrames`, `ChatMsg.ghost`, ChoiceEnd `open` + `follow.goal: 0`. Bash heredocs with quotes/emoji broke again: write scripts with the Write tool.
 27. A clip hit time is found from a 3 fps contact sheet; set `from = clip_hit - (word_start + offset - at)` so the hit lands on its word. A clip that ends mid-fall needs a freeze frame of the lying pose as the next shot (hard cut + punch + shake works as the thud).
 
+## Learnings (ep08, 2026-11-18)
+28. `punch` stays on until the shot ends, so the next same-image shot drops 14 % (seam 135-177 px in `check_cam`): make that next shot `cut: true` with `zoom = previous end zoom x 1.14`.
+29. If the owner asks to speed up/shorten the voice, `ffmpeg atempo=1.085` (~8 %) takes ~5 s off 64 s and still sounds natural; keep `voice_v1.mp3`, transcribe the new file. Strip bare "–" tokens from `words_raw.json` before `fix_words.py`.
+30. A clip stays inside the camera box and the base jpg is its first frame, so start the clip shot where the action should begin and let it run to the next cut (until = next shot's `at`, `until - at + from` < clip length).
+
 ## Status / where to continue (2026-11-10)
 - ep01 is done: `out/ep01.mp4` (42.7 s, local only, not in git). Pushed `a4ff93a`.
 - ep02 is done (2026-11-11): `out/ep02.mp4` (52.9 s, local only). Details and new contract fields in `LOG.md`.
@@ -96,5 +101,6 @@ Input: the owner's brief in `BRIEF_TEMPLATE.md` format. Don't read old episodes 
 - ep05 is done (2026-11-15): `out/ep05.mp4` (46.7 s, local only), see `LOG.md`.
 - ep06 is done (2026-11-16): `out/ep06.mp4` (62.7 s, re-done on the v4 voice, local only), see `LOG.md`.
 - ep07 is done (2026-11-17): `out/ep07.mp4` (48.9 s, local only), see `LOG.md`.
-- Next: ep08 (day 8, `daysLeft` 23). (Old note: ep07 was day 7, `daysLeft` 24.) The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
+- ep08 is done (2026-11-18): `out/ep08.mp4` (61.9 s, local only), see `LOG.md`.
+- Next: ep09. (Old: ep08 was day 8, `daysLeft` 23.) (Old note: ep07 was day 7, `daysLeft` 24.) The end card format is not fixed: take it from the owner's prompt each time and make the voice ending match it. Upscale new jpgs 2x first (Real-ESRGAN, see LOG.md).
 - Open, not yet decided by the owner: on the ChoiceCard the cards cover Mirek's face (blink not visible); emoji in the phone look small; the music has only been measured, not listened to by Claude.

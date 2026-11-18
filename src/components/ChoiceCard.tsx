@@ -36,7 +36,7 @@ const Card: React.FC<{ label: string; icon: string; x: number; t0: number; f: nu
       <div style={{ transform: `rotate(${4 * Math.sin(t * 3.9 + phase * 2)}deg) translateY(${3 * Math.sin(t * 2.7 + phase)}px)` }}>
         <Icon name={icon} size={150} />
       </div>
-      <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 36, color: C.navy, textTransform: "uppercase" }}>{label}</div>
+      <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 36, color: C.navy, textTransform: "uppercase" }}>{label.endsWith("|") ? <>{label.slice(0, -1)}<span style={{ opacity: Math.floor(f / 8) % 2 === 0 ? 1 : 0 }}>|</span></> : label}</div>
     </div>
   );
 };

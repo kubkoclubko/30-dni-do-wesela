@@ -123,13 +123,14 @@ export type Mock = {
   w?: number; // width px (default 560)
   tag?: { at: number; text: string }; // gold sticker under the phone
   badge?: string; // small corner label while the mockup is up
+  circle?: { at: number; pos: [number, number]; rx: number; ry: number }; // red hand-drawn ellipse drawn on the screenshot (fractions of its width/height)
   keys?: { at: number; focus: [number, number]; zoom: number; dur?: number }[]; // zoom into the screenshot (focus = image fractions)
 };
 
 // Opening overlays (day 3+): a follower milestone with confetti, then the winning comment as an Instagram card.
 export type Intro = {
   followers?: { at: number; until: number; count: number; label: string; sub?: string }; // "1 000" counts up from 0
-  comment?: { at: number; until: number; user: string; text: string; likes: number; stamp?: string; stampAt?: number };
+  comment?: { at: number; until: number; user: string; text: string; likes: number; stamp?: string; stampAt?: number; title?: string; typeAt?: number; typeDur?: number }; // title: banner above the card; typeAt/typeDur: text is typed letter by letter
 };
 
 // Character rig for image warps (fractions of the source image). Masks: scripts/make_rig.py.

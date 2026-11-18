@@ -1,0 +1,936 @@
+{
+ "id": "ep08",
+ "day": 8,
+ "daysLeft": 23,
+ "durationSec": 61.87,
+ "imgSize": [
+  1536,
+  2752
+ ],
+ "voice": "ep08/voice.mp3",
+ "words": "ep08/words.json",
+ "music": true,
+ "autoSfx": false,
+ "highlight": [
+  "selfie",
+  "Wysłane",
+  "luz",
+  "szafę",
+  "szafa",
+  "szafę",
+  "broda",
+  "podłogę",
+  "winda",
+  "chlew",
+  "Pokazuje",
+  "telefon",
+  "Napiszcie",
+  "komentarzach",
+  "Treningi",
+  "Sadkowskiego"
+ ],
+ "intro": {
+  "comment": {
+   "at": 3.0,
+   "until": 8.9,
+   "user": "@_sadkowskii_",
+   "text": "Hej, byłem zajęty. Wiesz, treningi i tak dalej 😎",
+   "likes": 214,
+   "title": "WYGRAŁ KOMENTARZ",
+   "typeAt": 5.24,
+   "typeDur": 2.5,
+   "stamp": "WYGRYWA!",
+   "stampAt": 7.95
+  }
+ },
+ "shots": [
+  {
+   "at": 0.0,
+   "img": "ep08/s85_stuck_2x.jpg",
+   "zoom": 1.5,
+   "focus": [
+    0.72,
+    0.54
+   ],
+   "seed": 1,
+   "move": "static",
+   "punch": 0.1,
+   "shake": 0.12,
+   "tag": {
+    "at": 0.15,
+    "text": "?!",
+    "pos": [
+     0.7,
+     0.3
+    ]
+   }
+  },
+  {
+   "at": 0.8,
+   "img": "ep08/s81_cool_text_2x.jpg",
+   "zoom": 1.4,
+   "focus": [
+    0.42,
+    0.44
+   ],
+   "seed": 2,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.45,
+    0.46
+   ],
+   "zoomTo": 1.7,
+   "punch": 0.86,
+   "tag": {
+    "at": 0.95,
+    "text": "?!",
+    "pos": [
+     0.33,
+     0.2
+    ]
+   }
+  },
+  {
+   "at": 3.0,
+   "img": "ep08/s81_cool_text_2x.jpg",
+   "zoom": 1.9,
+   "focus": [
+    0.45,
+    0.46
+   ],
+   "seed": 3,
+   "cut": true
+  },
+  {
+   "at": 8.16,
+   "img": "ep08/s81_cool_text_2x.jpg",
+   "zoom": 1.25,
+   "focus": [
+    0.4,
+    0.44
+   ],
+   "seed": 4,
+   "cut": true,
+   "flash": 9.5,
+   "sparkle": [
+    {
+     "at": 11.6,
+     "pos": [
+      0.33,
+      0.375
+     ]
+    }
+   ]
+  },
+  {
+   "at": 12.08,
+   "img": "ep08/s82_reply_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.45,
+    0.42
+   ],
+   "seed": 5
+  },
+  {
+   "at": 17.5,
+   "img": "ep08/s82_reply_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.45,
+    0.45
+   ],
+   "seed": 6,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.44,
+    0.38
+   ],
+   "zoomTo": 1.8
+  },
+  {
+   "at": 18.5,
+   "img": "ep08/s82_reply_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 7,
+   "cut": true,
+   "clip": {
+    "src": "ep08/s82_reply.mp4",
+    "at": 18.5,
+    "from": 0.9,
+    "until": 20.2
+   }
+  },
+  {
+   "at": 20.2,
+   "img": "ep08/s83_stretch_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 8,
+   "transition": "whip"
+  },
+  {
+   "at": 22.9,
+   "img": "ep08/s83_stretch_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 9,
+   "move": "static",
+   "keys": [
+    {
+     "at": 23.3,
+     "focus": [
+      0.6,
+      0.52
+     ],
+     "zoom": 1.7,
+     "dur": 0.5
+    },
+    {
+     "at": 24.7,
+     "focus": [
+      0.2,
+      0.5
+     ],
+     "zoom": 0.762,
+     "dur": 0.9
+    }
+   ],
+   "tag": {
+    "at": 25.1,
+    "text": "…",
+    "pos": [
+     0.2,
+     0.36
+    ]
+   }
+  },
+  {
+   "at": 26.06,
+   "img": "ep08/s84_stairs_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.55,
+    0.5
+   ],
+   "seed": 10,
+   "tag": {
+    "at": 26.3,
+    "text": "1",
+    "pos": [
+     0.1,
+     0.1
+    ]
+   }
+  },
+  {
+   "at": 28.4,
+   "img": "ep08/s84_stairs_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.55,
+    0.5
+   ],
+   "seed": 11,
+   "tag": {
+    "at": 28.68,
+    "text": "2",
+    "pos": [
+     0.1,
+     0.1
+    ]
+   }
+  },
+  {
+   "at": 29.4,
+   "img": "ep08/s84_stairs_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.55,
+    0.5
+   ],
+   "seed": 12,
+   "move": "static",
+   "tag": {
+    "at": 28.68,
+    "text": "2",
+    "pos": [
+     0.1,
+     0.1
+    ]
+   },
+   "clip": {
+    "src": "ep08/s84_stairs.mp4",
+    "at": 29.4,
+    "from": 0.0,
+    "until": 32.4
+   },
+   "keys": [
+    {
+     "at": 30.95,
+     "focus": [
+      0.76,
+      0.36
+     ],
+     "zoom": 1.7,
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "at": 32.5,
+   "img": "ep08/s85_stuck_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.6,
+    0.5
+   ],
+   "seed": 13,
+   "shake": 33.76
+  },
+  {
+   "at": 35.85,
+   "img": "ep08/s85_stuck_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.62,
+    0.5
+   ],
+   "seed": 14,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.73,
+    0.56
+   ],
+   "zoomTo": 1.8
+  },
+  {
+   "at": 36.77,
+   "img": "ep08/s86_elevator_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.55
+   ],
+   "seed": 15,
+   "tag": {
+    "at": 37.26,
+    "text": "4",
+    "pos": [
+     0.1,
+     0.1
+    ]
+   },
+   "punch": 38.54
+  },
+  {
+   "at": 40.0,
+   "img": "ep08/s86_elevator_2x.jpg",
+   "zoom": 1.23,
+   "focus": [
+    0.5,
+    0.55
+   ],
+   "seed": 16,
+   "cut": true
+  },
+  {
+   "at": 41.17,
+   "img": "ep08/s86_elevator_2x.jpg",
+   "zoom": 1.08,
+   "focus": [
+    0.5,
+    0.55
+   ],
+   "seed": 17,
+   "clip": {
+    "src": "ep08/s86_elevator.mp4",
+    "at": 41.17,
+    "from": 0.0,
+    "until": 44.16
+   }
+  },
+  {
+   "at": 44.16,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.35,
+    0.5
+   ],
+   "seed": 18,
+   "cut": true,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.29,
+    0.71
+   ],
+   "zoomTo": 1.7
+  },
+  {
+   "at": 45.0,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.7,
+   "focus": [
+    0.29,
+    0.71
+   ],
+   "seed": 19,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.29,
+    0.3
+   ],
+   "zoomTo": 1.7
+  },
+  {
+   "at": 47.3,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.7,
+   "focus": [
+    0.29,
+    0.3
+   ],
+   "seed": 20,
+   "move": "tiltDown",
+   "free": true,
+   "to": [
+    0.46,
+    0.5
+   ],
+   "zoomTo": 1.8
+  },
+  {
+   "at": 48.2,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.8,
+   "focus": [
+    0.46,
+    0.5
+   ],
+   "seed": 21
+  },
+  {
+   "at": 51.5,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.6,
+   "focus": [
+    0.64,
+    0.63
+   ],
+   "seed": 22,
+   "cut": true,
+   "blush": {
+    "at": 51.5,
+    "pos": [
+     [
+      0.6,
+      0.645
+     ],
+     [
+      0.68,
+      0.64
+     ]
+    ],
+    "r": 0.05,
+    "dur": 0.8
+   }
+  },
+  {
+   "at": 52.0,
+   "img": "ep08/s87_boyfriend_door_2x.jpg",
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "seed": 23,
+   "cut": true,
+   "move": "bounce"
+  }
+ ],
+ "phone": [
+  {
+   "at": 10.2,
+   "until": 18.5,
+   "name": "Kasia",
+   "subtitle": "online",
+   "y": 1250,
+   "scale": 0.62,
+   "messages": [
+    {
+     "at": 10.3,
+     "from": "me",
+     "img": "ep08/s81_cool_text_2x.jpg",
+     "crop": [
+      0.45,
+      0.58,
+      1.3
+     ],
+     "fresh": true
+    },
+    {
+     "at": 10.7,
+     "from": "me",
+     "text": "Hej, byłem zajęty. Wiesz, treningi i tak dalej 😎"
+    },
+    {
+     "at": 13.95,
+     "from": "them",
+     "text": "Treningi? Super! 💪 To jutro pomożesz mi wnieść szafę. 4 piętro 😇",
+     "typing": 0.55
+    }
+   ]
+  }
+ ],
+ "mocks": [
+  {
+   "at": 47.74,
+   "until": 51.5,
+   "img": "ep08/selfie_phone.png",
+   "from": [
+    540,
+    900
+   ],
+   "w": 520,
+   "y": 900,
+   "circle": {
+    "at": 50.55,
+    "pos": [
+     0.5,
+     0.69
+    ],
+    "rx": 0.44,
+    "ry": 0.1
+   },
+   "keys": [
+    {
+     "at": 50.8,
+     "focus": [
+      0.5,
+      0.69
+     ],
+     "zoom": 1.8,
+     "dur": 0.35
+    }
+   ]
+  }
+ ],
+ "end": {
+  "type": "choice",
+  "at": 52.0,
+  "title": "CO DALEJ?",
+  "capY": 1640,
+  "a": {
+   "label": "POSPRZĄTAĆ POKÓJ",
+   "icon": "🧹"
+  },
+  "b": {
+   "label": "„TO NIE MÓJ POKÓJ, TYLKO…|",
+   "icon": "🤥"
+  },
+  "cta": "NAPISZ W KOMENTARZU: SPRZĄTAĆ albo DOKOŃCZ KŁAMSTWO 👇",
+  "follow": {
+   "at": 57.0,
+   "count": 0,
+   "goal": 0,
+   "label": "",
+   "button": "OBSERWUJ"
+  }
+ },
+ "rigs": {
+  "ep08/s81_cool_text_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.12,
+       0.34
+      ],
+      [
+       0.55,
+       0.4
+      ],
+      [
+       0.72,
+       0.6
+      ],
+      [
+       0.72,
+       0.78
+      ],
+      [
+       0.4,
+       0.74
+      ],
+      [
+       0.08,
+       0.55
+      ]
+     ],
+     "head": [
+      0.34,
+      0.39,
+      0.1,
+      0.06
+     ],
+     "neck": [
+      0.4,
+      0.45
+     ],
+     "feet": 0.76,
+     "facing": 1,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s82_reply_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.22,
+       0.34
+      ],
+      [
+       0.62,
+       0.4
+      ],
+      [
+       0.8,
+       0.6
+      ],
+      [
+       0.8,
+       0.78
+      ],
+      [
+       0.5,
+       0.74
+      ],
+      [
+       0.18,
+       0.55
+      ]
+     ],
+     "head": [
+      0.44,
+      0.38,
+      0.1,
+      0.06
+     ],
+     "neck": [
+      0.5,
+      0.45
+     ],
+     "feet": 0.76,
+     "facing": 1,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s83_stretch_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.4,
+       0.5
+      ],
+      [
+       0.75,
+       0.5
+      ],
+      [
+       0.85,
+       0.65
+      ],
+      [
+       0.8,
+       0.85
+      ],
+      [
+       0.4,
+       0.88
+      ],
+      [
+       0.3,
+       0.7
+      ]
+     ],
+     "head": [
+      0.62,
+      0.52,
+      0.09,
+      0.06
+     ],
+     "neck": [
+      0.6,
+      0.58
+     ],
+     "feet": 0.88,
+     "facing": 1,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s84_stairs_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.28,
+       0.54
+      ],
+      [
+       0.72,
+       0.54
+      ],
+      [
+       0.78,
+       0.7
+      ],
+      [
+       0.68,
+       0.88
+      ],
+      [
+       0.35,
+       0.9
+      ],
+      [
+       0.25,
+       0.72
+      ]
+     ],
+     "head": [
+      0.62,
+      0.55,
+      0.1,
+      0.06
+     ],
+     "neck": [
+      0.58,
+      0.6
+     ],
+     "feet": 0.9,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s85_stuck_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.4,
+       0.56
+      ],
+      [
+       0.86,
+       0.52
+      ],
+      [
+       0.88,
+       0.7
+      ],
+      [
+       0.8,
+       0.9
+      ],
+      [
+       0.35,
+       0.92
+      ],
+      [
+       0.3,
+       0.72
+      ]
+     ],
+     "head": [
+      0.72,
+      0.5,
+      0.08,
+      0.05
+     ],
+     "neck": [
+      0.7,
+      0.58
+     ],
+     "feet": 0.92,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s86_elevator_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.3,
+       0.68
+      ],
+      [
+       0.78,
+       0.62
+      ],
+      [
+       0.85,
+       0.78
+      ],
+      [
+       0.6,
+       0.95
+      ],
+      [
+       0.25,
+       0.9
+      ],
+      [
+       0.18,
+       0.78
+      ]
+     ],
+     "head": [
+      0.61,
+      0.62,
+      0.07,
+      0.05
+     ],
+     "neck": [
+      0.6,
+      0.68
+     ],
+     "feet": 0.92,
+     "facing": 0,
+     "seed": 1
+    }
+   ]
+  },
+  "ep08/s87_boyfriend_door_2x.jpg": {
+   "figures": [
+    {
+     "outline": [
+      [
+       0.1,
+       0.4
+      ],
+      [
+       0.38,
+       0.4
+      ],
+      [
+       0.38,
+       0.62
+      ],
+      [
+       0.34,
+       0.76
+      ],
+      [
+       0.12,
+       0.76
+      ],
+      [
+       0.08,
+       0.6
+      ]
+     ],
+     "head": [
+      0.24,
+      0.35,
+      0.06,
+      0.04
+     ],
+     "neck": [
+      0.24,
+      0.4
+     ],
+     "feet": 0.76,
+     "facing": 0,
+     "seed": 1
+    },
+    {
+     "outline": [
+      [
+       0.45,
+       0.66
+      ],
+      [
+       0.72,
+       0.6
+      ],
+      [
+       0.78,
+       0.72
+      ],
+      [
+       0.7,
+       0.82
+      ],
+      [
+       0.35,
+       0.88
+      ],
+      [
+       0.12,
+       0.84
+      ]
+     ],
+     "head": [
+      0.63,
+      0.62,
+      0.08,
+      0.045
+     ],
+     "neck": [
+      0.62,
+      0.66
+     ],
+     "feet": 0.88,
+     "facing": 0,
+     "seed": 2
+    }
+   ]
+  }
+ },
+ "sfx": [
+  {
+   "at": 0.1,
+   "name": "thud"
+  },
+  {
+   "at": 9.5,
+   "name": "shutter"
+  },
+  {
+   "at": 28.7,
+   "name": "creak"
+  },
+  {
+   "at": 40.78,
+   "name": "ping"
+  },
+  {
+   "at": 50.8,
+   "name": "dun"
+  }
+ ]
+}

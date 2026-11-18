@@ -1,20 +1,78 @@
 {
-  "pop": {"file": "pop.wav", "db": -6.5},
-  "blip": {"file": "blip.wav", "db": -11},
-  "whoosh": {"file": "whoosh.wav", "db": -6.5},
-  "slide": {"file": "slide.wav", "db": -11.5},
-  "door": {"file": "door.wav", "db": -7},
-  "water": {"file": "water.wav", "db": -27},
-  "gurgle": {"file": "gurgle.wav", "db": -9},
-  "buzz": {"file": "buzz.wav", "db": -12},
-  "haircut": {"file": "haircut.wav", "db": -13},
-  "shutter": {"file": "shutter.wav", "db": -9},
-  "ping": {"file": "ping.wav", "db": -14},
-  "cling": {"file": "cling.wav", "db": -15},
-  "tick": {"file": "tick.wav", "db": -14},
-  "boing": {"file": "boing.wav", "db": -10},
-  "clink": {"file": "clink.wav", "db": -13},
-  "dun": {"file": "dun.wav", "db": -9},
-  "gong": {"file": "gong.wav", "db": -9},
-  "thud": {"file": "thud.wav", "db": -7}
+ "pop": {
+  "file": "pop.wav",
+  "db": -6.5
+ },
+ "blip": {
+  "file": "blip.wav",
+  "db": -11
+ },
+ "whoosh": {
+  "file": "whoosh.wav",
+  "db": -6.5
+ },
+ "slide": {
+  "file": "slide.wav",
+  "db": -11.5
+ },
+ "door": {
+  "file": "door.wav",
+  "db": -7
+ },
+ "water": {
+  "file": "water.wav",
+  "db": -27
+ },
+ "gurgle": {
+  "file": "gurgle.wav",
+  "db": -9
+ },
+ "buzz": {
+  "file": "buzz.wav",
+  "db": -12
+ },
+ "haircut": {
+  "file": "haircut.wav",
+  "db": -13
+ },
+ "shutter": {
+  "file": "shutter.wav",
+  "db": -9
+ },
+ "ping": {
+  "file": "ping.wav",
+  "db": -14
+ },
+ "cling": {
+  "file": "cling.wav",
+  "db": -15
+ },
+ "tick": {
+  "file": "tick.wav",
+  "db": -14
+ },
+ "boing": {
+  "file": "boing.wav",
+  "db": -10
+ },
+ "clink": {
+  "file": "clink.wav",
+  "db": -13
+ },
+ "dun": {
+  "file": "dun.wav",
+  "db": -9
+ },
+ "gong": {
+  "file": "gong.wav",
+  "db": -9
+ },
+ "thud": {
+  "file": "thud.wav",
+  "db": -7
+ },
+ "creak": {
+  "file": "creak.wav",
+  "db": -11
+ }
 }
